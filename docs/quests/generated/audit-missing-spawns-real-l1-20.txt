@@ -1,0 +1,105 @@
+9595	Control	-161	17612	
+38103	Gossip Test Case 1	0	91010	
+38104	Gossip Test Case 2	0	91010	
+38105	Gossip Test Case 3	0	91010	
+38106	Greeting Text Test Case 1	0	91011	
+38107	Greeting Text Test Case 2	0	91011	
+38108	Greeting Text Test Case 3	0	91011	
+14032	Kobold Camp Cleanup [Programming Test]	9	6	
+784	Vanquish the Betrayers	14	3128	
+784	Vanquish the Betrayers	14	3192	
+826	Zalazane	14	3206	
+826	Zalazane	14	3207	
+11578	The "Chow" Quest (123)aa COPY	15	6	
+11579	The "Chow" Quest (123)aa COPY	15	6	
+4921	Lost in Battle	17	10668	Find Mankrik's Wife
+14425	The First Quest	17	6	Filthy Kobolds Removed
+29096	Mor'shan Caravan Pick-Up	17	52303	Caravan Ride Completed
+9065	The Pattymac Special	22	25499	
+217	A Decisive Strike	38	1205	
+217	A Decisive Strike	38	1206	
+217	A Decisive Strike	38	1207	
+237	In Defense of the King's Lands	38	1163	
+237	In Defense of the King's Lands	38	1166	
+257	A Hunter's Boast	38	1194	
+258	A Hunter's Challenge	38	1192	
+12	The People's Militia	40	95	
+12	The People's Militia	40	504	
+14	The People's Militia	40	121	
+14	The People's Militia	40	122	
+409	Proving Allegiance	85	1946	
+421	Prove Your Worth	130	1769	
+170	A New Threat	132	707	
+170	A New Threat	132	724	
+985	How Big a Threat?	148	2167	
+985	How Big a Threat?	148	2324	
+2078	Gyromast's Revenge	148	6669	Gelkak's First Mate
+2118	Plagued Lands	148	11836	Rabid Thistle Bear Captured
+2138	Cleansing of the Infected	148	2164	
+2139	Tharnariun's Hope	148	6788	
+4740	WANTED: Murkdeep!	148	10323	
+11425	Test Quest - Craig	151	6	
+1062	Goblin Invaders	406	3989	
+6481	Earthen Arise	406	11920	
+26789	You no take axe!	406	44048	
+30988	The Alliance Way	1519	61798	Walk with King Varian Wrynn
+30989	An Old Pit Fighter	1519	61824	Spar with Varian
+31014	Hellscream's Gift	1637	62209	Complete Hellscream's trial
+6661	Deeprun Rat Roundup	2257	13017	Rats Captured
+5723	Testing an Enemy's Strength	2437	11318	
+5723	Testing an Enemy's Strength	2437	11319	
+5728	Hidden Enemies	2437	11518	
+5728	Hidden Enemies	2437	11519	
+9749	They're Alive! Maybe...	3525	17681	Expedition Researcher Freed
+24935	Body And Soul	4720	38713	Yngwie's Soul destroyed
+24936	Body And Soul	4720	38713	Yngwie's Soul destroyed
+25124	Brute Brutality	4720	39193	
+25231	Southseas Scum	4720	39449	
+14071	Rolling with my Homies	4737	48323	Keys to the Hot Rod used
+14122	The Great Bank Heist	4737	35486	First Bank of Kezan Vault
+14125	447	4737	37598	KTC Headquarters Set Ablaze with Gasbot!
+24502	Necessary Roughness	4737	37114	Steamwheedle Shark Footbombed
+24502	Necessary Roughness	4737	48271	Bilgewater Buccaneer
+14212	Sacrifices	4755	35582	Bloodfang Stalker rounded up
+29405	The Lesson of the Iron Staff	5736	54139	Loot and Equip a Training Weapon
+29408	The Lesson of the Burning Scroll	5736	59570	Burn the Edict of Temperance
+29408	The Lesson of the Burning Scroll	5736	59591	Snatch the Master's Flame
+29414	The Way of the Tushui	5736	54856	Protect Aysa while she meditates
+29423	The Passion of Shen-zin Su	5736	61128	Bring the Spirit of Fire to the Temple of Five Dawns
+29664	The Challenger's Fires	5736	56037	Red Brazier lit
+29664	The Challenger's Fires	5736	56038	Blue Brazier lit
+29664	The Challenger's Fires	5736	56040	Violet Brazier lit
+29664	The Challenger's Fires	5736	56048	Challenger Torch lit
+29703	Barrel of Monkies	5736	55148	
+29773	Wugou, the Spirit of Earth	5736	55545	Spur the Ox Cart
+30027	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Handwrap
+30027	The Lesson of the Iron Bough	5736	57849	Loot and Equip a second Trainee's Handwrap
+30033	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Spellblade
+30033	The Lesson of the Iron Bough	5736	57849	Loot and Equip a Trainee's Hand Fan
+30034	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Crossbow
+30035	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Mace
+30035	The Lesson of the Iron Bough	5736	57849	Loot and Equip a Trainee's Book of Prayers
+30036	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Dagger
+30036	The Lesson of the Iron Bough	5736	57849	Loot and Equip a Second Trainee's Dagger
+30037	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Axe
+30037	The Lesson of the Iron Bough	5736	57849	Loot and Equip a Trainee's Shield
+30038	The Lesson of the Iron Bough	5736	54139	Loot and Equip a Trainee's Sword
+30817	The Healing of Shen-zin Su	5736	56011	Protect the healers
+33409	Elwynn Run	6170	73984	Hit Blue Marker
+33409	Elwynn Run	6170	73988	Hit Green Marker
+33409	Elwynn Run	6170	74004	Hit End Marker
+24471	Aid for the Wounded	6176	37079	Wounded Coldridge Mountaineers Aided
+24489	Trolling for Information	6176	37109	Soothsayer Shi'kala Scouted
+24489	Trolling for Information	6176	37110	Soothsayer Rikkari Scouted
+24489	Trolling for Information	6176	37111	Soothsayer Mirim'koa Scouted
+24626	Young and Vicious	6453	38002	Return Swiftclaw to the Raptor Pens
+24960	The Wakening	6454	38895	Speak with Lilian Voss
+24960	The Wakening	6454	49230	Speak with Marshal Redpath
+24960	The Wakening	6454	49231	Speak with Valdred Moray
+9294	Healing the Lake	6456	88791	Disperse the Neutralizing Agent
+9303	Inoculation	6456	16534	Nestlewood Owlkin inoculated
+37444	Inoculation	6456	16534	Nestlewood Owlkin inoculated
+26208	The Fight Continues	6457	42463	Learn about Operation: Gnomeregan
+26342	Paint it Black	6457	42796	Crushcog's Sentry Bot blinded
+33079	The Demons Among Us - Alliance	6719	73464	Speak to Ginni Gingerlips
+33079	The Demons Among Us - Alliance	6719	73697	Shadowmoon orc disguise created

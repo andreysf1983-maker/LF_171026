@@ -1,0 +1,10 @@
+﻿5101	Lee's Ultimate Test Quest... of Doom!	-284	5
+528	[DEPRECATED] Battle of Hillsbrad	267	25
+1487	Deviate Eradication	718	21
+6565	Allegiance to the Old Gods	719	26
+26888	Nightmare of the Deeps	719	27
+26892	Deep in the Deeps	719	26
+26950	The Dark Side of the Light	796	30
+26972	The Dark Side of the Light	796	30
+30982	Animal Control	2437	16
+30997	Animal Control	2437	16

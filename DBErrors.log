@@ -1,0 +1,523 @@
+79 dungeon(s) have no entrance for their map (first 10: Dark Iron Dwarf - Firelands (Id: 1893, map 2076); Tol Dagor (Id: 1714, map 1771); Shrine of the Storm (Id: 1774, map 1864); The Underrot (Id: 1712, map 1841); Verdant Wilds (Id: 1724, map 1882); Waycrest Manor (Id: 1706, map 1862); Tol Dagor (Id: 1778, map 1771); The Battle for Lordaeron (Id: 1758, map 1760); Atal'Dazar (Id: 1669, map 1763); The MOTHERLODE!! (Id: 1707, map 1594)). Most are BFA/test dungeons present in DB2 but not in the 7.3.5.26124 client - they are skipped by LFG and are harmless. Add an entrance via `lfg_dungeon_template`/`areatrigger_teleport` only for dungeons that must be playable.
+The spell 108936 Effect: 108943 listed in `spell_linked_spell` has same bp0 like effect (possible hack)
+Table `areatrigger` has areatrigger (GUID: 4) that have wrong spawn mask 8388870 including unsupported difficulty modes for map (Id: 1544).
+Table `areatrigger` has areatrigger (GUID: 8) that have wrong spawn mask 8388870 including unsupported difficulty modes for map (Id: 1677).
+Table `areatrigger` has areatrigger (GUID: 10) that have wrong spawn mask 8388870 including unsupported difficulty modes for map (Id: 1571).
+Table `areatrigger` has areatrigger (GUID: 22) that have wrong spawn mask 8388870 including unsupported difficulty modes for map (Id: 1651).
+Table `areatrigger` has areatrigger (GUID: 24) that have wrong spawn mask 8388870 including unsupported difficulty modes for map (Id: 1516).
+Table `areatrigger` has areatrigger (GUID: 40) that have wrong spawn mask 1 including unsupported difficulty modes for map (Id: 1522).
+Table `areatrigger` has areatrigger (GUID: 47) that have wrong spawn mask 8388870 including unsupported difficulty modes for map (Id: 1753).
+Table 'spell_loot_template' Entry 256164 does not exist but it is used by Spell 256164
+Table 'spell_loot_template' Entry 256217 does not exist but it is used by Spell 256217
+Table 'spell_loot_template' Entry 256218 does not exist but it is used by Spell 256218
+Table 'spell_loot_template' Entry 256219 does not exist but it is used by Spell 256219
+Table 'spell_loot_template' Entry 256220 does not exist but it is used by Spell 256220
+Table 'spell_loot_template' Entry 256221 does not exist but it is used by Spell 256221
+Table 'spell_loot_template' Entry 256223 does not exist but it is used by Spell 256223
+Table 'spell_loot_template' Entry 256245 does not exist but it is used by Spell 256245
+Table 'spell_loot_template' Entry 256246 does not exist but it is used by Spell 256246
+Table 'spell_loot_template' Entry 256247 does not exist but it is used by Spell 256247
+Table 'spell_loot_template' Entry 256248 does not exist but it is used by Spell 256248
+Table 'spell_loot_template' Entry 256249 does not exist but it is used by Spell 256249
+Table 'spell_loot_template' Entry 256308 does not exist but it is used by Spell 256308
+Table 'spell_loot_template' Entry 256323 does not exist but it is used by Spell 256323
+Table 'spell_loot_template' Entry 256611 does not exist but it is used by Spell 256611
+Table 'spell_loot_template' Entry 256613 does not exist but it is used by Spell 256613
+Table 'spell_loot_template' Entry 256622 does not exist but it is used by Spell 256622
+Table 'spell_loot_template' Entry 256748 does not exist but it is used by Spell 256748
+Table 'spell_loot_template' Entry 256749 does not exist but it is used by Spell 256749
+Table 'spell_loot_template' Entry 256750 does not exist but it is used by Spell 256750
+Loot: further 'does not exist but is used by' errors suppressed after 20 (orphan loot rows). Clean them with sql/100_legionforge_error_fixes_26124_part2.sql
+Table `(game_event_)npc_vendor` has `maxcount` (2) for item 138295 of vendor (Entry: 111903) but `incrtime`=0, ignore
+Script named 'at_legion_portal_aovh_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_aovh_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_coen_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_coen_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_cos_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_cos_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_hov_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_hov_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_mos_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_mos_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_nl_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_nl_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_rtkara_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_rtkara_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_taw_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_taw_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_votw_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_votw_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_en_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_en_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_tov_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_tov_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_tnh_entrance' does not have a script name assigned in database.
+Script named 'at_legion_portal_tnh_exit' does not have a script name assigned in database.
+Script named 'at_legion_portal_helheim_entrance' does not have a script name assigned in database.
+Script named 'go_mardum_legion_banner_1' does not have a script name assigned in database.
+Script named 'npc_mardum_allari' does not have a script name assigned in database.
+Script named 'at_calamir_icy_comet' does not have a script name assigned in database.
+Script named 'at_calamir_wrathful_flames' does not have a script name assigned in database.
+Script named 'npc_hymdall_drake' does not have a script name assigned in database.
+Script named 'spell_nythendra_rot' does not have a script name assigned in database.
+Script named 'instance_scarlet_halls' does not have a script name assigned in database.
+Script named 'instance_scarlet_monastery_mop' does not have a script name assigned in database.
+Script named 'instance_scholomance_mop' does not have a script name assigned in database.
+Script named 'instance_terrace_of_endless_spring' does not have a script name assigned in database.
+Script named 'instance_heart_of_fear' does not have a script name assigned in database.
+Script named 'instance_throne_of_thunder' does not have a script name assigned in database.
+Script named 'instance_siege_of_orgrimmar' does not have a script name assigned in database.
+Script named 'instance_auchindoun' does not have a script name assigned in database.
+Script named 'instance_grimrail_depot' does not have a script name assigned in database.
+Script named 'instance_iron_docks' does not have a script name assigned in database.
+Script named 'instance_skyreach' does not have a script name assigned in database.
+Script named 'instance_upper_blackrock_spire' does not have a script name assigned in database.
+Script named 'instance_highmaul' does not have a script name assigned in database.
+Script named 'instance_blackrock_foundry' does not have a script name assigned in database.
+Script named 'instance_hellfire_citadel' does not have a script name assigned in database.
+Script named 'boss_iron_maidens' does not have a script name assigned in database.
+Script named 'boss_grimrail_enforcers' does not have a script name assigned in database.
+Script named 'Instances::Bloodmaul::AreaTrigger_SuppresionField' does not have a script name assigned in database.
+Script named 'Instances::Bloodmaul::areatrigger_shatter_earth' does not have a script name assigned in database.
+Script named 'Instances::Bloodmaul::areatrigger_volcanic_trantum' does not have a script name assigned in database.
+Script named 'Instances::Bloodmaul::areatrigger_magma_barrage' does not have a script name assigned in database.
+Script named 'Instances::Bloodmaul::areatrigger_roltall_heat_wave' does not have a script name assigned in database.
+Script named 'Instances::Bloodmaul::areatrigger_roltall_burning_slag' does not have a script name assigned in database.
+Script named 'at_arcane_orb' does not have a script name assigned in database.
+Script named 'areatrigger_black_hole' does not have a script name assigned in database.
+Script named 'shadowmoon_burial_grounds_initial_teleport' does not have a script name assigned in database.
+Script named 'shadowmoon_burial_grounds_ritual_of_bones_darkness_trigger' does not have a script name assigned in database.
+Script named 'areatrigger_void_devestation' does not have a script name assigned in database.
+Script named 'spell_corruption_sickness' does not have a script name assigned in database.
+Script named 'npc_icycle_dm' does not have a script name assigned in database.
+Script named 'spell_springvale_forsaken_ability' does not have a script name assigned in database.
+Script named 'spell_archimonde_drain_world_tree_dummy' does not have a script name assigned in database.
+Script named 'npc_son_of_flame' does not have a script name assigned in database.
+Script named 'spell_wind_burst' does not have a script name assigned in database.
+Script named 'achievement_maybe_he_ll_get_dizzy' does not have a script name assigned in database.
+Script named 'spell_ultraxion_last_defender_of_azeroth' does not have a script name assigned in database.
+Script named 'achievement_minutes_to_midnight' does not have a script name assigned in database.
+Script named 'achievement_chromatic_champion' does not have a script name assigned in database.
+Script named 'npc_flame_protection_rune1' does not have a script name assigned in database.
+Script named 'achievement_iron_dwarf_medium_rare' does not have a script name assigned in database.
+Script named 'spell_xt002_heart_overload_periodic' does not have a script name assigned in database.
+Script named 'spell_pos_ice_shards' does not have a script name assigned in database.
+Script named 'spell_putricide_slime_puddle_aura' does not have a script name assigned in database.
+Script named 'spell_halion_spawn_living_embers' does not have a script name assigned in database.
+Script named 'npc_vics_flying_machine' does not have a script name assigned in database.
+Script named 'spell_ook_ook_barrel' does not have a script name assigned in database.
+Script named 'spell_dk_blood_charges' does not have a script name assigned in database.
+Script named 'spell_dk_blood_gorged' does not have a script name assigned in database.
+Script named 'spell_dk_death_siphon' does not have a script name assigned in database.
+Script named 'spell_dk_glyph_of_deaths_embrace' does not have a script name assigned in database.
+Script named 'spell_dk_glyph_of_runic_power' does not have a script name assigned in database.
+Script named 'spell_dk_heart_strike' does not have a script name assigned in database.
+Script named 'spell_dk_plague_strike' does not have a script name assigned in database.
+Script named 'spell_dh_fraility' does not have a script name assigned in database.
+Script named 'spell_dru_travel_form_aura' does not have a script name assigned in database.
+Script named 'at_dru_solar_beam' does not have a script name assigned in database.
+Script named 'at_dru_ursols_vortex' does not have a script name assigned in database.
+Script named 'spell_gen_bandage' does not have a script name assigned in database.
+Script named 'spell_gen_ds_flush_knockback' does not have a script name assigned in database.
+Script named 'spell_pal_blessing_of_kings' does not have a script name assigned in database.
+Script named 'spell_pal_blessing_of_might' does not have a script name assigned in database.
+Script named 'spell_dru_mark_of_the_wild' does not have a script name assigned in database.
+Script named 'spell_pri_shadow_protection' does not have a script name assigned in database.
+Script named 'spell_hun_improved_mend_pet' does not have a script name assigned in database.
+Script named 'spell_hun_invigoration' does not have a script name assigned in database.
+Script named 'spell_mage_fireball' does not have a script name assigned in database.
+Script named 'at_monk_windwalking' does not have a script name assigned in database.
+Script named 'at_monk_chi_burst_damage' does not have a script name assigned in database.
+Script named 'spell_monk_legacy_of_the_emperor' does not have a script name assigned in database.
+Script named 'spell_monk_mana_tea_stacks' does not have a script name assigned in database.
+Script named 'spell_monk_path_of_blossom' does not have a script name assigned in database.
+Script named 'spell_monk_ring_of_peace_aura' does not have a script name assigned in database.
+Script named 'spell_monk_surging_mist_glyphed' does not have a script name assigned in database.
+Script named 'spell_monk_tigereye_brew_stacks' does not have a script name assigned in database.
+Script named 'npc_sef_earth_spirit' does not have a script name assigned in database.
+Script named 'npc_sef_fire_spirit' does not have a script name assigned in database.
+Script named 'spell_pal_holy_light' does not have a script name assigned in database.
+Script named 'at_pal_consecration' does not have a script name assigned in database.
+Script named 'spell_pri_divine_aegis' does not have a script name assigned in database.
+Script named 'spell_pri_hymn_of_hope' does not have a script name assigned in database.
+Script named 'spell_pri_lightwell_renew' does not have a script name assigned in database.
+Script named 'spell_pri_pain_and_suffering_proc' does not have a script name assigned in database.
+Script named 'spell_pri_phantasm' does not have a script name assigned in database.
+Script named 'spell_pri_void_tendrils' does not have a script name assigned in database.
+Script named 'spell_priest_angelic_bulwark' does not have a script name assigned in database.
+Script named 'spell_rog_enveloping_shadows' does not have a script name assigned in database.
+Script named 'at_sha_earthquake_totem' does not have a script name assigned in database.
+Script named 'spell_sha_fulmination' does not have a script name assigned in database.
+Script named 'spell_sha_glyph_of_healing_wave' does not have a script name assigned in database.
+Script named 'spell_sha_glyph_of_shamanistic_rage' does not have a script name assigned in database.
+Script named 'spell_sha_lightning_shield' does not have a script name assigned in database.
+Script named 'spell_shaman_windfury_weapon' does not have a script name assigned in database.
+Script named 'spell_warl_call_dreadstalker' does not have a script name assigned in database.
+Script named 'spell_warl_demonic_call' does not have a script name assigned in database.
+Script named 'spell_warl_haunt' does not have a script name assigned in database.
+Script named 'spell_warl_metamorphosis_cost' does not have a script name assigned in database.
+Script named 'spell_warl_molten_core_dot' does not have a script name assigned in database.
+Script named 'spell_warl_soulburn_override' does not have a script name assigned in database.
+Script named 'spell_warl_soulburn_remove' does not have a script name assigned in database.
+Script named 'spell_warl_soulburn_seed_of_corruption' does not have a script name assigned in database.
+Script named 'spell_warl_soulburn_seed_of_corruption_damage' does not have a script name assigned in database.
+Script named 'spell_warl_twilight_ward_s12' does not have a script name assigned in database.
+Script named 'spell_warr_improved_spell_reflection' does not have a script name assigned in database.
+Script named 'spell_warr_lambs_to_the_slaughter' does not have a script name assigned in database.
+Script named 'spell_warr_rend' does not have a script name assigned in database.
+Script named 'spell_warr_retaliation' does not have a script name assigned in database.
+Script named 'spell_warr_sword_and_board' does not have a script name assigned in database.
+Script named 'spell_warr_vigilance' does not have a script name assigned in database.
+Script named 'spell_warr_vigilance_trigger' does not have a script name assigned in database.
+Script named 'spell_mark_of_nature' does not have a script name assigned in database.
+ScriptName 'boss_serpentrix' exists in database, but no core script found!
+ScriptName 'boss_odyn_hov' exists in database, but no core script found!
+ScriptName 'areatrigger_glowing_fragment' exists in database, but no core script found!
+ScriptName 'areatrigger_dancing_blade' exists in database, but no core script found!
+ScriptName 'achievement_but_you_say_hes_just_a_friend' exists in database, but no core script found!
+ScriptName 'at_pri_divine_star' exists in database, but no core script found!
+ScriptName 'aura_dru_astral_form' exists in database, but no core script found!
+ScriptName 'spell_eoa_lightning_strikes_damage' exists in database, but no core script found!
+ScriptName 'npc_converted_sentry' exists in database, but no core script found!
+ScriptName 'aura_eoa_violent_winds_broadcast' exists in database, but no core script found!
+ScriptName 'boss_king_deepbeard' exists in database, but no core script found!
+ScriptName 'aura_king_deepbeard_gaseous_bubbles' exists in database, but no core script found!
+ScriptName 'spell_mage_ring_of_frost' exists in database, but no core script found!
+ScriptName 'aura_hatecoil_wavebinder_bubble_shield' exists in database, but no core script found!
+ScriptName 'boss_wrath_of_azshara' exists in database, but no core script found!
+ScriptName 'aura_nythendra_infested' exists in database, but no core script found!
+ScriptName 'at_wrath_of_azshara_tidal_wave' exists in database, but no core script found!
+ScriptName 'aura_dru_feral_affinity' exists in database, but no core script found!
+ScriptName 'aura_artifact_shaman_stormkeeper' exists in database, but no core script found!
+ScriptName 'achievement_stay_salty' exists in database, but no core script found!
+ScriptName 'spell_dru_travel_form_dummy' exists in database, but no core script found!
+ScriptName 'mob_soul_cutter' exists in database, but no core script found!
+ScriptName 'spell_nullification_barrier' exists in database, but no core script found!
+ScriptName 'spell_warl_grimoire_of_service_aura' exists in database, but no core script found!
+ScriptName 'boss_king_ranulf' exists in database, but no core script found!
+ScriptName 'at_pal_aura_of_sacrifice' exists in database, but no core script found!
+ScriptName 'aura_dru_frenzied_regeneration' exists in database, but no core script found!
+ScriptName 'at_king_deepbeard_call_the_seas' exists in database, but no core script found!
+ScriptName 'spell_extinguish_fire' exists in database, but no core script found!
+ScriptName 'areatrigger_aegis_of_aggramar' exists in database, but no core script found!
+ScriptName 'at_umbral_ejection' exists in database, but no core script found!
+ScriptName 'areatrigger_flame_of_woe' exists in database, but no core script found!
+ScriptName 'areatrigger_infernal_flames' exists in database, but no core script found!
+ScriptName 'areatrigger_spear_of_light' exists in database, but no core script found!
+ScriptName 'at_animated_storm_water_spout' exists in database, but no core script found!
+ScriptName 'aura_item_burning_essence' exists in database, but no core script found!
+ScriptName 'mob_mogu_secret_keeper' exists in database, but no core script found!
+ScriptName 'go_ancien_control_console' exists in database, but no core script found!
+ScriptName 'at_center_eye_of_the_storm' exists in database, but no core script found!
+ScriptName 'boss_zuraal_the_ascended' exists in database, but no core script found!
+ScriptName 'at_eye_of_the_storm' exists in database, but no core script found!
+ScriptName 'at_wrath_of_azshara_surging_waters' exists in database, but no core script found!
+ScriptName 'at_lady_hatecoil_monsoon' exists in database, but no core script found!
+ScriptName 'npc_imp_mother_laglath' exists in database, but no core script found!
+ScriptName 'at_mage_cinderstorm' exists in database, but no core script found!
+ScriptName 'at_mage_flame_patch' exists in database, but no core script found!
+ScriptName 'aura_dh_fraility' exists in database, but no core script found!
+ScriptName 'at_pri_halo' exists in database, but no core script found!
+ScriptName 'at_sanctify' exists in database, but no core script found!
+ScriptName 'spell_hun_call_pet' exists in database, but no core script found!
+ScriptName 'aura_warr_war_machine' exists in database, but no core script found!
+ScriptName 'at_serpentrix_toxic_puddle' exists in database, but no core script found!
+ScriptName 'aura_void_phased' exists in database, but no core script found!
+ScriptName 'go_allied_race_infos_tauren' exists in database, but no core script found!
+ScriptName 'at_skrog_tidestomper_massive_quake' exists in database, but no core script found!
+ScriptName 'boss_elegon' exists in database, but no core script found!
+ScriptName 'npc_agitated_earth_spirit' exists in database, but no core script found!
+ScriptName 'boss_king_haldor' exists in database, but no core script found!
+ScriptName 'boss_saprish' exists in database, but no core script found!
+ScriptName 'at_wrath_of_azshara_mystic_tornado' exists in database, but no core script found!
+ScriptName 'aura_dru_charm_woodland_creature' exists in database, but no core script found!
+ScriptName 'aura_dru_restoration_affinity' exists in database, but no core script found!
+ScriptName 'aura_eoa_lightning_strikes' exists in database, but no core script found!
+ScriptName 'aura_eoa_violent_winds_force_move' exists in database, but no core script found!
+ScriptName 'aura_king_deepbeard_gain_energy' exists in database, but no core script found!
+ScriptName 'aura_lady_hatecoil_curse_of_the_witch' exists in database, but no core script found!
+ScriptName 'aura_warl_haunt' exists in database, but no core script found!
+ScriptName 'aura_makrana_hardshell_armorshell' exists in database, but no core script found!
+ScriptName 'aura_nythendra_infested_breath' exists in database, but no core script found!
+ScriptName 'aura_nythendra_infested_mind' exists in database, but no core script found!
+ScriptName 'aura_nythendra_rot' exists in database, but no core script found!
+ScriptName 'aura_nythendra_volatile_rot' exists in database, but no core script found!
+ScriptName 'boss_god_king_kovald' exists in database, but no core script found!
+ScriptName 'aura_sha_earthquake' exists in database, but no core script found!
+ScriptName 'aura_sha_stormlash' exists in database, but no core script found!
+ScriptName 'aura_sha_stormlash_buff' exists in database, but no core script found!
+ScriptName 'go_inversion' exists in database, but no core script found!
+ScriptName 'spell_magnetized_jan' exists in database, but no core script found!
+ScriptName 'npc_wrath_of_azshara_naga' exists in database, but no core script found!
+ScriptName 'boss_lura' exists in database, but no core script found!
+ScriptName 'npc_lorewalker_cho' exists in database, but no core script found!
+ScriptName 'spell_mogu_epicenter' exists in database, but no core script found!
+ScriptName 'npc_monk_sef_spirit' exists in database, but no core script found!
+ScriptName 'go_allied_race_infos_voidelf' exists in database, but no core script found!
+ScriptName 'npc_solsten_ghost' exists in database, but no core script found!
+ScriptName 'boss_king_bjorn' exists in database, but no core script found!
+ScriptName 'npc_halls_of_valor' exists in database, but no core script found!
+ScriptName 'boss_feng' exists in database, but no core script found!
+ScriptName 'npc_dm_vanessa_vancleef' exists in database, but no core script found!
+ScriptName 'boss_fenryr' exists in database, but no core script found!
+ScriptName 'spell_animated_storm_water_spout' exists in database, but no core script found!
+ScriptName 'boss_garajal' exists in database, but no core script found!
+ScriptName 'npc_shadowfang_prisoner' exists in database, but no core script found!
+ScriptName 'spell_ravenous_leap_jump' exists in database, but no core script found!
+ScriptName 'mob_spirit_totem_intro' exists in database, but no core script found!
+ScriptName 'spell_devastating_arc' exists in database, but no core script found!
+ScriptName 'mob_siphon_shield' exists in database, but no core script found!
+ScriptName 'spell_pri_penance_damage' exists in database, but no core script found!
+ScriptName 'boss_king_tor' exists in database, but no core script found!
+ScriptName 'boss_hyrja' exists in database, but no core script found!
+ScriptName 'spell_monk_elusive_brawler_mastery' exists in database, but no core script found!
+ScriptName 'spell_arti_pri_call_of_the_void' exists in database, but no core script found!
+ScriptName 'spell_gen_mobile_bank' exists in database, but no core script found!
+ScriptName 'mob_mogu_archer' exists in database, but no core script found!
+ScriptName 'boss_lady_hatecoil' exists in database, but no core script found!
+ScriptName 'mob_energy_charge' exists in database, but no core script found!
+ScriptName 'mob_meng' exists in database, but no core script found!
+ScriptName 'mob_zandalari_skullcharger' exists in database, but no core script found!
+ScriptName 'mob_cursed_mogu_sculpture' exists in database, but no core script found!
+ScriptName 'go_celestial_control_console' exists in database, but no core script found!
+ScriptName 'spell_magnetized_qin' exists in database, but no core script found!
+ScriptName 'boss_sharthos' exists in database, but no core script found!
+ScriptName 'boss_spirit_kings_controler' exists in database, but no core script found!
+ScriptName 'boss_viceroy_nezhar' exists in database, but no core script found!
+ScriptName 'mob_infinite_energy' exists in database, but no core script found!
+ScriptName 'go_allied_race_infos_draenei' exists in database, but no core script found!
+ScriptName 'go_allied_race_infos_nightborne' exists in database, but no core script found!
+ScriptName 'go_cancel' exists in database, but no core script found!
+ScriptName 'zone_razorfen_kraul' exists in database, but no core script found!
+ScriptName 'npc_summer_scorchling_26401' exists in database, but no core script found!
+ScriptName 'spell_core_checker' exists in database, but no core script found!
+ScriptName 'mob_soul_fragment' exists in database, but no core script found!
+ScriptName 'mob_mogu_engine_keeper' exists in database, but no core script found!
+ScriptName 'spell_dru_swipe' exists in database, but no core script found!
+ScriptName 'mob_garajal_ghost' exists in database, but no core script found!
+ScriptName 'npc_class_hall_warrior_aerylia' exists in database, but no core script found!
+ScriptName 'npc_nythendra_corrupted_vermin' exists in database, but no core script found!
+ScriptName 'mob_cosmic_spark' exists in database, but no core script found!
+ScriptName 'npc_apprentice_mirveda' exists in database, but no core script found!
+ScriptName 'spell_dru_gore' exists in database, but no core script found!
+ScriptName 'spell_mogu_wildfire_infusion' exists in database, but no core script found!
+ScriptName 'spell_wrath_of_azshara_arcane_bomb_target' exists in database, but no core script found!
+ScriptName 'spell_skrog_tidestomper_massive_quake' exists in database, but no core script found!
+ScriptName 'npc_solsten' exists in database, but no core script found!
+ScriptName 'mob_ancient_mogu_machine' exists in database, but no core script found!
+ScriptName 'mob_celestial_protector' exists in database, but no core script found!
+ScriptName 'mob_empyreal_focus' exists in database, but no core script found!
+ScriptName 'mob_enormous_stone_quilen' exists in database, but no core script found!
+ScriptName 'npc_aegis_of_aggramar' exists in database, but no core script found!
+ScriptName 'npc_field_of_eternal_hunt' exists in database, but no core script found!
+ScriptName 'spell_expel_light' exists in database, but no core script found!
+ScriptName 'spell_burn_constriction_totem' exists in database, but no core script found!
+ScriptName 'mob_kingsguard' exists in database, but no core script found!
+ScriptName 'mob_lightning_fist' exists in database, but no core script found!
+ScriptName 'npc_dm_alliance_mage' exists in database, but no core script found!
+ScriptName 'mob_zian' exists in database, but no core script found!
+ScriptName 'mob_mogu_warden' exists in database, but no core script found!
+ScriptName 'mob_mounted_mogu' exists in database, but no core script found!
+ScriptName 'spell_dru_brutal_slash' exists in database, but no core script found!
+ScriptName 'mob_qiang' exists in database, but no core script found!
+ScriptName 'npc_spear_of_light' exists in database, but no core script found!
+ScriptName 'mob_shadowy_minion' exists in database, but no core script found!
+ScriptName 'spell_wildfire_infusion_stacks' exists in database, but no core script found!
+ScriptName 'mob_sorcerer_mogu' exists in database, but no core script found!
+ScriptName 'mob_spirit_totem' exists in database, but no core script found!
+ScriptName 'mob_stone_quilen' exists in database, but no core script found!
+ScriptName 'mob_subetai' exists in database, but no core script found!
+ScriptName 'mob_wild_spark' exists in database, but no core script found!
+ScriptName 'mob_woe_titan_spark' exists in database, but no core script found!
+ScriptName 'npc_infused_crystal' exists in database, but no core script found!
+ScriptName 'spell_warr_execute' exists in database, but no core script found!
+ScriptName 'npc_anchorite_truuen' exists in database, but no core script found!
+ScriptName 'npc_dm_edwin_vancleef' exists in database, but no core script found!
+ScriptName 'npc_arcane_hydra_spawn' exists in database, but no core script found!
+ScriptName 'npc_arti_priest_void_tendril' exists in database, but no core script found!
+ScriptName 'npc_stolen_ram' exists in database, but no core script found!
+ScriptName 'npc_blazing_hydra_spawn' exists in database, but no core script found!
+ScriptName 'spell_pal_consecration' exists in database, but no core script found!
+ScriptName 'npc_coalesced_void' exists in database, but no core script found!
+ScriptName 'npc_flame_of_woe' exists in database, but no core script found!
+ScriptName 'npc_dm_alliance_hunter' exists in database, but no core script found!
+ScriptName 'npc_dm_alliance_priest' exists in database, but no core script found!
+ScriptName 'npc_dm_alliance_rogue' exists in database, but no core script found!
+ScriptName 'npc_dm_alliance_warrior' exists in database, but no core script found!
+ScriptName 'spell_dk_obliterate' exists in database, but no core script found!
+ScriptName 'npc_feral_spirit' exists in database, but no core script found!
+ScriptName 'npc_festival_scorchling_26520' exists in database, but no core script found!
+ScriptName 'spell_spatial_rift_despawn' exists in database, but no core script found!
+ScriptName 'npc_flying_machine' exists in database, but no core script found!
+ScriptName 'npc_frostmane_builder' exists in database, but no core script found!
+ScriptName 'spell_serpentrix_submerge' exists in database, but no core script found!
+ScriptName 'npc_hogger' exists in database, but no core script found!
+ScriptName 'npc_hogger_minion' exists in database, but no core script found!
+ScriptName 'npc_king_deepbeard_quake' exists in database, but no core script found!
+ScriptName 'npc_lady_hatecoil_monsoon' exists in database, but no core script found!
+ScriptName 'npc_moira_thaurissan' exists in database, but no core script found!
+ScriptName 'spell_titan_gas2' exists in database, but no core script found!
+ScriptName 'spell_mage_flamestrike' exists in database, but no core script found!
+ScriptName 'spell_ghost_essence' exists in database, but no core script found!
+ScriptName 'npc_olmyr_ghost' exists in database, but no core script found!
+ScriptName 'npc_olmyr_the_enlightened' exists in database, but no core script found!
+ScriptName 'spell_draw_flame' exists in database, but no core script found!
+ScriptName 'npc_sergeant_flinthammer' exists in database, but no core script found!
+ScriptName 'npc_shadowguard_subjugator' exists in database, but no core script found!
+ScriptName 'spell_destabilizing_energies' exists in database, but no core script found!
+ScriptName 'npc_son_of_flame_firelands' exists in database, but no core script found!
+ScriptName 'spell_dk_remorseless_winter_damage' exists in database, but no core script found!
+ScriptName 'spell_lady_hatecoil_crackling_thunder' exists in database, but no core script found!
+ScriptName 'npc_vision_of_the_past' exists in database, but no core script found!
+ScriptName 'spell_mage_blazing_soul' exists in database, but no core script found!
+ScriptName 'spell_warl_seed_of_corruption_damage' exists in database, but no core script found!
+ScriptName 'spell_grasping_energy_tendrils' exists in database, but no core script found!
+ScriptName 'spell_arc_visual' exists in database, but no core script found!
+ScriptName 'spell_arcane_pulse' exists in database, but no core script found!
+ScriptName 'spell_arti_dru_ashamane_frenzy' exists in database, but no core script found!
+ScriptName 'spell_arti_pal_tyr_deliverance' exists in database, but no core script found!
+ScriptName 'spell_warr_ravager_damage' exists in database, but no core script found!
+ScriptName 'spell_energized' exists in database, but no core script found!
+ScriptName 'spell_pal_crusade' exists in database, but no core script found!
+ScriptName 'spell_class_hall_warrior_jump_exit' exists in database, but no core script found!
+ScriptName 'spell_class_hall_warrior_jump_teleport' exists in database, but no core script found!
+ScriptName 'spell_energizing_smash' exists in database, but no core script found!
+ScriptName 'spell_emote_stolen_ram' exists in database, but no core script found!
+ScriptName 'spell_cosmetic_lightning' exists in database, but no core script found!
+ScriptName 'spell_kovald_infernal_flames' exists in database, but no core script found!
+ScriptName 'spell_draw_power' exists in database, but no core script found!
+ScriptName 'spell_energizing_visual' exists in database, but no core script found!
+ScriptName 'spell_final_destination' exists in database, but no core script found!
+ScriptName 'spell_hatecoil_arcanist_aqua_spout' exists in database, but no core script found!
+ScriptName 'spell_lady_hatecoil_curse_of_the_witch' exists in database, but no core script found!
+ScriptName 'spell_impeding_thrust' exists in database, but no core script found!
+ScriptName 'spell_kovald_ragnarok' exists in database, but no core script found!
+ScriptName 'spell_lady_hatecoil_beckon_storm' exists in database, but no core script found!
+ScriptName 'spell_lady_hatecoil_focused_lightning' exists in database, but no core script found!
+ScriptName 'spell_lady_hatecoil_monsoon_target' exists in database, but no core script found!
+ScriptName 'spell_light_judgement' exists in database, but no core script found!
+ScriptName 'spell_mage_cinderstorm' exists in database, but no core script found!
+ScriptName 'spell_mage_firestarter' exists in database, but no core script found!
+ScriptName 'spell_mage_mastery_ignite' exists in database, but no core script found!
+ScriptName 'spell_mage_ray_of_frost_buff' exists in database, but no core script found!
+ScriptName 'spell_mage_ring_of_frost_stun' exists in database, but no core script found!
+ScriptName 'spell_missile_barrage' exists in database, but no core script found!
+ScriptName 'spell_mogu_arcane_resonance' exists in database, but no core script found!
+ScriptName 'spell_mogu_arcane_velocity' exists in database, but no core script found!
+ScriptName 'spell_mogu_inversion' exists in database, but no core script found!
+ScriptName 'spell_mogu_petrification' exists in database, but no core script found!
+ScriptName 'spell_mogu_wildfire_spark' exists in database, but no core script found!
+ScriptName 'spell_monk_whirling_dragon_punch' exists in database, but no core script found!
+ScriptName 'spell_null_palm' exists in database, but no core script found!
+ScriptName 'spell_odyn_spear_of_light' exists in database, but no core script found!
+ScriptName 'spell_pal_aura_of_sacrifice_ally' exists in database, but no core script found!
+ScriptName 'spell_pal_fervent_martyr' exists in database, but no core script found!
+ScriptName 'temporaire_npc_icycle_dm' exists in database, but no core script found!
+ScriptName 'spell_radiating_energies' exists in database, but no core script found!
+ScriptName 'spell_ravenous_leap' exists in database, but no core script found!
+ScriptName 'spell_sanctify' exists in database, but no core script found!
+ScriptName 'spell_sha_rainfall' exists in database, but no core script found!
+ScriptName 'spell_serpentix_rampage_aura' exists in database, but no core script found!
+ScriptName 'spell_serpentrix_poison_spit' exists in database, but no core script found!
+ScriptName 'spell_sha_earth_elemental' exists in database, but no core script found!
+ScriptName 'spell_sha_earth_shock' exists in database, but no core script found!
+ScriptName 'spell_sha_enhancement_lightning_bolt' exists in database, but no core script found!
+ScriptName 'spell_sha_fire_elemental' exists in database, but no core script found!
+ScriptName 'spell_sha_healing_rain' exists in database, but no core script found!
+ScriptName 'spell_sha_healing_surge' exists in database, but no core script found!
+ScriptName 'spell_signal_flare' exists in database, but no core script found!
+ScriptName 'spell_soul_back' exists in database, but no core script found!
+ScriptName 'spell_spirit_bolt' exists in database, but no core script found!
+ScriptName 'spell_terracota_spawn' exists in database, but no core script found!
+ScriptName 'spell_titan_gas' exists in database, but no core script found!
+ScriptName 'spell_total_annihilation' exists in database, but no core script found!
+ScriptName 'spell_touch_of_titans' exists in database, but no core script found!
+ScriptName 'spell_unstable_energy' exists in database, but no core script found!
+ScriptName 'spell_voodoo_doll' exists in database, but no core script found!
+ScriptName 'spell_warl_incinerate' exists in database, but no core script found!
+ScriptName 'spell_warr_commanding_shout' exists in database, but no core script found!
+ScriptName 'spell_wildfire_spark' exists in database, but no core script found!
+ScriptName 'spell_wrath_of_azshara_mystic_tornado' exists in database, but no core script found!
+ScriptName 'zone_western_plaguelands' exists in database, but no core script found!
+SmartAIMgr: EntryOrGuid -1100562 using event(0) has invalid action type (206), skipped.
+SmartAIMgr: EntryOrGuid -1100190 using event(0) has invalid action type (206), skipped.
+SmartAIMgr: Entry 1750 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 55567 (SpellId: 130805 effect: )
+SmartAIMgr: Entry 3679 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 44051 (SpellId: 82453 effect: 
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (4979) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (4979) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (4979) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (9376) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (10433) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (10433) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (10433) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (10433) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (10433) is not using SmartAI, skipped loading.
+SmartAIMgr::LoadSmartAIFromDB: Creature entry (10433) is not using SmartAI, skipped loading.
+SmartAIMgr: further 'is not using SmartAI' errors suppressed after 10. Set AIName='SmartAI' or remove orphan smart_scripts rows (sql/100_*).
+SmartAIMgr: Entry 23777 SourceType 0 Event 0 Action 12 creature summon: There is a summon spell for creature entry 23688 (SpellId: 42404, effect: 
+SmartAIMgr: Entry 23921 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 23921 (SpellId: 42632 effect: 
+SmartAIMgr: Entry 23922 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 23922 (SpellId: 42633 effect: 
+SmartAIMgr: Entry 23923 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 23923 (SpellId: 42634 effect: 
+SmartAIMgr: Entry 23924 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 23924 (SpellId: 42635 effect: 
+SmartAIMgr: Entry 24087 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24087 (SpellId: 43067 effect: 
+SmartAIMgr: Entry 24092 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24092 (SpellId: 43077 effect: 
+SmartAIMgr: Entry 24093 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24093 (SpellId: 43086 effect: 
+SmartAIMgr: Entry 24094 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24094 (SpellId: 43087 effect: 
+SmartAIMgr: Entry 24098 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24098 (SpellId: 43058 effect: 
+SmartAIMgr: Entry 24100 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24100 (SpellId: 43061 effect: 
+SmartAIMgr: Entry 24102 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24102 (SpellId: 43065 effect: 
+SmartAIMgr: Entry 24290 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24290 (SpellId: 43419 effect: 
+SmartAIMgr: Entry 24345 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24345 (SpellId: 43564 effect: 
+SmartAIMgr: Entry 24381 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24381 (SpellId: 43693 effect: 
+SmartAIMgr: Entry 24514 SourceType 0 Event 2 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24515 (SpellId: 43984 effect: 
+SmartAIMgr: Entry 25318 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 25318 (SpellId: 45456 effect: 
+SmartAIMgr: Entry 25654 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 25654 (SpellId: 45837 effect: 
+SmartAIMgr: Entry 30127 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 30126 (SpellId: 55960 effect: 
+SmartAIMgr: Entry 39730 SourceType 0 Event 1 Action 11 Effect: SPELL_EFFECT_KILL_CREDIT: (SpellId: 74287 targetA: 1 - targetB: 0) has invalid target for this Action
+SmartAIMgr: Entry 39730 SourceType 0 Event 2 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 39727 (SpellId: 74287 effect: )
+SmartAIMgr: Entry 39736 SourceType 0 Event 1 Action 11 Effect: SPELL_EFFECT_KILL_CREDIT: (SpellId: 74290 targetA: 1 - targetB: 0) has invalid target for this Action
+SmartAIMgr: Entry 39736 SourceType 0 Event 2 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 39739 (SpellId: 74290 effect: )
+SmartAIMgr: Entry 39737 SourceType 0 Event 1 Action 11 Effect: SPELL_EFFECT_KILL_CREDIT: (SpellId: 74288 targetA: 1 - targetB: 0) has invalid target for this Action
+SmartAIMgr: Entry 39737 SourceType 0 Event 2 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 39741 (SpellId: 74288 effect: )
+SmartAIMgr: Entry 39738 SourceType 0 Event 1 Action 11 Effect: SPELL_EFFECT_KILL_CREDIT: (SpellId: 74292 targetA: 1 - targetB: 0) has invalid target for this Action
+SmartAIMgr: Entry 39738 SourceType 0 Event 2 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 39740 (SpellId: 74292 effect: )
+SmartAIMgr: Entry 39933 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 40056 (SpellId: 74722 effect: 
+SmartAIMgr: Entry 40056 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 40056 (SpellId: 74722 effect: 
+SmartAIMgr: Entry 53738 SourceType 0 Event 1 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 53738 (SpellId: 100508 effect: )
+SmartAIMgr: Entry 54763 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 54872 (SpellId: 102469 effect: 
+SmartAIMgr: Entry 54894 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 56398 (SpellId: 105938 effect: )
+SmartAIMgr: Entry 54914 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 55057 (SpellId: 102819 effect: 
+SmartAIMgr: Entry 54990 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 54996 (SpellId: 102725 effect: 
+SmartAIMgr: Entry 55009 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 54999 (SpellId: 102732 effect: 
+SmartAIMgr: Entry 55333 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 67152 (SpellId: 132159 effect: 
+SmartAIMgr: Entry 56737 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 56737 (SpellId: 113893 effect: )
+SmartAIMgr: Entry 61492 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 54929 (SpellId: 102537 effect: )
+SmartAIMgr: Entry 64475 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 59415 (SpellId: 114063 effect: )
+SmartAIMgr: Entry 64491 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 64491 (SpellId: 125947 effect: 
+SmartAIMgr: Entry 64493 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 64493 (SpellId: 125956 effect: 
+SmartAIMgr: Entry 64494 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 64494 (SpellId: 125968 effect: 
+SmartAIMgr: Entry 65910 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 65910 (SpellId: 130858 effect: )
+SmartAIMgr: Entry 66292 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 66292 (SpellId: 131057 effect: )
+SmartAIMgr: Entry 66564 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 54929 (SpellId: 102537 effect: )
+SmartAIMgr: Entry 66567 SourceType 0 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 54929 (SpellId: 102537 effect: )
+SmartAIMgr: Entry 77034 SourceType 0 Event 1 Action 11 uses non-existent Spell entry 5000, skipped.
+SmartAIMgr: Entry 84462 SourceType 0 Event 1 Action 11 uses non-existent Spell entry 5000, skipped.
+SmartAIMgr: Entry 106754 SourceType 0 Event 0 Action 12 creature summon: There is a summon spell for creature entry 98776 (SpellId: 211761, effect: 
+SmartAIMgr: Entry 131345SourceType 0 Event 4 Action 1 using non-existent Text id 3, skipped.
+SmartAIMgr: Entry 132382SourceType 0 Event 2 Action 1 using non-existent Text id 1, skipped.
+SmartAIMgr: EntryOrGuid 133362 using event(0) has invalid action type (206), skipped.
+SmartAIMgr: EntryOrGuid 133407 using event(0) has invalid action type (206), skipped.
+SmartAIMgr: Entry 230700 SourceType 9 Event 1 Action 12 creature summon: There is a summon spell for creature entry 38895 (SpellId: 73084, effect: 
+SmartAIMgr: Entry 2408800 SourceType 9 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24124 (SpellId: 43094 effect: 
+SmartAIMgr: Entry 2408900 SourceType 9 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24124 (SpellId: 43094 effect: 
+SmartAIMgr: Entry 2409000 SourceType 9 Event 0 Action 33 Kill Credit: There is a killcredit spell for creatureEntry 24124 (SpellId: 43094 effect: 
+SmartAIMgr: Entry 18666000 SourceType 9 Event 0 Action 12 creature summon: There is a summon spell for creature entry 24285 (SpellId: 43387, effect: 
+WaypointMovementGenerator::LoadPath: creature Shadowglen Sentinel (GUID Full: 0x20000400200BE0000000000000000387 Type: Creature Entry: 12160 Low: 903 DB GUID: 276628) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Jenn Langston (GUID Full: 0x2000040000038A80000000000000092B Type: Creature Entry: 3626 Low: 2347 DB GUID: 188758) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Wretched Ghoul (GUID Full: 0x20000400000177800000000000000B1B Type: Creature Entry: 1502 Low: 2843 DB GUID: 193655) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Giraffe (GUID Full: 0x2000040020124CC0000000000000076F Type: Creature Entry: 18739 Low: 1903 DB GUID: 302229) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature King Reaperclaw (GUID Full: 0x20000400202203400000000000000776 Type: Creature Entry: 34829 Low: 1910 DB GUID: 303909) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Orgrimmar Wind Rider (GUID Full: 0x20000400203224800000000000000D6F Type: Creature Entry: 51346 Low: 3439 DB GUID: 286840) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Orgrimmar Wind Rider (GUID Full: 0x20000400203224800000000000000E5A Type: Creature Entry: 51346 Low: 3674 DB GUID: 287140) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Xan'tish (GUID Full: 0x20000400200835000000000000000E72 Type: Creature Entry: 8404 Low: 3698 DB GUID: 286901) doesn't have waypoint path id: 0
+WaypointMovementGenerator::LoadPath: creature Darkspear Headhunter (GUID Full: 0x20000400202BF5C00000000000000E7C Type: Creature Entry: 45015 Low: 3708 DB GUID: 286865) doesn't have waypoint path id: 0

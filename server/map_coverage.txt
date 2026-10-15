@@ -1,0 +1,143 @@
+map coverage 08/23/2026 15:29:35
+33    Shadowfang Keep          Vanilla  tiles=25    vmap=True  tiles+vmap
+34    Stockade                 Vanilla  tiles=0     vmap=True  vmap
+36    Deadmines                Vanilla  tiles=36    vmap=True  tiles+vmap
+43    Wailing Caverns          Vanilla  tiles=0     vmap=True  vmap
+47    Razorfen Kraul           Vanilla  tiles=6     vmap=True  tiles+vmap
+48    Blackfathom              Vanilla  tiles=0     vmap=True  vmap
+70    Uldaman                  Vanilla  tiles=0     vmap=True  vmap
+90    Gnomeregan               Vanilla  tiles=0     vmap=True  vmap
+109   Sunken Temple            Vanilla  tiles=0     vmap=True  vmap
+129   Razorfen Downs           Vanilla  tiles=24    vmap=True  tiles+vmap
+189   Scarlet Monastery        Vanilla  tiles=36    vmap=True  tiles+vmap
+209   Zul'Farrak               Vanilla  tiles=21    vmap=True  tiles+vmap
+229   Blackrock Spire          Vanilla  tiles=0     vmap=True  vmap
+230   Blackrock Depths         Vanilla  tiles=0     vmap=True  vmap
+249   Onyxia                   Vanilla  tiles=0     vmap=True  vmap
+289   Scholomance              Vanilla  tiles=16    vmap=True  tiles+vmap
+309   Zul'Gurub                Vanilla  tiles=25    vmap=True  tiles+vmap
+329   Stratholme               Vanilla  tiles=20    vmap=True  tiles+vmap
+349   Maraudon                 Vanilla  tiles=0     vmap=True  vmap
+389   Ragefire                 Vanilla  tiles=0     vmap=True  vmap
+409   Molten Core              Vanilla  tiles=0     vmap=True  vmap
+429   Dire Maul                Vanilla  tiles=0     vmap=True  vmap
+469   Blackwing Lair           Vanilla  tiles=16    vmap=True  tiles+vmap
+509   AQ20                     Vanilla  tiles=40    vmap=True  tiles+vmap
+531   AQ40                     Vanilla  tiles=25    vmap=True  tiles+vmap
+532   Karazhan                 BC       tiles=9     vmap=True  tiles+vmap
+534   Hyjal                    BC       tiles=30    vmap=True  tiles+vmap
+540   Shattered Halls          BC       tiles=0     vmap=True  vmap
+542   Blood Furnace            BC       tiles=0     vmap=True  vmap
+543   Ramparts                 BC       tiles=72    vmap=True  tiles+vmap
+544   Magtheridon              BC       tiles=0     vmap=True  vmap
+545   Steamvault               BC       tiles=0     vmap=True  vmap
+546   Underbog                 BC       tiles=0     vmap=True  vmap
+547   Slave Pens               BC       tiles=0     vmap=True  vmap
+548   SSC                      BC       tiles=0     vmap=True  vmap
+550   Tempest Keep             BC       tiles=0     vmap=True  vmap
+552   Arcatraz                 BC       tiles=0     vmap=True  vmap
+553   Botanica                 BC       tiles=0     vmap=True  vmap
+554   Mechanar                 BC       tiles=0     vmap=True  vmap
+555   Shadow Lab               BC       tiles=0     vmap=True  vmap
+556   Sethekk                  BC       tiles=0     vmap=True  vmap
+557   Mana Tombs               BC       tiles=0     vmap=True  vmap
+558   Auchenai                 BC       tiles=0     vmap=True  vmap
+560   Old Hillsbrad            BC       tiles=36    vmap=True  tiles+vmap
+564   Black Temple             BC       tiles=30    vmap=True  tiles+vmap
+565   Gruul                    BC       tiles=0     vmap=True  vmap
+568   Zul'Aman                 BC       tiles=25    vmap=True  tiles+vmap
+580   Sunwell                  BC       tiles=30    vmap=True  tiles+vmap
+585   Magisters                BC       tiles=90    vmap=True  tiles+vmap
+533   Naxx                     WotLK    tiles=24    vmap=True  tiles+vmap
+574   Utgarde Keep             WotLK    tiles=64    vmap=True  tiles+vmap
+575   Pinnacle                 WotLK    tiles=64    vmap=True  tiles+vmap
+576   Nexus                    WotLK    tiles=0     vmap=True  vmap
+578   Oculus                   WotLK    tiles=64    vmap=True  tiles+vmap
+595   CoT                      WotLK    tiles=36    vmap=True  tiles+vmap
+599   Halls of Stone           WotLK    tiles=25    vmap=True  tiles+vmap
+600   DrakTharon               WotLK    tiles=25    vmap=True  tiles+vmap
+601   Azjol                    WotLK    tiles=16    vmap=True  tiles+vmap
+602   Halls of Lightning       WotLK    tiles=49    vmap=True  tiles+vmap
+603   Ulduar                   WotLK    tiles=82    vmap=True  tiles+vmap
+604   Gundrak                  WotLK    tiles=25    vmap=True  tiles+vmap
+608   Violet Hold              WotLK    tiles=25    vmap=True  tiles+vmap
+615   OS                       WotLK    tiles=16    vmap=True  tiles+vmap
+616   EoE                      WotLK    tiles=25    vmap=False tiles
+619   Ahnkahet                 WotLK    tiles=49    vmap=True  tiles+vmap
+624   VoA                      WotLK    tiles=9     vmap=True  tiles+vmap
+631   ICC                      WotLK    tiles=89    vmap=True  tiles+vmap
+632   FoS                      WotLK    tiles=6     vmap=True  tiles+vmap
+649   ToC                      WotLK    tiles=25    vmap=True  tiles+vmap
+650   ToC champ                WotLK    tiles=16    vmap=True  tiles+vmap
+658   PoS                      WotLK    tiles=9     vmap=True  tiles+vmap
+668   HoR                      WotLK    tiles=20    vmap=True  tiles+vmap
+724   Ruby                     WotLK    tiles=16    vmap=True  tiles+vmap
+643   ToTides                  Cata     tiles=9     vmap=True  tiles+vmap
+644   HoO                      Cata     tiles=30    vmap=True  tiles+vmap
+645   BRC                      Cata     tiles=9     vmap=True  tiles+vmap
+657   VP                       Cata     tiles=25    vmap=True  tiles+vmap
+669   BWD                      Cata     tiles=9     vmap=True  tiles+vmap
+670   GB                       Cata     tiles=16    vmap=True  tiles+vmap
+671   BoT                      Cata     tiles=16    vmap=True  tiles+vmap
+720   Firelands                Cata     tiles=24    vmap=True  tiles+vmap
+725   Stonecore                Cata     tiles=16    vmap=True  tiles+vmap
+754   To4W                     Cata     tiles=9     vmap=False tiles
+755   LCT                      Cata     tiles=16    vmap=True  tiles+vmap
+938   End Time                 Cata     tiles=49    vmap=True  tiles+vmap
+939   WoE                      Cata     tiles=25    vmap=True  tiles+vmap
+940   HoT                      Cata     tiles=56    vmap=True  tiles+vmap
+967   DS                       Cata     tiles=451   vmap=True  tiles+vmap
+959   SPM                      MoP      tiles=25    vmap=True  tiles+vmap
+960   TJS                      MoP      tiles=30    vmap=True  tiles+vmap
+961   SSB                      MoP      tiles=49    vmap=True  tiles+vmap
+962   GotSS                    MoP      tiles=56    vmap=True  tiles+vmap
+994   MSP                      MoP      tiles=20    vmap=True  tiles+vmap
+996   ToES                     MoP      tiles=29    vmap=True  tiles+vmap
+1001  Scarlet Halls            MoP      tiles=15    vmap=True  tiles+vmap
+1004  SM MoP                   MoP      tiles=6     vmap=True  tiles+vmap
+1007  Scholo MoP               MoP      tiles=4     vmap=True  tiles+vmap
+1008  MSV                      MoP      tiles=25    vmap=True  tiles+vmap
+1009  HoF                      MoP      tiles=64    vmap=True  tiles+vmap
+1011  Niuzao                   MoP      tiles=16    vmap=True  tiles+vmap
+1098  ToT                      MoP      tiles=81    vmap=True  tiles+vmap
+1136  SoO                      MoP      tiles=72    vmap=True  tiles+vmap
+1175  BSM                      WoD      tiles=25    vmap=True  tiles+vmap
+1176  SMBG                     WoD      tiles=25    vmap=True  tiles+vmap
+1182  Auchindoun               WoD      tiles=12    vmap=True  tiles+vmap
+1195  Iron Docks               WoD      tiles=12    vmap=True  tiles+vmap
+1205  BRF                      WoD      tiles=9     vmap=True  tiles+vmap
+1208  Grimrail                 WoD      tiles=15    vmap=True  tiles+vmap
+1209  Skyreach                 WoD      tiles=72    vmap=True  tiles+vmap
+1228  Highmaul                 WoD      tiles=30    vmap=True  tiles+vmap
+1279  Everbloom                WoD      tiles=76    vmap=True  tiles+vmap
+1358  UBRS                     WoD      tiles=0     vmap=True  vmap
+1448  HFC                      WoD      tiles=276   vmap=True  tiles+vmap
+1456  EoA                      Legion   tiles=25    vmap=True  tiles+vmap
+1458  NL                       Legion   tiles=12    vmap=True  tiles+vmap
+1466  DHT                      Legion   tiles=12    vmap=True  tiles+vmap
+1477  HoV                      Legion   tiles=72    vmap=True  tiles+vmap
+1492  MoS                      Legion   tiles=18    vmap=True  tiles+vmap
+1493  VoW                      Legion   tiles=42    vmap=True  tiles+vmap
+1501  BRH                      Legion   tiles=16    vmap=True  tiles+vmap
+1516  Arcway                   Legion   tiles=24    vmap=True  tiles+vmap
+1544  VH                       Legion   tiles=1     vmap=True  tiles+vmap
+1571  CoS                      Legion   tiles=20    vmap=True  tiles+vmap
+1651  RtK                      Legion   tiles=58    vmap=True  tiles+vmap
+1677  CoEN                     Legion   tiles=6     vmap=True  tiles+vmap
+1753  SotT                     Legion   tiles=49    vmap=True  tiles+vmap
+1520  EN                       Legion   tiles=226   vmap=True  tiles+vmap
+1530  Nighthold                Legion   tiles=81    vmap=True  tiles+vmap
+1648  ToV                      Legion   tiles=61    vmap=True  tiles+vmap
+1676  ToS                      Legion   tiles=113   vmap=True  tiles+vmap
+1712  Antorus                  Legion   tiles=179   vmap=True  tiles+vmap
+0     Eastern Kingdoms         Vanilla  tiles=839   vmap=True  tiles+vmap
+1     Kalimdor                 Vanilla  tiles=1011  vmap=True  tiles+vmap
+530   Outland                  BC       tiles=826   vmap=True  tiles+vmap
+571   Northrend                WotLK    tiles=1131  vmap=True  tiles+vmap
+646   Deepholm                 Cata     tiles=100   vmap=True  tiles+vmap
+870   Pandaria                 MoP      tiles=684   vmap=True  tiles+vmap
+1116  Draenor                  WoD      tiles=1221  vmap=True  tiles+vmap
+1220  Broken Isles             Legion   tiles=729   vmap=True  tiles+vmap
+1669  Argus                    Legion   tiles=194   vmap=True  tiles+vmap
+
+ok=140 missing=0

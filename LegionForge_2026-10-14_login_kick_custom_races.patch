@@ -1,0 +1,205 @@
+--- a/core/src/server/game/World/World.h
++++ b/core/src/server/game/World/World.h
+@@ -195,6 +195,7 @@
+     CONFIG_GAME_OBJECT_CHECK_INVALID_POSITION,
+     CONFIG_LEGACY_BUFF_ENABLED,
+     CONFIG_AUTH_SESSION_VERIFY_DIGEST,
++    CONFIG_LOGIN_STRICT_APPEARANCE,
+     BOOL_CONFIG_VALUE_COUNT
+ };
+ 
+--- a/core/src/server/game/World/World.cpp
++++ b/core/src/server/game/World/World.cpp
+@@ -1509,6 +1509,12 @@
+     // mismatch (the RC4 packet key is still derived from account.sessionkey
+     // independently, so gameplay traffic stays encrypted). Set 1 for a vanilla client.
+     m_bool_configs[CONFIG_AUTH_SESSION_VERIFY_DIGEST] = sConfigMgr->GetBoolDefault("AuthSession.VerifyDigest", false);
++    // [LEGIONFORGE] Appearance validation at login. The login context of
++    // CharSections.Flags requires bit 0x2 which a part of the OFFICIAL server
++    // CharSections.db2 rows does not have, while the CUSTOM client lets you pick
++    // and create such looks. Strict mode kicks the player on login
++    // (LoadFromDB -> false -> KickPlayer). Default 0 = tolerate.
++    m_bool_configs[CONFIG_LOGIN_STRICT_APPEARANCE] = sConfigMgr->GetBoolDefault("Login.StrictAppearance", false);
+ 
+     // call ScriptMgr if we're reloading the configuration
+     if (reload)
+--- a/core/src/server/game/Entities/Player/Player.cpp
++++ b/core/src/server/game/Entities/Player/Player.cpp
+@@ -18526,6 +18526,7 @@
+     if (!info)
+     {
+         LF_LOG_ERROR("entities.player", "Player::LoadFromDB: Player (%s) has wrong race/class (%u/%u), can't load.", guid.ToString().c_str(), getRace(), getClass());
++        LF_LOG_ERROR("entities.player", "  -> [LEGIONFORGE] There is no `playercreateinfo` row for race %u / class %u (or the loader dropped it: invalid home position / instanceable map). For the custom client races 31..44 apply sql/50_uwow_custom_races.sql and sql/52_custom_races_31_44.sql, then restart worldserver.", uint32(getRace()), uint32(getClass()));
+         return false;
+     }
+ 
+@@ -18578,8 +18579,22 @@
+         GetByteValue(PLAYER_BYTES, PLAYER_BYTES_OFFSET_SKIN_ID),
+         customDisplay))
+     {
+-        LF_LOG_ERROR("entities.player", "Player::LoadFromDB: Player (%s) has wrong Appearance values (Hair/Skin/Color), can't load.", guid.ToString().c_str());
+-        return false;
++        if (sWorld->getBoolConfig(CONFIG_LOGIN_STRICT_APPEARANCE))
++        {
++            LF_LOG_ERROR("entities.player", "Player::LoadFromDB: Player (%s) has wrong Appearance values (Hair/Skin/Color), can't load.", guid.ToString().c_str());
++            return false;
++        }
++
++        // [LEGIONFORGE] Do NOT kick: the character was already created, and its look is legal
++        // for the CUSTOM client - the mismatch comes from the official server CharSections.db2.
++        // Kicking here is exactly the "loads and throws me out of the game" symptom.
++        LF_LOG_WARN("entities.player", "Player::LoadFromDB: Player (%s) race %u class %u gender %u look (skin %u face %u hair %u/%u facial %u) is absent from the SERVER CharSections.db2 - accepted (Login.StrictAppearance=0, custom client).",
++            guid.ToString().c_str(), uint32(fields[3].GetUInt8()), uint32(fields[4].GetUInt8()), uint32(gender),
++            uint32(GetByteValue(PLAYER_BYTES, PLAYER_BYTES_OFFSET_SKIN_ID)),
++            uint32(GetByteValue(PLAYER_BYTES, PLAYER_BYTES_OFFSET_FACE_ID)),
++            uint32(GetByteValue(PLAYER_BYTES, PLAYER_BYTES_OFFSET_HAIR_STYLE_ID)),
++            uint32(GetByteValue(PLAYER_BYTES, PLAYER_BYTES_OFFSET_HAIR_COLOR_ID)),
++            uint32(GetByteValue(PLAYER_BYTES_2, PLAYER_BYTES_2_OFFSET_FACIAL_STYLE)));
+     }
+ 
+     // set which actionbars the client has active - DO NOT REMOVE EVER AGAIN (can be changed though, if it does change fieldwise)
+@@ -18907,6 +18922,7 @@
+         {
+             LF_LOG_ERROR("entities.player", "Player::LoadFromDB: Player '%s' (%s) Map: %u, X: %f, Y: %f, Z: %f, O: %f. Invalid default map coordinates or instance couldn't be created.",
+                 m_name.c_str(), guid.ToString().c_str(), mapId, GetPositionX(), GetPositionY(), GetPositionZ(), GetOrientation());
++            LF_LOG_ERROR("entities.player", "  -> [LEGIONFORGE] Check that server/data/maps contains map %u (`extract_maps.bat` / `extract_delta.ps1`) and that the saved position is inside the map bounds; `character_homebind` is rebuilt from `playercreateinfo` automatically.", mapId);
+             return false;
+         }
+     }
+@@ -29723,7 +29739,21 @@
+     if (create)
+         return ComponentFlagsMatch(entry, GetSelectionFromContext(0, class_));
+ 
+-    return ComponentFlagsMatch(entry, GetSelectionFromContext(2, class_));
++    if (ComponentFlagsMatch(entry, GetSelectionFromContext(2, class_)))
++        return true;
++
++    // [LEGIONFORGE] The LOGIN context (selection 4/5/6) demands CharSections.Flags bit 0x2,
++    // which part of the rows of the OFFICIAL server CharSections.db2 does not have - while the
++    // CUSTOM client (BfA races) lets you choose exactly such a look and even create the
++    // character (creation context only needs bit 0x1). Result: the character is created, but on
++    // entering the world Player::LoadFromDB -> ValidateAppearance(create=false) -> false ->
++    // WorldSession::HandlePlayerLogin -> KickPlayer(), i.e. the client "loads something and gets
++    // thrown out of the game". In non-strict mode we accept any look valid in the creation
++    // context; set Login.StrictAppearance = 1 for a vanilla client.
++    if (!sWorld->getBoolConfig(CONFIG_LOGIN_STRICT_APPEARANCE))
++        return ComponentFlagsMatch(entry, GetSelectionFromContext(0, class_));
++
++    return false;
+ }
+ 
+ bool IsSectionValid(uint8 race, uint8 class_, uint8 gender, CharBaseSectionVariation variation, uint8 variationIndex, uint8 colorIndex, bool create)
+@@ -29737,26 +29767,37 @@
+ 
+ bool Player::ValidateAppearance(uint8 race, uint8 class_, uint8 gender, uint8 hairID, uint8 hairColor, uint8 faceID, uint8 facialHairID, uint8 skinColor, std::array<uint8, PLAYER_CUSTOM_DISPLAY_SIZE> const& customDisplay, bool create /*= false*/)
+ {
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::Skin, 0, skinColor, create))
++    // [LEGIONFORGE CUSTOM-RACES] Client races 31..44 (BfA content) have NO rows in the
++    // server-side CharSections.db2 / CharacterFacialHairStyles.db2 (official 7.3.5 data),
++    // so GetCharSectionEntry() returned nullptr and ValidateAppearance() was ALWAYS false:
++    // such a character could neither be created nor logged in. Validate the look against the
++    // DONOR race from the CustomRaces.Definitions registry instead - the same donor that
++    // already provides FactionID and Male/FemaleDisplayId in ObjectMgr::LoadPlayerCreateInfo.
++    uint8 sectionRace = race;
++    if (!sDB2Manager.HasCharSections(race, gender, CharBaseSectionVariation::Skin))
++        if (uint8 const baseRace = GetCustomRaceBase(race))
++            sectionRace = baseRace;
++
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Skin, 0, skinColor, create))
+         return false;
+ 
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::Face, faceID, skinColor, create))
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Face, faceID, skinColor, create))
+         return false;
+ 
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::Hair, hairID, hairColor, create))
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Hair, hairID, hairColor, create))
+         return false;
+ 
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::FacialHair, facialHairID, hairColor, create))
+-        if (sDB2Manager.HasCharSections(race, gender, CharBaseSectionVariation::FacialHair) || !sDB2Manager.HasCharacterFacialHairStyle(race, gender, facialHairID))
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::FacialHair, facialHairID, hairColor, create))
++        if (sDB2Manager.HasCharSections(sectionRace, gender, CharBaseSectionVariation::FacialHair) || !sDB2Manager.HasCharacterFacialHairStyle(sectionRace, gender, facialHairID))
+             return false;
+ 
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::CustomDisplay1, customDisplay[0], 0, create))
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay1, customDisplay[0], 0, create))
+         return false;
+ 
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::CustomDisplay2, customDisplay[1], 0, create))
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay2, customDisplay[1], 0, create))
+         return false;
+ 
+-    if (!IsSectionValid(race, class_, gender, CharBaseSectionVariation::CustomDisplay3, customDisplay[2], 0, create))
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay3, customDisplay[2], 0, create))
+         return false;
+ 
+     return true;
+--- a/core/src/server/game/Handlers/CharacterHandler.cpp
++++ b/core/src/server/game/Handlers/CharacterHandler.cpp
+@@ -900,6 +900,10 @@
+     // "GetAccountId() == db stored account id" checked in LoadFromDB (prevent login not own character using cheating tools)
+     if (!pCurrChar->LoadFromDB(playerGuid, holder))
+     {
++        // [LEGIONFORGE] Make the exact kick reason greppable in Server.log: the client only
++        // shows an endless "entering world" screen, while the real cause is logged here.
++        LF_LOG_ERROR("entities.player", "Player login REJECTED for guid %s (account %u): Player::LoadFromDB returned false -> client kicked. Look for the entities.player line right above this one for the exact reason (race/class, appearance, homebind, map coords).",
++            playerGuid.ToString().c_str(), GetAccountId());
+         SetPlayer(NULL);
+         KickPlayer();                                       // disconnect client, player no set to session and it will not deleted or saved at kick
+         delete pCurrChar;                                   // delete it manually
+@@ -908,6 +912,14 @@
+         return;
+     }
+ 
++    // [LEGIONFORGE] Login diagnostics: one line per successful entry, so a follow-up crash or
++    // disconnect can be correlated with race/class/map/position/displayId of the character.
++    LF_LOG_INFO("entities.player", "Player login OK: '%s' (account %u) race %u class %u gender %u level %u map %u zone %u pos %f %f %f displayId %u",
++        pCurrChar->GetName().c_str(), GetAccountId(), uint32(pCurrChar->getRace()), uint32(pCurrChar->getClass()),
++        uint32(pCurrChar->GetByteValue(PLAYER_BYTES_3, PLAYER_BYTES_3_OFFSET_GENDER)), uint32(pCurrChar->GetLevel()),
++        pCurrChar->GetMapId(), pCurrChar->GetZoneId(),
++        pCurrChar->GetPositionX(), pCurrChar->GetPositionY(), pCurrChar->GetPositionZ(), pCurrChar->GetDisplayId());
++
+     pCurrChar->SetUInt32Value(PLAYER_FIELD_VIRTUAL_PLAYER_REALM, GetVirtualRealmAddress());
+ 
+     SendTutorialsData();
+--- a/server/worldserver.conf.dist
++++ b/server/worldserver.conf.dist
+@@ -1501,6 +1501,17 @@
+ AuthSession.VerifyDigest = 0
+ 
+ #
++#    Login.StrictAppearance
++#        Description: Validate the character look against the SERVER CharSections.db2 using the
++#                     strict LOGIN context. The official 7.3.5 data lacks bit 0x2 on part of the
++#                     rows and has no rows at all for the custom client races 31..44, so a strict
++#                     check kicks an already created character on entering the world.
++#        Default:     0 - tolerate the mismatch (custom client; look is repaired/logged, no kick)
++#                     1 - strict (vanilla/legit client only)
++#
++Login.StrictAppearance = 0
++
++#
+ #    Warden.NumMemChecks
+ #        Description: Number of Warden memory checks that are sent to the client each cycle.
+ #        Default:     3 - (Enabled)
+--- a/core/src/server/worldserver/worldserver.conf.dist
++++ b/core/src/server/worldserver/worldserver.conf.dist
+@@ -1458,6 +1458,17 @@
+ AuthSession.VerifyDigest = 0
+ 
+ #
++#    Login.StrictAppearance
++#        Description: Validate the character look against the SERVER CharSections.db2 using the
++#                     strict LOGIN context. The official 7.3.5 data lacks bit 0x2 on part of the
++#                     rows and has no rows at all for the custom client races 31..44, so a strict
++#                     check kicks an already created character on entering the world.
++#        Default:     0 - tolerate the mismatch (custom client; look is repaired/logged, no kick)
++#                     1 - strict (vanilla/legit client only)
++#
++Login.StrictAppearance = 0
++
++#
+ #    Warden.NumMemChecks
+ #        Description: Number of Warden memory checks that are sent to the client each cycle.
+ #        Default:     3 - (Enabled)

@@ -1,0 +1,171 @@
+diff --git a/core/src/server/game/DataStores/DB2Stores.cpp b/core/src/server/game/DataStores/DB2Stores.cpp
+index 94ef0a3..b97bc02 100644
+--- a/core/src/server/game/DataStores/DB2Stores.cpp
++++ b/core/src/server/game/DataStores/DB2Stores.cpp
+@@ -986,7 +986,7 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+         // reported and skipped instead of terminating the process via ASSERT.
+         if (entry->RangeIndex >= MAX_BATTLEGROUND_BRACKETS)
+         {
+-            TC_LOG_ERROR("misc", "PvpDifficulty entry %u (map %u, levels %u-%u) uses bracket %u which exceeds the supported maximum of %u - entry skipped.",
++            LF_LOG_ERROR("misc", "PvpDifficulty entry %u (map %u, levels %u-%u) uses bracket %u which exceeds the supported maximum of %u - entry skipped.",
+                 entry->ID, uint32(entry->MapID), uint32(entry->MinLevel), uint32(entry->MaxLevel),
+                 uint32(entry->RangeIndex), uint32(MAX_BATTLEGROUND_BRACKETS));
+             continue;
+@@ -1002,9 +1002,15 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+ 
+     for (PvpTalentEntry const* talentInfo : sPvpTalentStore)
+     {
+-        ASSERT(talentInfo->ClassID < MAX_CLASSES);
+-        ASSERT(talentInfo->TierID < MAX_PVP_TALENT_TIERS, "MAX_PVP_TALENT_TIERS must be at least %u", talentInfo->TierID + 1);
+-        ASSERT(talentInfo->ColumnIndex < MAX_PVP_TALENT_COLUMNS, "MAX_PVP_TALENT_COLUMNS must be at least %u", talentInfo->ColumnIndex + 1);
++        // [LEGIONFORGE stability fix] строки вне диапазона логируются и пропускаются,
++        // индексы _pvpTalentsByPosition[class][tier][column] остаются валидными.
++        if (talentInfo->ClassID >= MAX_CLASSES || talentInfo->TierID >= MAX_PVP_TALENT_TIERS || talentInfo->ColumnIndex >= MAX_PVP_TALENT_COLUMNS)
++        {
++            LF_LOG_ERROR("misc", "PvpTalent %u (class %u, tier %u, column %u) out of range [classes %u, tiers %u, columns %u] - entry skipped.",
++                talentInfo->ID, uint32(talentInfo->ClassID), uint32(talentInfo->TierID), uint32(talentInfo->ColumnIndex),
++                uint32(MAX_CLASSES), uint32(MAX_PVP_TALENT_TIERS), uint32(MAX_PVP_TALENT_COLUMNS));
++            continue;
++        }
+         if (!talentInfo->ClassID)
+         {
+             for (uint32 i = 1; i < MAX_CLASSES; ++i)
+@@ -1016,8 +1022,13 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+ 
+     for (PvpTalentUnlockEntry const* talentUnlock : sPvpTalentUnlockStore)
+     {
+-        ASSERT(talentUnlock->TierID < MAX_PVP_TALENT_TIERS, "MAX_PVP_TALENT_TIERS must be at least %u", talentUnlock->TierID + 1);
+-        ASSERT(talentUnlock->ColumnIndex < MAX_PVP_TALENT_COLUMNS, "MAX_PVP_TALENT_COLUMNS must be at least %u", talentUnlock->ColumnIndex + 1);
++        if (talentUnlock->TierID >= MAX_PVP_TALENT_TIERS || talentUnlock->ColumnIndex >= MAX_PVP_TALENT_COLUMNS)
++        {
++            LF_LOG_ERROR("misc", "PvpTalentUnlock %u (tier %u, column %u) out of range [tiers %u, columns %u] - entry skipped.",
++                talentUnlock->ID, uint32(talentUnlock->TierID), uint32(talentUnlock->ColumnIndex),
++                uint32(MAX_PVP_TALENT_TIERS), uint32(MAX_PVP_TALENT_COLUMNS));
++            continue;
++        }
+         _pvpTalentUnlock[talentUnlock->TierID][talentUnlock->ColumnIndex] = talentUnlock->HonorLevel;
+     }
+ 
+@@ -1073,9 +1084,13 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+ 
+     for (TalentEntry const* talentInfo : sTalentStore)
+     {
+-        ASSERT(talentInfo->ClassID < MAX_CLASSES);
+-        ASSERT(talentInfo->TierID < MAX_TALENT_TIERS, "MAX_TALENT_TIERS must be at least %u", talentInfo->TierID + 1);
+-        ASSERT(talentInfo->ColumnIndex < MAX_TALENT_COLUMNS, "MAX_TALENT_COLUMNS must be at least %u", talentInfo->ColumnIndex + 1);
++        if (talentInfo->ClassID >= MAX_CLASSES || talentInfo->TierID >= MAX_TALENT_TIERS || talentInfo->ColumnIndex >= MAX_TALENT_COLUMNS)
++        {
++            LF_LOG_ERROR("misc", "Talent %u (class %u, tier %u, column %u) out of range [classes %u, tiers %u, columns %u] - entry skipped.",
++                talentInfo->ID, uint32(talentInfo->ClassID), uint32(talentInfo->TierID), uint32(talentInfo->ColumnIndex),
++                uint32(MAX_CLASSES), uint32(MAX_TALENT_TIERS), uint32(MAX_TALENT_COLUMNS));
++            continue;
++        }
+ 
+         _talentsByPosition[talentInfo->ClassID][talentInfo->TierID][talentInfo->ColumnIndex].push_back(talentInfo);
+     }
+diff --git a/core/src/server/game/Miscellaneous/SharedDefines.h b/core/src/server/game/Miscellaneous/SharedDefines.h
+index 59ab4b0..b9939a7 100644
+--- a/core/src/server/game/Miscellaneous/SharedDefines.h
++++ b/core/src/server/game/Miscellaneous/SharedDefines.h
+@@ -1417,7 +1417,18 @@ enum SpellEffectName
+     SPELL_EFFECT_GIVE_HONOR                         = 253,
+     SPELL_EFFECT_DASH                               = 254,
+     SPELL_EFFECT_LEARN_TRANSMOG_SET                 = 255,
+-    TOTAL_SPELL_EFFECTS                             = 256,
++    // [LEGIONFORGE] SpellEffect.db2 этого билда (26124 + кастомный контент)
++    // содержит эффекты 256..261 -> worldserver падал на ASSERT в
++    // SpellMgr.cpp:2234 "TOTAL_SPELL_EFFECTS must be at least 262".
++    // Обработчиков у них нет: Spell::EffectNULL + TARGET_NONE (см.
++    // SpellEffects.cpp и SpellInfo.cpp - оба массива расширены до 262).
++    SPELL_EFFECT_256                                = 256,
++    SPELL_EFFECT_257                                = 257,
++    SPELL_EFFECT_258                                = 258,
++    SPELL_EFFECT_259                                = 259,
++    SPELL_EFFECT_260                                = 260,
++    SPELL_EFFECT_261                                = 261,
++    TOTAL_SPELL_EFFECTS                             = 262,
+ };
+ 
+ enum SpellCastResult
+diff --git a/core/src/server/game/Spells/SpellEffects.cpp b/core/src/server/game/Spells/SpellEffects.cpp
+index 77c6fc1..2f95e70 100644
+--- a/core/src/server/game/Spells/SpellEffects.cpp
++++ b/core/src/server/game/Spells/SpellEffects.cpp
+@@ -332,6 +332,15 @@ pEffect SpellEffects[TOTAL_SPELL_EFFECTS]=
+     &Spell::EffectGiveHonor,                                //253 SPELL_EFFECT_GIVE_HONOR
+     &Spell::EffectDash,                                     //254 SPELL_EFFECT_DASH
+     &Spell::EffectLearnTransmogSet,                         //255 SPELL_EFFECT_LEARN_TRANSMOG_SET
++    // [LEGIONFORGE] 256..261 - эффекты из SpellEffect.db2 без серверной
++    // реализации. Без этих строк массив короче TOTAL_SPELL_EFFECTS и
++    // (this->*SpellEffects[eff])() вызывал бы nullptr-указатель (Spell.cpp).
++    &Spell::EffectNULL,                                     //256 SPELL_EFFECT_256
++    &Spell::EffectNULL,                                     //257 SPELL_EFFECT_257
++    &Spell::EffectNULL,                                     //258 SPELL_EFFECT_258
++    &Spell::EffectNULL,                                     //259 SPELL_EFFECT_259
++    &Spell::EffectNULL,                                     //260 SPELL_EFFECT_260
++    &Spell::EffectNULL,                                     //261 SPELL_EFFECT_261
+ };
+ 
+ void Spell::EffectNULL(SpellEffIndex /*effIndex*/)
+diff --git a/core/src/server/game/Spells/SpellInfo.cpp b/core/src/server/game/Spells/SpellInfo.cpp
+index 738334b..dfff4af 100644
+--- a/core/src/server/game/Spells/SpellInfo.cpp
++++ b/core/src/server/game/Spells/SpellInfo.cpp
+@@ -988,6 +988,13 @@ SpellEffectInfo::StaticData SpellEffectInfo::_data[TOTAL_SPELL_EFFECTS] =
+     {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 253 SPELL_EFFECT_GIVE_HONOR
+     {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 254 SPELL_EFFECT_254
+     {EFFECT_IMPLICIT_TARGET_EXPLICIT, TARGET_OBJECT_TYPE_UNIT}, // 255 SPELL_EFFECT_LEARN_TRANSMOG_SET
++    // [LEGIONFORGE] 256..261 - см. SharedDefines.h. Цели не задаются.
++    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 256 SPELL_EFFECT_256
++    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 257 SPELL_EFFECT_257
++    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 258 SPELL_EFFECT_258
++    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 259 SPELL_EFFECT_259
++    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 260 SPELL_EFFECT_260
++    {EFFECT_IMPLICIT_TARGET_NONE,     TARGET_OBJECT_TYPE_NONE}, // 261 SPELL_EFFECT_261
+ };
+ 
+ SpellInfo::SpellInfo(SpellInfoLoadHelper const& data, SpellEffectEntryMap const& effectsMap, SpellVisualMap&& visuals)
+diff --git a/core/src/server/game/Spells/SpellMgr.cpp b/core/src/server/game/Spells/SpellMgr.cpp
+index 0946ae2..62d4958 100644
+--- a/core/src/server/game/Spells/SpellMgr.cpp
++++ b/core/src/server/game/Spells/SpellMgr.cpp
+@@ -2230,11 +2230,34 @@ void SpellMgr::LoadSpellInfoStore()
+ 
+     for (SpellEffectEntry const* effect : sSpellEffectStore)
+     {
+-        ASSERT(effect->EffectIndex < MAX_SPELL_EFFECTS, "MAX_SPELL_EFFECTS must be at least %d", effect->EffectIndex + 1);
+-        ASSERT(effect->Effect < TOTAL_SPELL_EFFECTS, "TOTAL_SPELL_EFFECTS must be at least %u", effect->Effect + 1);
+-        ASSERT(effect->EffectAura < int32(TOTAL_AURAS), "TOTAL_AURAS must be at least %d", effect->EffectAura + 1);
+-        ASSERT(effect->ImplicitTarget[0] < TOTAL_SPELL_TARGETS, "TOTAL_SPELL_TARGETS must be at least %u", effect->ImplicitTarget[0] + 1);
+-        ASSERT(effect->ImplicitTarget[1] < TOTAL_SPELL_TARGETS, "TOTAL_SPELL_TARGETS must be at least %u", effect->ImplicitTarget[1] + 1);
++        // [LEGIONFORGE stability fix] worldserver не должен обрывать старт из-за
++        // одной строки SpellEffect.db2 за пределами диапазона ядра. Такие строки
++        // логируются и пропускаются - индексы массивов обработчиков
++        // (SpellEffects[], AuraEffectHandler[], _data[]) остаются валидными.
++        if (effect->EffectIndex >= MAX_SPELL_EFFECTS)
++        {
++            LF_LOG_ERROR("server.loading", "Spell %u: EffectIndex %d >= MAX_SPELL_EFFECTS (%u) - effect skipped.",
++                effect->SpellID, int32(effect->EffectIndex), uint32(MAX_SPELL_EFFECTS));
++            continue;
++        }
++        if (effect->Effect >= TOTAL_SPELL_EFFECTS)
++        {
++            LF_LOG_ERROR("server.loading", "Spell %u: Effect %u >= TOTAL_SPELL_EFFECTS (%u) - effect skipped. Raise TOTAL_SPELL_EFFECTS to at least %u.",
++                effect->SpellID, uint32(effect->Effect), uint32(TOTAL_SPELL_EFFECTS), uint32(effect->Effect) + 1);
++            continue;
++        }
++        if (effect->EffectAura < 0 || effect->EffectAura >= int32(TOTAL_AURAS))
++        {
++            LF_LOG_ERROR("server.loading", "Spell %u: EffectAura %d out of range [0, %u) - effect skipped. Raise TOTAL_AURAS to at least %d.",
++                effect->SpellID, int32(effect->EffectAura), uint32(TOTAL_AURAS), int32(effect->EffectAura) + 1);
++            continue;
++        }
++        if (effect->ImplicitTarget[0] >= TOTAL_SPELL_TARGETS || effect->ImplicitTarget[1] >= TOTAL_SPELL_TARGETS)
++        {
++            LF_LOG_ERROR("server.loading", "Spell %u: ImplicitTarget %u/%u >= TOTAL_SPELL_TARGETS (%u) - effect skipped.",
++                effect->SpellID, uint32(effect->ImplicitTarget[0]), uint32(effect->ImplicitTarget[1]), uint32(TOTAL_SPELL_TARGETS));
++            continue;
++        }
+ 
+         SpellEffectEntryVector& effectsForDifficulty = effectsBySpell[effect->SpellID][effect->DifficultyID];
+         if (effectsForDifficulty.size() <= std::size_t(effect->EffectIndex))

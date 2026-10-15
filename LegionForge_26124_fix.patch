@@ -1,0 +1,982 @@
+diff --git a/core/src/server/game/DataStores/DB2Stores.cpp b/core/src/server/game/DataStores/DB2Stores.cpp
+index 360ada6..7ac176b 100644
+--- a/core/src/server/game/DataStores/DB2Stores.cpp
++++ b/core/src/server/game/DataStores/DB2Stores.cpp
+@@ -770,10 +770,14 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+     std::array<CharBaseSectionVariation, SECTION_TYPE_MAX> sectionToBase = { {} };
+     for (CharBaseSectionEntry const* charBaseSection : sCharBaseSectionStore)
+     {
+-        ASSERT(charBaseSection->ResolutionVariationEnum < SECTION_TYPE_MAX,
+-            "SECTION_TYPE_MAX (%d) must be equal to or greater than %u", uint32(SECTION_TYPE_MAX), uint32(charBaseSection->ResolutionVariationEnum + 1));
+-        ASSERT(charBaseSection->VariationEnum < AsUnderlyingType(CharBaseSectionVariation::Count),
+-            "CharBaseSectionVariation::Count %u must be equal to or greater than %u", uint32(CharBaseSectionVariation::Count), uint32(charBaseSection->VariationEnum + 1));
++        // [LEGIONFORGE AUDIT FIX #5] DB2-driven index: log + skip, no ASSERT.
++        if (charBaseSection->ResolutionVariationEnum >= SECTION_TYPE_MAX ||
++            charBaseSection->VariationEnum >= AsUnderlyingType(CharBaseSectionVariation::Count))
++        {
++            LF_LOG_ERROR("misc", "CharBaseSection %u (resolutionVariation %u, variation %u) out of range - entry skipped.",
++                charBaseSection->ID, uint32(charBaseSection->ResolutionVariationEnum), uint32(charBaseSection->VariationEnum));
++            continue;
++        }
+ 
+         sectionToBase[charBaseSection->ResolutionVariationEnum] = static_cast<CharBaseSectionVariation>(charBaseSection->VariationEnum);
+     }
+@@ -781,8 +785,13 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+     std::map<std::tuple<uint8, uint8, CharBaseSectionVariation>, std::set<std::pair<uint8, uint8>>> addedSections;
+     for (CharSectionsEntry const* charSection : sCharSectionsStore)
+     {
+-        ASSERT(charSection->BaseSection < SECTION_TYPE_MAX,
+-            "SECTION_TYPE_MAX (%d) must be equal to or greater than %u", uint32(SECTION_TYPE_MAX), uint32(charSection->BaseSection + 1));
++        // [LEGIONFORGE AUDIT FIX #5] DB2-driven index: log + skip, no ASSERT.
++        if (charSection->BaseSection >= SECTION_TYPE_MAX)
++        {
++            LF_LOG_ERROR("misc", "CharSections %u (baseSection %u) out of range [max %u] - entry skipped.",
++                charSection->ID, uint32(charSection->BaseSection), uint32(SECTION_TYPE_MAX));
++            continue;
++        }
+ 
+         std::tuple<uint8, uint8, CharBaseSectionVariation> sectionKey{ charSection->RaceID, charSection->SexID, sectionToBase[charSection->BaseSection] };
+         std::pair<uint8, uint8> sectionCombination{ charSection->VariationIndex, charSection->ColorIndex };
+@@ -807,13 +816,23 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+ 
+         for (ChrClassesXPowerTypesEntry const* power : powers)
+         {
++            // [LEGIONFORGE AUDIT FIX #5] The original code indexed
++            // _powersByClass[power->ClassID] BEFORE the ASSERTs below it, so
++            // an out-of-range ClassID from DB2 was already UB before any
++            // check could fire. Guard first, log + skip (same pattern as the
++            // PvpTalent/Talent hardening), never crash on external data.
++            if (power->ClassID >= MAX_CLASSES || power->PowerType >= MAX_POWERS)
++            {
++                LF_LOG_ERROR("misc", "ChrClassesXPowerTypes %u (class %u, power %u) out of range [classes %u, powers %u] - entry skipped.",
++                    power->ID, uint32(power->ClassID), uint32(power->PowerType), uint32(MAX_CLASSES), uint32(MAX_POWERS));
++                continue;
++            }
++
+             uint32 index = 0;
+             for (uint32 j = 0; j < MAX_POWERS; ++j)
+                 if (_powersByClass[power->ClassID][j] != MAX_POWERS)
+                     ++index;
+ 
+-            ASSERT(power->ClassID < MAX_CLASSES);
+-            ASSERT(power->PowerType < MAX_POWERS);
+             _powersByClass[power->ClassID][power->PowerType] = index;
+         }
+     }
+@@ -821,15 +840,22 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+     memset(_chrSpecializationsByIndex, 0, sizeof(_chrSpecializationsByIndex));
+     for (ChrSpecializationEntry const* chrSpec : sChrSpecializationStore)
+     {
+-        ASSERT(chrSpec->ClassID < MAX_CLASSES);
+-        ASSERT(chrSpec->OrderIndex < MAX_SPECIALIZATIONS);
++        // [LEGIONFORGE AUDIT FIX #5] DB2-driven indices into fixed arrays:
++        // log + skip instead of ASSERT (external data must not crash boot).
++        // Note: pet-override specs legitimately have ClassID 0 and use
++        // PET_SPEC_OVERRIDE_CLASS_INDEX, so ClassID is only range-checked
++        // for regular specs.
++        bool isPetOverride = (chrSpec->Flags & CHR_SPECIALIZATION_FLAG_PET_OVERRIDE_SPEC) != 0;
++        if (chrSpec->OrderIndex >= MAX_SPECIALIZATIONS || (!isPetOverride && chrSpec->ClassID >= MAX_CLASSES))
++        {
++            LF_LOG_ERROR("misc", "ChrSpecialization %u (class %u, order %u) out of range [classes %u, specs %u] - entry skipped.",
++                chrSpec->ID, uint32(chrSpec->ClassID), uint32(chrSpec->OrderIndex), uint32(MAX_CLASSES), uint32(MAX_SPECIALIZATIONS));
++            continue;
++        }
+ 
+         uint32 storageIndex = chrSpec->ClassID;
+-        if (chrSpec->Flags & CHR_SPECIALIZATION_FLAG_PET_OVERRIDE_SPEC)
+-        {
+-            ASSERT(!chrSpec->ClassID);
++        if (isPetOverride)
+             storageIndex = PET_SPEC_OVERRIDE_CLASS_INDEX;
+-        }
+ 
+         _chrSpecializationsByIndex[storageIndex][chrSpec->OrderIndex] = chrSpec;
+         if (chrSpec->Flags & CHR_SPECIALIZATION_FLAG_RECOMMENDED)
+@@ -891,14 +917,26 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+ 
+     for (ItemChildEquipmentEntry const* itemChildEquipment : sItemChildEquipmentStore)
+     {
+-        ASSERT(_itemChildEquipment.find(itemChildEquipment->ParentItemID) == _itemChildEquipment.end(), "Item must have max 1 child item.");
++        // [LEGIONFORGE AUDIT FIX #5] Duplicate parent in DB2: keep first, log + skip.
++        if (_itemChildEquipment.find(itemChildEquipment->ParentItemID) != _itemChildEquipment.end())
++        {
++            LF_LOG_ERROR("misc", "ItemChildEquipment %u: item %u already has a child item - entry skipped (max 1 child item).",
++                itemChildEquipment->ID, itemChildEquipment->ParentItemID);
++            continue;
++        }
+         _itemChildEquipment[itemChildEquipment->ParentItemID] = itemChildEquipment;
+     }
+ 
+     for (ItemClassEntry const* itemClass : sItemClassStore)
+     {
+-        ASSERT(itemClass->ClassID < int32(_itemClassByOldEnum.size()));
+-        ASSERT(!_itemClassByOldEnum[itemClass->ClassID]);
++        // [LEGIONFORGE AUDIT FIX #5] DB2-driven index: log + skip, no ASSERT.
++        // A duplicate ClassID keeps the first entry (previously ASSERT-crash).
++        if (itemClass->ClassID < 0 || itemClass->ClassID >= int32(_itemClassByOldEnum.size()) || _itemClassByOldEnum[itemClass->ClassID])
++        {
++            LF_LOG_ERROR("misc", "ItemClass %u (classId %i) out of range or duplicate - entry skipped.",
++                itemClass->ID, int32(itemClass->ClassID));
++            continue;
++        }
+         _itemClassByOldEnum[itemClass->ClassID] = itemClass;
+     }
+ 
+@@ -989,8 +1027,13 @@ void DB2Manager::LoadStores(std::string const& dataPath, uint32 defaultLocale)
+ 
+     for (PowerTypeEntry const* powerType : sPowerTypeStore)
+     {
+-        ASSERT(powerType->PowerTypeEnum < MAX_POWERS);
+-        ASSERT(!_powerTypes[powerType->PowerTypeEnum]);
++        // [LEGIONFORGE AUDIT FIX #5] DB2-driven index: log + skip, no ASSERT.
++        if (powerType->PowerTypeEnum >= MAX_POWERS || _powerTypes[powerType->PowerTypeEnum])
++        {
++            LF_LOG_ERROR("misc", "PowerType %u (powerTypeEnum %u) out of range or duplicate - entry skipped.",
++                powerType->ID, uint32(powerType->PowerTypeEnum));
++            continue;
++        }
+ 
+         _powerTypes[powerType->PowerTypeEnum] = powerType;
+     }
+diff --git a/core/src/server/game/DungeonFinding/LFGMgr.cpp b/core/src/server/game/DungeonFinding/LFGMgr.cpp
+index ed1fcaa..814513e 100644
+--- a/core/src/server/game/DungeonFinding/LFGMgr.cpp
++++ b/core/src/server/game/DungeonFinding/LFGMgr.cpp
+@@ -288,7 +288,9 @@ void LFGMgr::LoadLFGDungeons(bool reload /* = false */)
+             LFGDungeonContainer::iterator dungeonItr = LfgDungeonStore.find(dungeonId);
+             if (dungeonItr == LfgDungeonStore.end())
+             {
+-                LF_LOG_ERROR("sql.sql", "table `lfg_dungeon_template` contains coordinates for wrong dungeon %u", dungeonId);
++                // [LEGIONFORGE FIX #4] Aggregated below: one error line per stale
++                // row flooded startup logs (11 rows) and hid real errors.
++                _wrongDungeonTemplates.push_back(dungeonId);
+                 continue;
+             }
+ 
+@@ -322,7 +324,15 @@ void LFGMgr::LoadLFGDungeons(bool reload /* = false */)
+             }
+             else if (dungeon.map)
+             {
+-                LF_LOG_ERROR("sql.sql", "Failed to load dungeon %s (Id: %u), no entrance for map %u", dungeon.name.c_str(), dungeon.id, dungeon.map);
++                // [LEGIONFORGE FIX #4] The 7.3.5 DB2 shipped with this core also
++                // contains Battle for Azeroth dungeons (Tol Dagor, Freehold,
++                // Uldir, ... - 79 entries) whose maps/portals do not exist in a
++                // Legion 26124 client. They can never receive an entrance, so
++                // logging one error per dungeon (79 lines) is pure spam.
++                // Aggregate: count + first 10 names, full list at debug level.
++                if (_missingEntranceDungeons.size() < 10)
++                    _missingEntranceDungeons.push_back(dungeon.name + " (Id: " + std::to_string(dungeon.id) + ", map " + std::to_string(dungeon.map) + ")");
++                LF_LOG_DEBUG("sql.sql", "Failed to load dungeon %s (Id: %u), no entrance for map %u", dungeon.name.c_str(), dungeon.id, dungeon.map);
+                 ++stillMissing;
+             }
+         }
+@@ -332,6 +342,26 @@ void LFGMgr::LoadLFGDungeons(bool reload /* = false */)
+         CachedDungeonMapStore[0].insert(dungeon.id);
+     }
+     LF_LOG_INFO("server.loading", ">> LFG entrances: %u from SQL, %u from portal/graveyard/areatrigger fallback, %u still missing", count, filledFromAt, stillMissing);
++    // [LEGIONFORGE FIX #4] One aggregated summary instead of ~90 error lines.
++    if (!_wrongDungeonTemplates.empty())
++    {
++        std::string ids;
++        for (uint32 id : _wrongDungeonTemplates) { if (!ids.empty()) ids += ", "; ids += std::to_string(id); }
++        LF_LOG_ERROR("sql.sql", "table `lfg_dungeon_template` contains coordinates for %zu wrong dungeon(s): %s. "
++            "Delete them: DELETE FROM lfg_dungeon_template WHERE dungeonId IN (%s); (see sql/99_legionforge_error_fixes_26124.sql)",
++            _wrongDungeonTemplates.size(), ids.c_str(), ids.c_str());
++        _wrongDungeonTemplates.clear();
++    }
++    if (stillMissing)
++    {
++        std::string names;
++        for (std::string const& n : _missingEntranceDungeons) { if (!names.empty()) names += "; "; names += n; }
++        LF_LOG_ERROR("sql.sql", "%u dungeon(s) have no entrance for their map (first %zu: %s). "
++            "Most are BFA/test dungeons present in DB2 but not in the 7.3.5.26124 client - they are skipped by LFG and are harmless. "
++            "Add an entrance via `lfg_dungeon_template`/`areatrigger_teleport` only for dungeons that must be playable.",
++            stillMissing, _missingEntranceDungeons.size(), names.c_str());
++        _missingEntranceDungeons.clear();
++    }
+ 
+     if (reload)
+         CachedDungeonMapStore.clear();
+diff --git a/core/src/server/game/DungeonFinding/LFGMgr.h b/core/src/server/game/DungeonFinding/LFGMgr.h
+index 73f705c..945d424 100644
+--- a/core/src/server/game/DungeonFinding/LFGMgr.h
++++ b/core/src/server/game/DungeonFinding/LFGMgr.h
+@@ -491,6 +491,10 @@ class LF_GAME_API LFGMgr
+         // Reward System
+         LfgRewardContainer RewardMapStore;                 ///< Stores rewards for random dungeons
+         LFGDungeonContainer  LfgDungeonStore;
++        // [LEGIONFORGE FIX #4] Scratch buffers for aggregated load-error logging
++        // in LFGMgr::LoadFromDB (cleared after the summary is printed).
++        std::vector<uint32> _wrongDungeonTemplates;
++        std::vector<std::string> _missingEntranceDungeons;
+         // Rolecheck - Proposal - Vote Kicks
+         LfgRoleCheckContainer RoleChecksStore;             ///< Current Role checks
+         LfgProposalContainer ProposalsStore;               ///< Current Proposals
+diff --git a/core/src/server/game/Globals/ObjectMgr.cpp b/core/src/server/game/Globals/ObjectMgr.cpp
+index 627bfdc..77000ea 100644
+--- a/core/src/server/game/Globals/ObjectMgr.cpp
++++ b/core/src/server/game/Globals/ObjectMgr.cpp
+@@ -4425,6 +4425,16 @@ void ObjectMgr::LoadQuests()
+                 case QUEST_OBJECTIVE_MONEY:
+                 case QUEST_OBJECTIVE_WINPVPPETBATTLES:
+                     break;
++                case QUEST_OBJECTIVE_PROGRESS_BAR:
++                    // [LEGIONFORGE FIX #3] Type 15 is a valid Legion objective:
++                    // progress is accumulated from objectives flagged
++                    // QUEST_OBJECTIVE_FLAG_PART_OF_PROGRESS_BAR and checked by
++                    // Player::IsQuestObjectiveProgressComplete (see
++                    // Player::CanCompleteQuest, which already handles it).
++                    // It has no ObjectID to validate here. Without this case
++                    // 218 Legion quests (e.g. world quests) spammed
++                    // "has unhandled type 15" on every startup.
++                    break;
+                 default:
+                     LF_LOG_ERROR("sql.sql", "Quest %u objective %u has unhandled type %u", qinfo->GetQuestId(), obj.ID, obj.Type);
+                     break;
+diff --git a/core/src/server/game/Scenarios/ScenarioMgr.cpp b/core/src/server/game/Scenarios/ScenarioMgr.cpp
+index 48ec156..4958f8b 100644
+--- a/core/src/server/game/Scenarios/ScenarioMgr.cpp
++++ b/core/src/server/game/Scenarios/ScenarioMgr.cpp
+@@ -129,7 +129,18 @@ void ScenarioMgr::LoadDB2Data()
+         }
+     }
+ 
+-    ASSERT(deepestCriteriaTreeSize < MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE, "MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE must be at least %u", deepestCriteriaTreeSize + 1);
++    // [LEGIONFORGE FIX #1 - CRASH 2026-10-12] This used to be an ASSERT.
++    // deepestCriteriaTreeSize comes from external DB2 data (client build),
++    // not from core invariants: a newer/larger DB2 must never be able to
++    // terminate worldserver during startup. Log an error and continue -
++    // scenario POI queries for oversized trees are rejected per-packet by
++    // WorldPackets::Array (PacketArrayMaxCapacityException) instead of
++    // crashing the whole server. Raise MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE
++    // in ScenarioPackets.h if this error ever appears.
++    if (deepestCriteriaTreeSize >= MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE)
++        LF_LOG_ERROR("scenario", "ScenarioMgr::LoadDB2Data: deepest scenario criteria tree has %u nodes, but MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE is %u. "
++            "POI queries for the deepest scenario trees will be rejected. Raise MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE to at least %u.",
++            deepestCriteriaTreeSize, uint32(MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE), deepestCriteriaTreeSize + 1);
+ 
+     for (ScenarioEntry const* scenario : sScenarioStore)
+     {
+diff --git a/core/src/server/game/Server/Packets/ScenarioPackets.h b/core/src/server/game/Server/Packets/ScenarioPackets.h
+index 13ab2df..0e8fa86 100644
+--- a/core/src/server/game/Server/Packets/ScenarioPackets.h
++++ b/core/src/server/game/Server/Packets/ScenarioPackets.h
+@@ -22,7 +22,15 @@
+ #include "PacketUtilities.h"
+ #include "AchievementPackets.h"
+ 
+-#define MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE 40
++// [LEGIONFORGE FIX #1 - CRASH 2026-10-12] DB2 build 26124 contains scenario
++// criteria trees up to 41 nodes deep (log: "must be at least 42"), while the
++// old limit was 40 -> ScenarioMgr::LoadDB2Data hit ASSERT and worldserver
++// crashed before finishing startup ("Loading scenarios"). Raised to 128:
++// the array is a bounded static_vector used only for CMSG_QUERY_SCENARIO_POI,
++// so a larger cap costs a few hundred bytes per query packet, rejects nothing
++// the 7.3.5 client can legitimately send, and leaves headroom for future
++// DB2 updates. See also the graceful check in ScenarioMgr::LoadDB2Data.
++#define MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE 128
+ 
+ struct ScenarioPOI;
+ 
+diff --git a/docs/FIX-2026-10-12.md b/docs/FIX-2026-10-12.md
+new file mode 100644
+index 0000000..366977c
+--- /dev/null
++++ b/docs/FIX-2026-10-12.md
+@@ -0,0 +1,35 @@
++# LegionForge 7.3.5.26124 — Исправления по ОШИБКИ.txt (2026-10-12)
++
++Лог: 2436 строк. Сервер **падал при загрузке** (`Loading scenarios`), до игрового мира не доходил.
++
++## 🔴 КРИТИЧНО — краш (исправлено в ядре)
++| # | Файл | Проблема | Исправление |
++|---|------|----------|-------------|
++| 1 | `core/src/server/game/Scenarios/ScenarioMgr.cpp:132` | `ASSERT(deepestCriteriaTreeSize < 40)` — в DB2 билда 26124 дерево критериев сценария глубиной 41 (`must be at least 42`) → abort при старте | ASSERT заменён на error-лог + продолжение загрузки (внешние данные не должны ронять сервер) |
++| 2 | `core/src/server/game/Server/Packets/ScenarioPackets.h:25` | `MAX_ALLOWED_SCENARIO_POI_QUERY_SIZE 40` меньше реальной глубины дерева | Поднят до **128** (bounded static_vector, цена — сотни байт на пакет) |
++
++## 🟠 Функциональные ошибки (исправлено в ядре)
++| # | Файл | Проблема | Исправление |
++|---|------|----------|-------------|
++| 3 | `Globals/ObjectMgr.cpp` | Тип цели квеста 15 (`QUEST_OBJECTIVE_PROGRESS_BAR`) не имел `case` → **218 ошибок** «unhandled type 15», ворлд-квесты Легиона не валидировались | Добавлен `case QUEST_OBJECTIVE_PROGRESS_BAR` (прогресс считается в `Player::IsQuestObjectiveProgressComplete`, `CanCompleteQuest` тип уже обрабатывал) |
++| 4 | `DungeonFinding/LFGMgr.cpp/.h` | 79 BFA-подземелий без входа + 11 битых `lfg_dungeon_template` = ~90 строк ERROR, прячут реальные ошибки | Агрегация: 1 суммарная ошибка + первые 10 имён, детали — в DEBUG |
++
++## 🔵 Аудит того же класса (исправлено превентивно)
++`DB2Stores.cpp` — найдены **7 мест**, где индексы из DB2 писались в фиксированные массивы под защитой только ASSERT (тот же класс, что краш №1; часть уже чинилась ранее для PvpTalent/Talent, эти были пропущены): `ChrClassesXPowerTypes` (чтение массива **до** ASSERT — UB), `ChrSpecialization`, `CharBaseSection`, `CharSections`, `ItemClass`, `PowerType`, `ItemChildEquipment`. Везде: лог + пропуск записи.
++
++**Правило на будущее (не допускать впредь):** любое значение из DB2/SQL/пакета клиента, используемое как индекс фиксированного массива, проверяется `if (x >= SIZE) { LF_LOG_ERROR(...); continue; }` **до** использования. ASSERT — только для инвариантов самого кода, никогда для внешних данных.
++
++## 🟡 Данные (SQL: `sql/99_legionforge_error_fixes_26124.sql`)
++227 мёртвых `spell_loot_template` (BFA-спеллы 253xxx), 24 привязки скриптов к несуществующим спеллам, 21 `areatrigger_scripts` без DB2, 11 битых LFG-входов, сироты `gameobject_template_addon`, кастомы 900100+ без модели, квест 24974 → спелл 73435, idle-существа с `spawndist`. Безопасные DELETE применены сразу, рискованные — закомментированы с SELECT для проверки.
++
++## ⚪ Не ошибки / бэклог контента (не «чинить» массово)
++- **280 ScriptName без скриптов ядра + 69 скриптов без привязки** — недостающий контент (боссы Глаза Азшары и др.), список: `docs/audit/scriptname_mismatch_2026-10-12.csv`. Массовое удаление сломает контент.
++- **207 рассинхронов эффектов + 48 Validate()** — скрипты привязаны к спеллам с изменившимися эффектами в 26124; точечный разбор по CSV.
++- **1609 пропущенных SpellEffect + спеллы 304000+** — файлы `data/dbc` **не от чистого клиента 26124**. Лечение: переэкстракт DB2 из точного билда 26124, SQL тут бессилен.
++- **BroadcastText.db2: 78 сек** из 116 сек загрузки DB2 — самое узкое место старта. Рекомендация: проверить, что DB2 не грузится повторно для локалей; кэширование уже есть в `GetBroadcastTextValue`.
++- BFA-подземелья в LFG (79) на легион-клиенте недостижимы by design — теперь 1 строка вместо 79.
++
++## Проверка после применения
++1. Собрать ядро (`build_server.bat`), применить SQL к world-БД.
++2. Ожидаемый результат: нет ASSERT, загрузка проходит `Loading scenarios` → `>> Loaded ... scenario POI`, worldserver выходит на `LegionForge worldserver is ready`.
++3. В логе не должно быть: `unhandled type 15`, пачки `Failed to load dungeon`, `ScenarioMgr...ASSERTION FAILED`.
+diff --git a/docs/audit/scriptname_mismatch_2026-10-12.csv b/docs/audit/scriptname_mismatch_2026-10-12.csv
+new file mode 100644
+index 0000000..33ecc2b
+--- /dev/null
++++ b/docs/audit/scriptname_mismatch_2026-10-12.csv
+@@ -0,0 +1,572 @@
++kind,name,recommended_action
++core_without_db,at_legion_portal_aovh_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_aovh_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_coen_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_coen_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_cos_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_cos_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_en_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_helheim_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_hov_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_hov_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_mos_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_mos_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_nl_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_nl_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_rtkara_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_rtkara_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_taw_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_taw_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_tnh_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_tnh_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_tov_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_tov_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_votw_entrance,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_legion_portal_votw_exit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_monk_chi_burst_damage,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,at_pal_consecration,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,boss_grimrail_enforcers,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,boss_iron_maidens,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,go_mardum_legion_banner_1,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_auchindoun,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_blackrock_foundry,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_grimrail_depot,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_heart_of_fear,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_hellfire_citadel,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_highmaul,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_iron_docks,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_scarlet_halls,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_scarlet_monastery_mop,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_scholomance_mop,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_siege_of_orgrimmar,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_skyreach,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_terrace_of_endless_spring,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_throne_of_thunder,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,instance_upper_blackrock_spire,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_flame_protection_rune1,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_hymdall_drake,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_icycle_dm,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_mardum_allari,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_scenario_door,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_sef_earth_spirit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_sef_fire_spirit,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_son_of_flame,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,npc_vics_flying_machine,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_dh_fraility,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_dk_heart_strike,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_dru_travel_form_aura,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_gen_bandage,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_mage_fireball,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_nythendra_rot,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_ook_ook_barrel,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_pal_holy_light,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_scenario_npc_landing,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_call_dreadstalker,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_haunt,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_soulburn_override,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_soulburn_remove,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_soulburn_seed_of_corruption,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_soulburn_seed_of_corruption_damage,Assign in spell_script_names / creature_template.ScriptName if the content is used
++core_without_db,spell_warl_twilight_ward_s12,Assign in spell_script_names / creature_template.ScriptName if the content is used
++db_without_core,achievement_but_you_say_hes_just_a_friend,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,achievement_stay_salty,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_aegis_of_aggramar,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_dancing_blade,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_flame_of_woe,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_glowing_fragment,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_infernal_flames,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_runic_mark_1,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_runic_mark_2,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_runic_mark_3,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_runic_mark_4,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_runic_mark_5,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_shatter_earth,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_spear_of_light,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,areatrigger_storm_breath,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_animated_storm_water_spout,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_center_eye_of_the_storm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_eye_of_the_storm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_king_deepbeard_call_the_seas,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_lady_hatecoil_monsoon,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_mage_cinderstorm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_mage_flame_patch,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_pal_aura_of_sacrifice,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_pri_divine_star,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_pri_halo,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_sanctify,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_serpentrix_toxic_puddle,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_sha_crashing_storm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_skrog_tidestomper_massive_quake,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_umbral_ejection,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_wrath_of_azshara_mystic_tornado,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_wrath_of_azshara_surging_waters,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,at_wrath_of_azshara_tidal_wave,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_artifact_shaman_stormkeeper,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_dh_fraility,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_dru_astral_form,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_dru_charm_woodland_creature,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_dru_feral_affinity,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_dru_frenzied_regeneration,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_dru_restoration_affinity,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_eoa_lightning_strikes,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_eoa_violent_winds_broadcast,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_eoa_violent_winds_force_move,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_hatecoil_wavebinder_bubble_shield,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_item_burning_essence,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_king_deepbeard_gain_energy,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_king_deepbeard_gaseous_bubbles,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_lady_hatecoil_curse_of_the_witch,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_makrana_hardshell_armorshell,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_nythendra_infested,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_nythendra_infested_breath,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_nythendra_infested_mind,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_nythendra_rot,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_nythendra_volatile_rot,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_sha_earthquake,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_sha_stormlash,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_sha_stormlash_buff,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_void_phased,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_warl_haunt,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,aura_warr_war_machine,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_elegon,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_feng,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_fenryr,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_garajal,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_god_king_kovald,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_hyrja,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_king_bjorn,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_king_deepbeard,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_king_haldor,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_king_ranulf,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_king_tor,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_lady_hatecoil,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_lura,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_odyn_hov,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_saprish,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_serpentrix,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_sharthos,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_spirit_kings_controler,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_viceroy_nezhar,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_wrath_of_azshara,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,boss_zuraal_the_ascended,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_allied_race_infos_draenei,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_allied_race_infos_nightborne,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_allied_race_infos_tauren,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_allied_race_infos_voidelf,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_ancien_control_console,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_cancel,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_celestial_control_console,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,go_inversion,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_ancient_mogu_machine,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_celestial_protector,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_cosmic_spark,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_cursed_mogu_sculpture,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_empyreal_focus,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_energy_charge,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_enormous_stone_quilen,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_garajal_ghost,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_infinite_energy,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_kingsguard,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_lightning_fist,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_meng,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_mogu_archer,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_mogu_engine_keeper,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_mogu_secret_keeper,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_mogu_warden,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_mounted_mogu,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_qiang,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_shadowy_minion,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_siphon_shield,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_sorcerer_mogu,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_soul_cutter,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_soul_fragment,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_spirit_totem,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_spirit_totem_intro,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_stone_quilen,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_subetai,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_wild_spark,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_woe_titan_spark,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_zandalari_skullcharger,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,mob_zian,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_aegis_of_aggramar,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_agitated_earth_spirit,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_anchorite_truuen,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_apprentice_mirveda,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_arcane_hydra_spawn,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_arti_priest_void_tendril,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_blazing_hydra_spawn,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_class_hall_warrior_aerylia,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_coalesced_void,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_converted_sentry,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_alliance_hunter,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_alliance_mage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_alliance_priest,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_alliance_rogue,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_alliance_warrior,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_edwin_vancleef,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_dm_vanessa_vancleef,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_feral_spirit,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_festival_scorchling_26520,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_field_of_eternal_hunt,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_flame_of_woe,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_flying_machine,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_frostmane_builder,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_halls_of_valor,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_hogger,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_hogger_minion,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_imp_mother_laglath,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_infused_crystal,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_king_deepbeard_quake,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_lady_hatecoil_monsoon,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_lorewalker_cho,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_moira_thaurissan,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_monk_sef_spirit,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_nythendra_corrupted_vermin,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_olmyr_ghost,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_olmyr_the_enlightened,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_sergeant_flinthammer,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_shadowfang_prisoner,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_shadowguard_subjugator,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_solsten,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_solsten_ghost,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_son_of_flame_firelands,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_spear_of_light,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_stolen_ram,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_summer_scorchling_26401,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_vision_of_the_past,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,npc_wrath_of_azshara_naga,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_animated_storm_water_spout,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_arc_visual,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_arcane_pulse,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_arti_dru_ashamane_frenzy,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_arti_pal_tyr_deliverance,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_arti_pri_call_of_the_void,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_burn_constriction_totem,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_class_hall_warrior_jump_exit,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_class_hall_warrior_jump_teleport,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_core_checker,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_cosmetic_lightning,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_destabilizing_energies,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_devastating_arc,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_dk_obliterate,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_dk_remorseless_winter_damage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_draw_flame,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_draw_power,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_dru_brutal_slash,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_dru_gore,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_dru_swipe,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_dru_travel_form_dummy,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_emote_stolen_ram,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_energized,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_energizing_smash,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_energizing_visual,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_eoa_lightning_strikes_damage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_expel_light,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_extinguish_fire,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_final_destination,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_gen_mobile_bank,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_ghost_essence,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_grasping_energy_tendrils,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_hatecoil_arcanist_aqua_spout,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_hun_call_pet,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_impeding_thrust,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_kovald_infernal_flames,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_kovald_ragnarok,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_lady_hatecoil_beckon_storm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_lady_hatecoil_crackling_thunder,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_lady_hatecoil_curse_of_the_witch,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_lady_hatecoil_focused_lightning,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_lady_hatecoil_monsoon_target,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_light_judgement,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_blazing_soul,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_cinderstorm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_firestarter,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_flamestrike,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_mastery_ignite,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_ray_of_frost_buff,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_ring_of_frost,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mage_ring_of_frost_stun,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_magnetized_jan,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_magnetized_qin,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_missile_barrage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_arcane_resonance,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_arcane_velocity,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_epicenter,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_inversion,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_petrification,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_wildfire_infusion,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_mogu_wildfire_spark,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_monk_elusive_brawler_mastery,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_monk_whirling_dragon_punch,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_null_palm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_nullification_barrier,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_odyn_spear_of_light,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_pal_aura_of_sacrifice_ally,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_pal_consecration,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_pal_crusade,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_pal_fervent_martyr,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_pri_penance_damage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_radiating_energies,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_ravenous_leap,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_ravenous_leap_jump,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sanctify,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_serpentix_rampage_aura,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_serpentrix_poison_spit,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_serpentrix_submerge,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_earth_elemental,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_earth_shock,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_enhancement_lightning_bolt,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_fire_elemental,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_healing_rain,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_healing_surge,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_sha_rainfall,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_signal_flare,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_skrog_tidestomper_massive_quake,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_soul_back,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_spatial_rift_despawn,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_spawn_flash_1_periodic,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_spawn_flash_2_periodic,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_spawn_flash_3_periodic,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_spirit_bolt,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_terracota_spawn,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_titan_gas,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_titan_gas2,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_total_annihilation,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_touch_of_titans,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_unstable_energy,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_voodoo_doll,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_warl_grimoire_of_service_aura,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_warl_incinerate,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_warl_seed_of_corruption_damage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_warr_commanding_shout,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_warr_execute,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_warr_ravager_damage,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_wildfire_infusion_stacks,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_wildfire_spark,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_wrath_of_azshara_arcane_bomb_target,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,spell_wrath_of_azshara_mystic_tornado,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,temporaire_npc_icycle_dm,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,zone_razorfen_kraul,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++db_without_core,zone_western_plaguelands,"Implement script or remove ScriptName from DB (triage, do not mass-delete)"
++effect_mismatch,spell 100640 / spell_alysrazor_harsh_winds,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 100745 / spell_alysrazor_firestorm,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 101285 / spell_hol_beliers,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 101588 / spell_flarecore,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 103678 / spell_wave_of_virtue,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 104516 / spell_seaping_light,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 105367 / spell_hagara_the_stormbinder_lightning_conduit,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 1066 / spell_dru_travel_form,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 106935 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 107536 / spell_perotharn_punishing_flames_dmg,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 108210 / spell_rog_nerve_strike,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 108210 / spell_rog_nerve_strike_aura,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 108281 / spell_sha_ancestral_guidance,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 108299 / spell_dru_killer_instinct,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 108374 / spell_rising_fire_totem,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 113043 / spell_dru_omen_of_clarity,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 115080 / spell_monk_touch_of_death,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 116694 / spell_monk_surging_mist,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 119338 / spell_dart,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 122169 / spell_ook_ook_barrel_ride,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 122280 / spell_monk_healing_elixirs_aura,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 122852 / spell_inhale,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 124273 / spell_monk_stagger_visual,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 124274 / spell_monk_stagger_visual,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 124275 / spell_monk_stagger_visual,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 126240 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 126892 / spell_monk_zen_pilgrimage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 126895 / spell_monk_zen_pilgrimage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 128956 / spell_hol_belier_base,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 12975 / spell_warr_last_stand,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 130255 / spell_hol_launch_beer,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 130736 / spell_dk_soul_reaper,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 136757 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 137639 / spell_monk_storm_earth_and_fire,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 14062 / spell_rog_nightstalker,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 1454 / spell_warl_life_tap,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 1464 / spell_warr_slam,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 152277 / spell_warr_ravager,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 15286 / spell_pri_vampiric_embrace,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 15290 / spell_pri_vampiric_embrace_target,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 153097 / spell_halion_summon_exit_portals,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 153276 / spell_exhume_the_crypts,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 154010 / spell_shadowmoon_burial_grounds_drowned,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 163946 / spell_hol_belier_renes,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 164253 / spell_hol_belier_all_speeds,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 164834 / spell_barrage_of_leaves,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 165213 / spell_enraged_growth,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 165961 / spell_dru_travel_form,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 166562 / spell_firebloom_target,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 167966 / spell_bramble_patch,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 167967 / spell_bramble_patch,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 168375 / aura_grasping_vine,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 168378 / spell_grasping_vine_jump,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169120 / spell_font_life,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169125 / spell_genesis,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169233 / spell_inhale,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169267 / spell_toxic_blood,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169390 / spell_genesis_missile,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169421 / spell_frostridge_claiming,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 169563 / spell_growth,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 170016 / aura_glowbulb_pollen,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 170404 / spell_vine_pull,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 170759 / spell_toxic_blood,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 172578 / spell_bounding_whirl,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 172610 / spell_black_hole,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 17767 / spell_warl_shadow_bulwark,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 177694 / spell_water_burst_targeting,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 177731 / spell_agitated_water,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 177731 / spell_agitated_water_trig,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 182346 / spell_item_piccolo_of_the_flaming_fire,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 197908 / spell_monk_mana_tea,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 198379 / spell_archdruid_glaidalis_primal_rage_charge,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 200025 / spell_pal_beacon_of_virtue,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 200108 / spell_hun_rangers_net,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 201428 / spell_dh_annihilation_damage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 201453 / spell_dh_metamorphosis_immunity,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 203555 / spell_dh_demon_blades,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 203650 / spell_dh_vengeful_retreat_fury_refiller,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 204022 / spell_dh_fiery_brand_absorb,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 204243 / spell_dt_trash_tormenting_eye,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 204488 / spell_warr_focused_rage_prot,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 205029 / spell_mage_fire_on,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 211052 / spell_dh_fel_barrage_aura,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 211714 / spell_arti_warl_thalkiels_consumption,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 21562 / spell_pri_power_word_fortitude,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 220377 / spell_flotsam_getsam_damage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 221335 / aura_archmage_barrier,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 222703 / spell_dh_fel_barrage_damage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 227518 / spell_dh_annihilation_damage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 228920 / spell_warr_ravager,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 234746 / spell_pri_void_bolt,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 237680 / spell_dk_howling_blast_aoe,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 247454 / spell_dh_spirit_bomb,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 2565 / spell_warr_shield_block,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 26375 / spell_lunar_festival_invitation,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 27243 / spell_warl_seed_of_corruption,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 28764 / spell_gen_adaptive_warding,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 32216 / spell_warr_victorious,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 33395 / spell_mage_pet_freeze,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 33943 / spell_dru_travel_form,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 34477 / spell_hun_misdirection,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 34914 / spell_pri_vampiric_touch,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 35244 / spell_choking_vines,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 36300 / spell_growth,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 40120 / spell_dru_travel_form,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 41341 / spell_illidari_council_balance_of_power,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 41621 / spell_hol_wolpertinger_net,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 45204 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 46282 / spell_black_hole,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 47788 / spell_pri_guardian_spirit,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 49184 / spell_dk_icy_touch,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 49889 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 50218 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 50785 / spell_varos_energize_core_area_enemy,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 51271 / spell_dk_pillar_of_frost,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 51719 / spell_gen_clone,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 52437 / spell_warr_sudden_death,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 5246 / spell_warr_intimidating_shout,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 527 / spell_pri_dispel_magic,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 53478 / spell_hun_pet_last_stand,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 5394 / spell_sha_healing_stream_totem,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 54069 / spell_varos_energize_core_area_entry,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 56251 / spell_varos_energize_core_area_entry,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 59372 / spell_varos_energize_core_area_enemy,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 59915 / spell_item_discerning_eye_beast_dummy,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 61407 / spell_varos_energize_core_area_entry,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 62136 / spell_varos_energize_core_area_entry,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 72887 / spell_boot_damage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 73002 / spell_font_life,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 73325 / spell_pri_leap_of_faith,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 74136 / spell_isiset_supernova,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 7448 / spell_fire,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 74946 / spell_throngus_arrow_barage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 75664 / spell_shadow_gale_damage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 76047 / spell_ulthok_dark_fissure,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 78098 / spell_atramedes_sonic_breath,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 79683 / spell_entanglement_missile,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 81782 / aura_barrier,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 85422 / spell_nurture_aura,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 85429 / spell_nurture_aura,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 85483 / spell_wind_blast,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 85717 / spell_firebloom_target,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 85948 / spell_dk_festering_strike,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 86121 / spell_warl_soul_swap,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 86715 / spell_asaad_supremacy_dummy,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 86930 / spell_asaad_supremacy_entry,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 88264 / spell_throw_bomb,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 88287 / spell_magmaw_massive_crash,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 89284 / spell_sinestra_twilight_essence,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 92053 / spell_shadow_conductor,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 92851 / spell_sinestra_twilight_slicer,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 93520 / spell_pistol_barrage_trigger,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 93564 / spell_pistol_barrage,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 93572 / spell_toxic_coagulant_green,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 93573 / spell_toxic_coagulant_red,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 974 / spell_sha_earth_shield,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 97463 / spell_warr_rallying_cry,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++effect_mismatch,spell 97734 / spell_alysrazor_molten_feather_script,Check effect index/aura/target against SpellEffect.db2 26124; fix script hooks or unbind
++validate_failed,spell 100 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 100780 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 100784 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 100950 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 102416 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 102417 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 116694 / spell_monk_surging_mist,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 117014 / spell_sha_elemental_blast,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 119996 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 121471 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 122506 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 12975 / spell_warr_last_stand,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 131632 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 139 / spell_pri_renew,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 143395 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 145158 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 1454 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 1464 / spell_warr_slam,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 146739 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 159607 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 16196 / spell_sha_resurgence,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 172 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 178338 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 18765 / spell_warr_sweeping_strikes,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 193549 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 194834 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 19505 / spell_warl_devour_magic,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 195457 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 198304 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 198337 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 198758 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 200153 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 205523 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 212284 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 213398 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 213831 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 219779 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 2823 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 30884 / spell_sha_nature_guardian,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 31790 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 3411 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 34861 / spell_pri_circle_of_healing,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 34914 / spell_pri_vampiric_touch,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 35429 / spell_warr_sweeping_strikes,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 36554 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 39238 / spell_q10929_fumping,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 48263 / spell_dk_presence,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 48265 / spell_dk_presence,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 49107 / spell_vehicle_warhead_fuse,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 49376 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 52042 / spell_sha_healing_stream_totem_heal,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 52408 / spell_gen_seaforium_blast,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 527 / spell_pri_dispel_magic,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 53478 / spell_hun_pet_last_stand,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 65032 / spell_xt002_321_boombot_aura,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 67518 / spell_warl_devour_magic,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 71289 / spell_deathwhisper_dominated_mind,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 73325 / spell_pri_leap_of_faith,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 74634 / spell_ground_siege,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 77606 / spell_gen_trigger_exclude_caster_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 79830 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 82828 / spell_gen_trigger_exclude_target_aura_spell,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 86121 / spell_warl_soul_swap,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
++validate_failed,spell 86213 / spell_warl_soul_swap_exhale,Required spell/aura missing in 26124 DB2; fix Validate list or unbind in spell_script_names
+diff --git a/sql/99_legionforge_error_fixes_26124.sql b/sql/99_legionforge_error_fixes_26124.sql
+new file mode 100644
+index 0000000..b3e5bb2
+--- /dev/null
++++ b/sql/99_legionforge_error_fixes_26124.sql
+@@ -0,0 +1,77 @@
++-- =====================================================================
++-- LegionForge 7.3.5.26124 - Fixes for ОШИБКИ.txt (worldserver log 2026-10-12)
++-- Generated from the actual startup log analysis. Apply to WORLD database.
++-- Idempotent: safe to run multiple times. Backup first:
++--   mysqldump world spell_loot_template spell_script_names smart_scripts
++--     lfg_dungeon_template areatrigger_scripts gameobject_template_addon > backup.sql
++-- Companion code fixes: ScenarioPackets.h / ScenarioMgr.cpp (crash),
++-- ObjectMgr.cpp (quest type 15), LFGMgr.* (log aggregation),
++-- DB2Stores.cpp (ASSERT hardening). See docs/FIX-2026-10-12.md
++-- =====================================================================
++
++-- [SQL-1] lfg_dungeon_template: coordinates for dungeons absent from
++-- LFGDungeons.db2 of build 26124 (log: "contains coordinates for wrong dungeon")
++DELETE FROM `lfg_dungeon_template` WHERE `dungeonId` IN (200, 228, 229, 230, 231, 232, 233, 234, 235, 236, 358);
++
++-- [SQL-2] spell_loot_template rows referenced by spells that do not exist
++-- in Spell.db2 26124 (227 rows, mostly BFA spells 253xxx). The loot can
++-- never drop; core already skips them with an error per row.
++-- Review with the SELECT first, then uncomment the DELETE.
++-- SELECT * FROM `spell_loot_template` WHERE `entry` IN (253113, 253116, 253117, 253118, 253125, 253132, 253135, 253138, 253141, 253144, 253149, 253156, 253157, 253158, 253159, 253160, 253161, 253162, 253165, 253168, 253171, 253174, 253177, 253180, 253183, 253186, 253187, 253188, 253190, 253191, 253192, 255457, 255458, 255459, 255610, 256164, 256217, 256218, 256219, 256220, 256221, 256223, 256245, 256246, 256247, 256248, 256249, 256308, 256323, 256611, 256613, 256622, 256748, 256749, 256750, 256751, 256752, 256754, 256755, 256756, 256757, 256758, 256759, 256760, 256761, 256762, 256763, 256764, 256765, 256766, 256767, 256768, 256769, 256770, 256771, 256772, 256773, 256774, 256775, 256776, 256777, 256778, 256779, 256780, 256781, 256782, 256783, 256784, 256786, 256787, 256788, 256789, 257095, 257096, 257097, 257099, 257101, 257102, 257103, 257104, 257107, 257114, 257115, 257116, 257118, 257120, 257121, 257122, 257123, 257124, 257715, 257716, 257717, 257718, 257719, 257720, 257721, 257722, 257723, 257724, 260384, 261837, 263251, 265106, 265110, 265111, 265112, 265698, 269421, 269422, 269423, 269424, 269425, 269426, 269444, 269446, 269447, 269448, 269449, 269450, 269451, 269452, 269453, 269458, 269459, 269460, 269464, 269465, 269466, 269470, 269471, 269472, 269476, 269477, 269478, 269479, 269480, 269481, 269516, 269517, 269518, 269519, 269520, 269521, 269522, 269523, 269524, 269525, 269526, 269527, 269528, 269529, 269530, 269531, 269532, 269533, 269534, 269535, 269536, 269537, 269538, 269539, 269540, 269541, 269542, 269543, 269544, 269545, 269552, 269553, 269554, 269596, 269597, 269598, 269599, 269600, 269601, 269602, 269603, 269604, 269605, 269606, 269607, 269608, 269609, 269610, 269611, 269612, 269613, 269715, 269716, 269719, 269727, 269728, 269729, 269740, 269741, 269742, 272502, 272937, 273812, 273851, 278131, 278132, 278133, 278527, 280608);
++-- DELETE FROM `spell_loot_template` WHERE `entry` IN (253113, 253116, 253117, 253118, 253125, 253132, 253135, 253138, 253141, 253144, 253149, 253156, 253157, 253158, 253159, 253160, 253161, 253162, 253165, 253168, 253171, 253174, 253177, 253180, 253183, 253186, 253187, 253188, 253190, 253191, 253192, 255457, 255458, 255459, 255610, 256164, 256217, 256218, 256219, 256220, 256221, 256223, 256245, 256246, 256247, 256248, 256249, 256308, 256323, 256611, 256613, 256622, 256748, 256749, 256750, 256751, 256752, 256754, 256755, 256756, 256757, 256758, 256759, 256760, 256761, 256762, 256763, 256764, 256765, 256766, 256767, 256768, 256769, 256770, 256771, 256772, 256773, 256774, 256775, 256776, 256777, 256778, 256779, 256780, 256781, 256782, 256783, 256784, 256786, 256787, 256788, 256789, 257095, 257096, 257097, 257099, 257101, 257102, 257103, 257104, 257107, 257114, 257115, 257116, 257118, 257120, 257121, 257122, 257123, 257124, 257715, 257716, 257717, 257718, 257719, 257720, 257721, 257722, 257723, 257724, 260384, 261837, 263251, 265106, 265110, 265111, 265112, 265698, 269421, 269422, 269423, 269424, 269425, 269426, 269444, 269446, 269447, 269448, 269449, 269450, 269451, 269452, 269453, 269458, 269459, 269460, 269464, 269465, 269466, 269470, 269471, 269472, 269476, 269477, 269478, 269479, 269480, 269481, 269516, 269517, 269518, 269519, 269520, 269521, 269522, 269523, 269524, 269525, 269526, 269527, 269528, 269529, 269530, 269531, 269532, 269533, 269534, 269535, 269536, 269537, 269538, 269539, 269540, 269541, 269542, 269543, 269544, 269545, 269552, 269553, 269554, 269596, 269597, 269598, 269599, 269600, 269601, 269602, 269603, 269604, 269605, 269606, 269607, 269608, 269609, 269610, 269611, 269612, 269613, 269715, 269716, 269719, 269727, 269728, 269729, 269740, 269741, 269742, 272502, 272937, 273812, 273851, 278131, 278132, 278133, 278527, 280608);
++
++-- [SQL-3] spell_script_names bound to spells missing in 26124
++-- (log: "_SpellScript::ValidateSpellInfo: Spell N does not exist").
++-- These bindings are dead (script never loads). Review, then uncomment.
++-- SELECT * FROM `spell_script_names` WHERE `spell_id` IN (39240, 39241, 49331, 52127, 56249, 60937, 62388, 65037, 65219, 71290, 74434, 81208, 86315, 90259, 92794, 94229, 103958, 114168, 114736, 115070, 117050, 137586, 157605, 159669);
++-- DELETE FROM `spell_script_names` WHERE `spell_id` IN (39240, 39241, 49331, 52127, 56249, 60937, 62388, 65037, 65219, 71290, 74434, 81208, 86315, 90259, 92794, 94229, 103958, 114168, 114736, 115070, 117050, 137586, 157605, 159669);
++
++-- [SQL-4] areatrigger_scripts for AreaTrigger IDs absent from AreaTrigger.db2
++-- SELECT * FROM `areatrigger_scripts` WHERE `entry` IN (314, 373, 983, 1489, 1520, 2200, 2763, 3691, 5555, 5559, 6022, 7214, 7455, 7625, 7630, 9677, 11353, 11420, 12802, 149959, 151582);
++-- DELETE FROM `areatrigger_scripts` WHERE `entry` IN (314, 373, 983, 1489, 1520, 2200, 2763, 3691, 5555, 5559, 6022, 7214, 7455, 7625, 7630, 9677, 11353, 11420, 12802, 149959, 151582);
++
++-- [SQL-5] smart_scripts for creatures whose AIName is not SmartAI
++-- (log: "is not using SmartAI, skipped loading"). Either set AIName='SmartAI'
++-- in creature_template OR delete the orphan rows. Inspect first:
++-- SELECT ct.entry, ct.AIName, COUNT(ss.entryorguid) FROM creature_template ct
++--   JOIN smart_scripts ss ON ss.entryorguid=ct.entry AND ss.source_type=0
++--  WHERE ct.entry IN (4979, 9376, 10433, 15541, 15542, 17014, 23789, 29104, 37989, 38910, 42175, 46268, 54787, 65478, 121539, 123560) GROUP BY ct.entry;
++-- Option A (enable SmartAI where the scripts are intended):
++-- UPDATE `creature_template` SET `AIName`='SmartAI' WHERE `entry` IN (4979, 9376, 10433, 15541, 15542, 17014, 23789, 29104, 37989, 38910, 42175, 46268, 54787, 65478, 121539, 123560) AND `AIName`='';
++-- Option B (remove orphans): DELETE FROM `smart_scripts` WHERE `source_type`=0 AND `entryorguid` IN (4979, 9376, 10433, 15541, 15542, 17014, 23789, 29104, 37989, 38910, 42175, 46268, 54787, 65478, 121539, 123560);
++
++-- [SQL-6] Orphan gameobject_template_addon (template deleted, addon left)
++DELETE FROM `gameobject_template_addon` WHERE `entry` IN (235794, 280650)
++  AND NOT EXISTS (SELECT 1 FROM `gameobject_template` gt WHERE gt.`entry`=`gameobject_template_addon`.`entry`);
++
++-- [SQL-7] Custom creatures 900100-900103 / 9500100 from the log:
++-- no valid display id / invalid unit_class. Fix display to a safe Legion
++-- model (11686 = human male guard) or delete the customs if unused.
++-- SELECT entry,name,modelid1,unit_class FROM creature_template WHERE entry IN (900100,900101,900102,900103,9500100);
++UPDATE `creature_template` SET `unit_class`=1 WHERE `entry`=9500100 AND `unit_class`=0;
++-- UPDATE `creature_template` SET `modelid1`=11686 WHERE `entry` IN (900100,900101,900102,900103) AND `modelid1`=0;
++
++-- [SQL-8] Quest 24974 rewards spell 73435 which does not exist in 26124.
++UPDATE `quest_template` SET `RewardSpellCast`=0 WHERE `ID`=24974 AND `RewardSpellCast`=73435;
++
++-- [SQL-9] Creature 29264 references removed spell 58859 in Spell1.
++UPDATE `creature_template` SET `spell1`=0 WHERE `entry`=29264 AND `spell1`=58859;
++
++-- [SQL-10] Idle creatures with spawndist (auto-fixed at runtime, persist it)
++UPDATE `creature` SET `spawndist`=0 WHERE `MovementType`=0 AND `spawndist`<>0;
++
++-- [SQL-11] npc_spellclick_spells: template 130758 had the flag but no rows.
++UPDATE `creature_template` SET `npcflag`=`npcflag` & ~16777216 WHERE `entry`=130758;
++-- (verify the SPELLCLICK bit for your branch before running; see docs)
++
++-- NOT auto-fixed (intentional, see docs/FIX-2026-10-12.md):
++--  * 280 ScriptName rows without core scripts + 69 core scripts without DB
++--    assignment: content backlog, NOT corruption. Exported to
++--    docs/audit/scriptname_mismatch_2026-10-12.csv for scripting triage.
++--    Do NOT mass-delete: several are boss scripts (Eye of Azshara etc.).
++--  * 207 SpellScript effect mismatches + 48 Validate() failures: scripts
++--    bound to spells whose DB2 effects changed in 26124. Triage list in CSV.
++--  * BFA LFG dungeons (79): skipped by design on a Legion client.
++--  * SpellEffect.db2 rows for spells 304000+/305000+ (1609 skipped):
++--    data/dbc files are NOT from a clean 26124 client. Re-extract DB2
++--    from the exact 7.3.5.26124 client; no SQL can fix wrong DB2 files.

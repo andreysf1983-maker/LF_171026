@@ -1,0 +1,343 @@
+45176	Trial of Valor: The Once and Future Lord of Shadows	-429	143661	116697	Illidan Stormrage's Soul claimed
+45176	Trial of Valor: The Once and Future Lord of Shadows	-429	143661	114537	
+45026	Expending Fel Energy	-425	144256	118484	
+45342	Administering Aid	-421	143773	117196	Legionfall Fighters cured
+45346	Shambling Specimens	-421	143718	116983	Shambling Corpses collected
+39877	In the Loop	-410	137120	106642	Apply Enchanting Vellums
+44925	Closing the Eye	-406	142502	115244	Archmage Xylem slain
+45061	Scrolls of the Faldrottin	-406	144457	115900	Go to Dalaran
+45482	Arcane: Fate of the Tideskorn	-406	144457	119229	Speak with Yngvild the Watcher
+45482	Arcane: Fate of the Tideskorn	-406	144457	119228	Speak with Priestess Bryna
+45482	Arcane: Fate of the Tideskorn	-406	144457	119227	Speak with Huntsman Slodi
+45726	The Tainted Marsh	-406	143863	119948	Cleansed Spirits
+45726	The Tainted Marsh	-406	143863	117607	(Optional)Get a ride to the Marshlands
+47049	Demonology: Fate of the Tideskorn	-406	144457	119229	Speak with Yngvild the Watcher
+47049	Demonology: Fate of the Tideskorn	-406	144457	119228	Speak with Priestess Bryna
+47049	Demonology: Fate of the Tideskorn	-406	144457	119227	Speak with Huntsman Slodi
+47050	Enhancement: Fate of the Tideskorn	-406	144457	119229	Speak with Yngvild the Watcher
+47050	Enhancement: Fate of the Tideskorn	-406	144457	119228	Speak with Priestess Bryna
+47050	Enhancement: Fate of the Tideskorn	-406	144457	119227	Speak with Huntsman Slodi
+47051	Assassination: Fate of the Tideskorn	-406	144457	119229	Speak with Yngvild the Watcher
+47051	Assassination: Fate of the Tideskorn	-406	144457	119228	Speak with Priestess Bryna
+47051	Assassination: Fate of the Tideskorn	-406	144457	119227	Speak with Huntsman Slodi
+47052	Retribution: Fate of the Tideskorn	-406	144457	119229	Speak with Yngvild the Watcher
+47052	Retribution: Fate of the Tideskorn	-406	144457	119228	Speak with Priestess Bryna
+47052	Retribution: Fate of the Tideskorn	-406	144457	119227	Speak with Huntsman Slodi
+47067	Seeking Lost Knowledge	-406	147449	121165	Recover knowledge from Moonlight Ascent
+47067	Seeking Lost Knowledge	-406	147449	121164	Recover knowledge above the Lost Temple
+47067	Seeking Lost Knowledge	-406	147449	121158	Recover knowledge from Felfire Pass
+48559	An Offering of Light	-406	152593	126698	Netherlight Crucible infused with the Essence of Light
+48560	An Offering of Shadow	-406	152594	126699	Netherlight Crucible infused with the Essence of Shadow
+36207	Waruk the Frostforger	-403	114981	84682	Locate Waruk's Gravesite
+36230	The Restless Spirit	-403	114969	84506	Kurgthuk the Merciless slain
+36352	Locating the Lapidarist	-403	115489	85323	Pendant owner located
+36435	Unintelligible Intelligence	-403	115593	85485	Search Wor'gol for help translating the note
+36457	Bypassing Security	-403	116063	85486	Master Scribe located
+36461	Locating the Lapidarist	-403	115489	85323	Pendant owner located
+36627	Big Frostfire Gun	-403	116759	86055	Clefthoof subdued
+32983	In the Shadow of Giants	-401	101774	74589	Flamrog rescued
+32983	In the Shadow of Giants	-401	101774	74591	Kindler rescued
+34287	Cleansing the Souls	-401	110394	78431	Crazed Souls Cleansed
+34340	Heating Up	-401	110288	78292	Hissing Geyser temperature taken
+34355	Dirty Rats	-401	110268	78253	Destroy Unmanned Iron Shredder
+34455	Free their Minds	-401	110447	78586	Free the minds of Controlled Rylaks
+34469	Cleansing the Souls	-401	110394	78431	Crazed Souls Cleansed
+37687	Garrison Campaign: In the Shadows	-401	122463	91102	
+37688	Garrison Campaign: In the Shadows	-401	122463	91183	
+32236	Bug Off!	-396	93026	67641	Agitated Shale Spiders sprayed
+32236	Bug Off!	-396	93026	68653	Shale Shards eradicated
+29259	[DEPRECATED] Hide and Seek	-379	69750	53114	Fire Lasher Found
+41179	What Once Was Lost	-377	135488	104002	Dig Through Bad Rocks
+41179	What Once Was Lost	-377	135488	104003	Find the lost artifact
+41187	Surveying Student	-377	136372	103735	Speak with Luron
+40539	Hidden Intentions	-373	132882	97756	
+40539	Hidden Intentions	-373	132882	100970	Take care of Inkrot or pay the fee
+40539	Hidden Intentions	-373	132882	100969	Ask around the Underbelly for diamonds
+40539	Hidden Intentions	-373	132882	100968	Ask Tiffany Cartier where to get diamonds
+12698	The Gift That Keeps On Giving	-372	39253	28845	Scarlet Ghoul Returned
+12779	An End To All Things...	-372	39700	29150	Scarlet Soldiers slain
+12779	An End To All Things...	-372	39700	29104	Scarlet Ballista destroyed
+12848	The Endless Hunger	-372	40732	29519	Unworthy Initiate dominated
+32594	Spirit of the Storm Lord	-344	95432	70456	Unlock the Foot of Lei Shen
+30330	The Truffle Shuffle	-304	80127	59490	Shadelight Spore planted
+33022	Catch and Carry	-304	102372	72900	Sacks of Grain placed in wagon
+49813	Adventure Calls	-284	155915	130982	Select your next assignment
+49846	Wars on Two Fronts	-284	155918	131032	Select your next assignment
+49860	Adventure Calls	-284	156474	130982	Select your next assignment
+49864	Wars on Two Fronts	-284	156477	131032	Select your next assignment
+10833	Becoming a Shadoweave Tailor	-264	31736	22395	Deepen Altar of Shadows Attunement
+40859	The Latest Fashion: Headguns!	-201	133761	102299	Test Headgun on Fel Critters
+40862	All Charged Up	-201	133775	102332	Shimmering Oleander Exploded
+40869	Fire and Forget	-201	133928	102577	Wounded Guards Bandaged
+40869	Fire and Forget	-201	133928	102613	Use the gun again to calibrate it once more
+40869	Fire and Forget	-201	133928	102576	Wounded Guards Bandaged
+40869	Fire and Forget	-201	133928	102612	Use the gun to calibrate it
+40869	Fire and Forget	-201	133928	102353	Wounded Guards Bandaged
+40872	Going Out With a Bang	-201	133941	102661	Gunpack Debris
+39330	Ley Hunting	-181	128329	95669	Zarkhenar energy collected
+39330	Ley Hunting	-181	128329	95668	Dragon Pool energy collected
+39330	Ley Hunting	-181	128329	95670	Nar'thalas energy collected
+39341	Vault of the Wardens: Demon's Bile	-181	128679	106272	
+39341	Vault of the Wardens: Demon's Bile	-181	128679	95888	
+39341	Vault of the Wardens: Demon's Bile	-181	128679	105824	
+39341	Vault of the Wardens: Demon's Bile	-181	128679	112768	Submerge the Demonsbreath Crucible in Grimoira's bile
+39345	Calibration Experts	-181	128676	96474	Consult Tryks Pourtrue
+39345	Calibration Experts	-181	128676	96470	Consult Jana Winterhoof
+39345	Calibration Experts	-181	128676	96368	Consult Emmara Marie
+39430	Flasking for a Favor	-181	128515	105709	Seek out Barm Stonebreaker in Highmountain
+39431	Mending the Filter	-181	128517	105761	Talk with the Priestess
+39645	Calibration Experts	-181	128676	96474	Consult Tryks Pourtrue
+39645	Calibration Experts	-181	128676	96490	Consult Krimple Proxmeasure
+39645	Calibration Experts	-181	128676	96485	Consult Myshalla Streambreeze
+6681	The Manor, Ravenholdt	-162	17125	13936	Rite of Cunning
+29802	A Hidden Message	-162	74256	55691	Decoder Ring Charged
+29802	A Hidden Message	-162	74256	55690	Acquire the Singed Cipher
+45051	Reverse Blacksmithing	-121	142389	115942	Desconstruct the Broken Darkspear
+9582	Strength of One	-81	23925	17556	
+32295	An Unusual Tome	-61	92441	67944	Determine the language of the tome
+32295	An Unusual Tome	-61	92441	67945	Determine the tome's purpose
+32317	Seeking the Soulstones	-61	92471	68782	Watch the Netherstorm Memory
+32317	Seeking the Soulstones	-61	92471	68783	Watch the Blade's Edge Memory
+32317	Seeking the Soulstones	-61	92471	68780	Watch the Shadowmoon Memory
+9440	[DEPRECATED]Little Morsels	8	23659	17113	Captured Crocolisk Fed
+9440	[DEPRECATED]Little Morsels	8	23659	17111	Captured Jaguar Fed
+9440	[DEPRECATED]Little Morsels	8	23659	17112	Captured Tarantula Fed
+55	Morbent Fel	10	7297	24782	Morbent Fel slain
+11133	Discrediting the Deserters	15	33015	4979	Leaflets Distributed
+11146	[DEPRECATED]Raptor Captor	15	33069	23727	Raptors Captured
+11147	[DEPRECATED]Unleash the Raptors	15	33070	23727	Raptors Released
+11150	[DEPRECATED]Raze Direhorn Post!	15	33072	23751	North Tent Burned
+11150	[DEPRECATED]Raze Direhorn Post!	15	33072	23752	Northeast Tent Burned
+11150	[DEPRECATED]Raze Direhorn Post!	15	33072	23753	East Tent Burned
+11152	[DEPRECATED]Peace at Last	15	33082	23768	Wreath Laid at Hyal Monument
+11159	[DEPRECATED]Spirits of Stonemaul Hold	15	33091	23786	Stonemaul Spirits laid to rest
+11162	[DEPRECATED]Challenge to the Black Flight	15	33095	23789	Stonemaul Clan Avenged
+11169	[DEPRECATED]The Grimtotem Weapon	15	33101	23811	Totem Tests Performed
+11174	[DEPRECATED]Corrosion Prevention	15	33108	23797	Oozes Dissolved
+11183	Cleansing Witch Hill	15	33113	23864	Witch Hill Cleansed
+11205	[DEPRECATED]Raze Direhorn Post!	15	33072	23751	North Tent Burned
+11205	[DEPRECATED]Raze Direhorn Post!	15	33072	23752	Northeast Tent Burned
+11205	[DEPRECATED]Raze Direhorn Post!	15	33072	23753	East Tent Burned
+11209	[DEPRECATED]Nat's Bargain	15	33166	23928	Fish Paste Tested
+3514	Horde Presence	17	10622	8518	
+4971	A Matter of Time	28	12627	10717	
+5097	All Along the Watchtowers	28	12815	10902	Tower One marked
+5097	All Along the Watchtowers	28	12815	10903	Tower Two marked
+5097	All Along the Watchtowers	28	12815	10904	Tower Three marked
+5097	All Along the Watchtowers	28	12815	10905	Tower Four marked
+5098	All Along the Watchtowers	28	12815	10902	Tower One marked
+5098	All Along the Watchtowers	28	12815	10903	Tower Two marked
+5098	All Along the Watchtowers	28	12815	10904	Tower Three marked
+5098	All Along the Watchtowers	28	12815	10905	Tower Four marked
+44684	Corruption Runs Deep	41	141878	114645	Corrupted Essence of Water
+44684	Corruption Runs Deep	41	141878	114641	Corrupted Essence of Soil
+44685	Reclaiming the Ramparts	41	142213	114779	Eastern Ward planted
+44685	Reclaiming the Ramparts	41	142213	114780	Southern Ward planted
+44685	Reclaiming the Ramparts	41	142213	114778	Northern Ward planted
+44733	The Power of Corruption	41	142208	115179	Elux'ara Darkscorn slain
+44733	The Power of Corruption	41	142208	115172	Thar'zul slain
+44733	The Power of Corruption	41	142208	115319	Chamber Access obtained
+28938	Save the Children	45	68606	51625	Confused Murloc saved
+26282	The Favor of Akil'darah	47	58095	42629	
+26522	Faces of Evil	47	58209	42704	Tiki Masks Burned
+5721	The Battle of Darrowshire	139	15209	10936	Accept Redpath's Forgiveness
+6041	When Smokey Sings, I Get Violent	139	15736	12247	Scourge Structures Destroyed
+9165	Writ of Safe Passage	139	22593	16254	Writ of Safe Passage Signed
+2078	Gyromast's Revenge	148	7442	6669	Gelkak's First Mate
+2118	Plagued Lands	148	7586	11836	Rabid Thistle Bear Captured
+5441	Lazy Peons	363	16114	10556	Peons Awoken
+6481	Earthen Arise	406	16603	11920	
+3520	Screecher Spirits	440	10699	8612	Screecher Spirits Collected
+25501	Poaching for Dummies	440	52715	39702	Animal Parts Extracted
+974	Finding the Source	490	12472	10541	Find the hottest area of Fire Plume Ridge
+3962	It's Dangerous to Go Alone	490	11522	9376	
+5163	[DEPRECATED]Are We There, Yeti?	618	12928	10978	Scare Legacki
+5163	[DEPRECATED]Are We There, Yeti?	618	12928	7583	Scare Sprinkle
+5163	[DEPRECATED]Are We There, Yeti?	618	12928	10977	Scare Quixxil
+8535	Hoary Templar	1377	20947	15212	
+8536	Earthen Templar	1377	21751	15307	
+8537	Crimson Templar	1377	20945	15209	
+8538	The Four Dukes	1377	20948	15206	
+8538	The Four Dukes	1377	20948	15207	
+8538	The Four Dukes	1377	20948	15220	
+8538	The Four Dukes	1377	20948	15208	
+8737	Azure Templar	1377	21245	15211	
+8740	Twilight Marauders	1377	20944	15541	
+8740	Twilight Marauders	1377	20944	15542	
+27106	A Villain Unmasked	1519	60819	44979	Samuelson Unmasked
+27106	A Villain Unmasked	1519	60819	2439	
+10283	Taretha's Diversion	1941	25853	20155	Internment Lodges Set Ablaze
+5282	The Restless Souls	2017	13289	11122	Souls Freed
+4771	Dawn's Gambit	2057	12368	10432	
+5384	Kirtonos the Herald	2057	13523	10506	
+27140	Alexi's Gambit	2057	12368	10432	
+27140	Alexi's Gambit	2057	12368	10433	
+7029	Vyletongue Corruption	2100	17693	13696	Vylestem Vines healed
+7041	Vyletongue Corruption	2100	17693	13696	Vylestem Vines healed
+6661	Deeprun Rat Roundup	2257	17117	13017	Rats Captured
+9824	Arcane Disturbances	2562	24474	18161	Underground Well Reading
+9824	Arcane Disturbances	2562	24474	18162	Underground Pond Reading
+9384	<NYI>Harnessing the Light	3483	23442	17014	Assist in Voidwalker's Destruction
+10125	Mission: Disrupt Communications	3483	28478	19276	Legion Antenna: Spite Destroyed
+10125	Mission: Disrupt Communications	3483	28478	19277	Legion Antenna: Rage Destroyed
+10125	Mission: Disrupt Communications	3483	28478	19278	Legion Antenna: Hate Destroyed
+10125	Mission: Disrupt Communications	3483	28478	19279	Legion Antenna: Fear Destroyed
+24935	Body And Soul	4720	51781	38713	Yngwie's Soul destroyed
+24936	Body And Soul	4720	51781	38713	Yngwie's Soul destroyed
+14071	Rolling with my Homies	4737	46856	48323	Keys to the Hot Rod used
+14204	From the Shadows	4755	48707	35463	
+25455	A Test of Wills	4815	53794	40133	Naga submission attempted
+27588	Signal the Attack	4922	61511	46000	Attack signaled
+27590	Signal the Attack	4922	61511	46000	Attack signaled
+26104	Our Aquatic Neigh-Bors	5145	56835	42116	Seahorse captured
+26123	When in Vashj'ir...	5145	56835	42116	Seahorse captured
+29408	The Lesson of the Burning Scroll	5736	80212	59591	Snatch the Master's Flame
+29408	The Lesson of the Burning Scroll	5736	80212	59570	Burn the Edict of Temperance
+29422	Huo, the Spirit of Fire	5736	72583	54787	Reignite the Spirit of Fire
+29664	The Challenger's Fires	5736	75008	56048	Challenger Torch lit
+29664	The Challenger's Fires	5736	75008	56037	Red Brazier lit
+29664	The Challenger's Fires	5736	75008	56038	Blue Brazier lit
+29664	The Challenger's Fires	5736	75008	56040	Violet Brazier lit
+29728	Explosive Evidence	5785	73837	55281	Makeshift Dynamite planted
+29732	What Goes Down, Must Come Up!	5785	73861	55327	Supply Crates Retrieved
+29812	Save the Cuddlies	5785	74612	56166	Drunk stag delivered
+29902	Fighting the Flames	5785	81927	54647	Wayward Landing fires extinguished
+30104	Documenting the Timeways	5788	77955	57856	Legion Demon archived
+30104	Documenting the Timeways	5788	77955	57857	Royal Handmaiden archived
+30104	Documenting the Timeways	5788	77955	57858	Captain Varo'then archived
+30097	Archival Purposes	5789	77955	57855	Echo archived
+30204	That's Not a Rock!	5840	85261	58568	
+30282	Burning Away the Filth	5840	84781	63076	Shao-Tien Banners burned
+30312	Given a Second Chance	5840	84242	59183	Wounded Defender healed
+30320	Free Spirits	5840	89297	59231	Free Captive Pandaren Spirits
+30341	Under Watchful Eyes	5840	89366	59379	
+31754	Cannonfire	5840	89123	65762	Shao-Tien Cannons destroyed
+31516	Unto Dust Thou Shalt Return	6109	87390	64840	Blades of the Anointed thrust into Whitemane's corpse
+31679	Extending Our Coverage	6138	86009	65328	Amberglow Hollow located
+31679	Extending Our Coverage	6138	86009	65478	
+26391	Extinguishing Hope	6170	58362	42940	Vineyard Fire extinguished
+28806	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28808	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28809	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28810	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28811	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28812	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28813	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+29082	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+24471	Aid for the Wounded	6176	49743	37079	Wounded Coldridge Mountaineers Aided
+25134	Lazy Peons	6451	16114	10556	Peons Awoken
+37446	Lazy Peons	6451	16114	10556	Peons Awoken
+14461	Feed of Evil	6452	49539	36727	First Trough
+14461	Feed of Evil	6452	49539	37155	Second Trough
+14461	Feed of Evil	6452	49539	37156	Third Trough
+24861	Last Rites, First Rites	6452	50465	38438	Offering Placed
+24623	Saving the Young	6453	52283	39157	Bloodtalon Hatchlings rescued
+24626	Young and Vicious	6453	50053	37989	Capture Swiftclaw
+24626	Young and Vicious	6453	50053	38002	Return Swiftclaw to the Raptor Pens
+24813	Territorial Fetish	6453	52065	38560	Territorial Fetish placed
+24961	The Truth of the Grave	6454	52050	38910	Show Lilian her reflection
+9294	Healing the Lake	6456	22955	88791	Disperse the Neutralizing Agent
+9303	Inoculation	6456	22962	16534	Nestlewood Owlkin inoculated
+37444	Inoculation	6456	22962	16534	Nestlewood Owlkin inoculated
+26333	No Tanks!	6457	58200	42224	Repaired Mechano-Tanks destroyed
+26342	Paint it Black	6457	58203	42796	Crushcog's Sentry Bot blinded
+26364	Down with Crushcog!	6457	58253	42494	Razlo Crushcog defeated
+27671	See to the Survivors	6457	62057	46268	Survivors Rescued
+32231	Trailing Light in the Dark	6507	92060	67753	Torches lit
+32569	Trailing Light in the Dark	6507	92060	67753	Torches lit
+32599	Securing A Future	6622	94155	69902	Staff of Antonidas charged
+34181	Mutation Station	6719	109557	77663	Assist Grulk in the Fortress
+34181	Mutation Station	6719	109557	77667	Assist Grulk in the Courtyard
+34181	Mutation Station	6719	109557	77678	Use the Mutation Serum on Grulk
+34181	Mutation Station	6719	109557	77688	Assist Grulk in the Laboratory
+34181	Mutation Station	6719	109557	77691	Mutation Lab Destroyed
+34304	Mutation Station	6719	109557	77678	Use the Mutation Serum on Grulk
+34304	Mutation Station	6719	109557	77663	Assist Grulk in the Fortress
+34304	Mutation Station	6719	109557	77667	Assist Grulk in the Courtyard
+34304	Mutation Station	6719	109557	77688	Assist Grulk in the Laboratory
+34304	Mutation Station	6719	109557	77691	Mutation Lab Destroyed
+34325	Flames Of The Earth	6720	110492	78742	Elementals Freed
+35387	Through The Nether	6755	113112	81203	Speak with the image of Nobundo
+35388	The Void March	6755	113112	81229	Void Creatures slain
+35390	The Shadow Over Oshu'gun	6755	113112	81215	
+44448	In the House of Light and Shadow	7502	141351	113753	Uncover the Secrets of Light's Heart
+39125	Demon Destroyer	7541	128305	95858	
+39125	Demon Destroyer	7541	128305	94498	
+39125	Demon Destroyer	7541	128305	92377	
+43827	Stormwing the Portals	7541	129161	98186	
+43827	Stormwing the Portals	7541	129161	97985	South Portal Destroyed
+43827	Stormwing the Portals	7541	129161	97984	East Portal Destroyed
+43827	Stormwing the Portals	7541	129161	97983	North Portal Destroyed
+39987	Trail of Echoes	7637	131931	98312	First Arcanist Thalyssra found
+39987	Trail of Echoes	7637	131931	99213	
+39987	Trail of Echoes	7637	131931	114071	Pulsing Arcane Echo revealed
+39987	Trail of Echoes	7637	131931	114070	Blinking Arcane Echo revealed
+39987	Trail of Echoes	7637	131931	100169	Faint Arcane Echo revealed
+40011	Oculeth's Workshop	7637	132883	101499	Token shown to Oculeth
+40321	Feathersong's Redemption	7637	130260	99593	Cliffclutch Matriarch slain
+40370	Purge the Unclean	7637	131760	99882	Cleanse the Corruption
+40725	Arganax	7637	132877	101466	
+40725	Arganax	7637	132877	101480	Lorlathil demon uncovered
+40725	Arganax	7637	132877	101479	Travel to Lorlathil
+40956	Survey Says...	7637	133897	106686	
+40956	Survey Says...	7637	133897	102545	First talking head
+40956	Survey Says...	7637	133897	102544	Survey percentage
+40963	Take Them in Claw	7637	139882	102810	Hippogryphs Attracted
+41137	Fall of the King	7637	134836	103827	
+41216	Survival of the Fittest	7637	134119	103638	Creatures Freed
+42079	Masquerade	7637	136970	106418	Mask of Mirror Image used on Anarys
+42090	Skittering Subjects	7637	140916	106211	Leyline Spiderlings collected
+42147	First Contact	7637	137011	106495	Speak with Vanthir
+42487	Friends On the Outside	7637	138389	97140	Deliver Vanthir's Gift to Thalyssra
+43565	Bring Home the Beacon	7637	140257	111947	Siren's Vigil surveyed
+43565	Bring Home the Beacon	7637	140257	111946	Evermoon Bazaar surveyed
+43565	Bring Home the Beacon	7637	140257	111945	Evermoon Commons surveyed
+44672	Ancient Mana	7637	141652	114610	Ancient Mana node
+44719	Breaching the Sanctum	7637	142118	115112	Secure the breach
+44719	Breaching the Sanctum	7637	142118	115111	Enter the portal
+44719	Breaching the Sanctum	7637	142118	115110	Speak with Oculeth
+44813	Ley Line Interference	7637	142446	116062	Central Siphon destroyed
+44813	Ley Line Interference	7637	142446	116060	Northwest Siphon destroyed
+44813	Ley Line Interference	7637	142446	116058	Northeast Siphon destroyed
+44813	Ley Line Interference	7637	142446	116061	Southwest Siphon destroyed
+44813	Ley Line Interference	7637	142446	116007	Southeast Siphon destroyed
+44815	Sick of the Sycophants	7637	142401	115977	Loyalist Sycophants slain
+44816	Continued Exposure	7637	142509	116120	Withered Exposed to Volatile Fel
+44842	Shield, Meet Spell	7637	142260	115526	
+44928	Something's Not Quite Right...	7637	142375	102033	Shal'dorei Infiltrator discovered
+45062	Resisting Arrest	7637	142400	115960	Power Source disabled
+45063	The Felsoul Experiments	7637	142399	116851	Destroy Felsoul Shards
+45063	The Felsoul Experiments	7637	142399	115966	[DNT] Shard 3
+45063	The Felsoul Experiments	7637	142399	115965	[DNT] Shard 2
+45063	The Felsoul Experiments	7637	142399	115959	[DNT] Shard 1
+45064	Felborne No More	7637	142491	115955	Felborne slain
+45064	Felborne No More	7637	142491	115954	Valthis Ama'ran slain
+45065	Survey the City	7637	142405	115957	Terrace of Order surveyed
+45065	Survey the City	7637	142405	116020	Oculeth Speaks
+45260	One Day at a Time	7637	143597	111901	Suramar Refugee cured
+45261	Continuing the Cure	7637	143597	111901	Suramar Refugee cured
+45262	A Message From Ly'leth	7637	143597	111901	Suramar Refugee cured
+45263	Eating Before the Meeting	7637	143597	111901	Suramar Refugee cured
+45265	Feeding the Rebellion	7637	143597	111901	Suramar Refugee cured
+45266	A United Front	7637	143597	111901	Suramar Refugee cured
+45267	Before the Siege	7637	143597	111901	Suramar Refugee cured
+45268	The Advisor and the Arcanist	7637	143597	111901	Suramar Refugee cured
+45269	A Taste of Freedom	7637	143597	111901	Suramar Refugee cured
+47563	Spirits of the Fallen	8574	152995	122974	Spirit released
+47563	Spirits of the Fallen	8574	152995	119383	Demons slain
+47987	Preventive Measures	8574	152110	125029	Warriors sanctified
+48483	A Stranger's Plea	8574	152472	123085	Felbound Drudge healed
+49077	Moments of Reflection	8638	153555	129133	Take Illidan's Crystal to Mount Hyjal
+49077	Moments of Reflection	8638	153555	128430	Show Crystal to Tyrande
+49077	Moments of Reflection	8638	153555	128431	Show Crystal to Malfurion
+47180	The Pulsing Madness	8701	151563	121539	Void Manifestations cleansed
+47220	A Beacon in the Dark	8701	152602	120533	Return to the Vindicaar
+47882	Conservation of Magic	8701	151624	123560	Power Conduits stabilized
+48637	Cleansing Fire	8899	152648	127557	Spider Nests burned
+48637	Cleansing Fire	8899	152648	126986	Spiders killed
+48640	The Immortal Squadron	8899	152657	127012	Immortal Squadron Fighters targeted
+48640	The Immortal Squadron	8899	152657	126244	
+48691	Soul Chain	8899	152971	126944	Broken Souls freed
+48231	The Seat of the Triumvirate: Armor of the Triumvirate	8910	152203	124729	Defeat L'ura
+48231	The Seat of the Triumvirate: Armor of the Triumvirate	8910	152203	125620	Secure the Armory
+48231	The Seat of the Triumvirate: Armor of the Triumvirate	8910	152203	125606	Gain Access to the Armory

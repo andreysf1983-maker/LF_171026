@@ -1,0 +1,47 @@
+[03:17:30] ==== 2026-10-09 03:17:30 ====
+[03:17:31] [OK] Используется локальный ADB-архив: /tmp/ADB_735.10.rar
+[03:17:31] [*] Распаковка официального ADB-архива через unrar...
+[03:17:31] > "/tmp/rarcli/rar/unrar" x -y -o+ -inul /tmp/ADB_735.10.rar /tmp/lf-adb-test/cache/adb_extract/
+[03:17:33] exit code: 0
+[03:17:34] [OK] Готовы чистые дампы: ADB_world.sql (349.6 МБ), ADB_hotfixes.sql (120.5 МБ).
+[03:17:34] ==== 2026-10-09 03:17:34 ====
+[03:17:34] [OK] Чистые базы ADB уже готовы: ADB_world.sql (349.6 МБ) и ADB_hotfixes.sql (120.5 МБ).
+[03:20:35] ==== 2026-10-09 03:20:35 ====
+[03:20:35] [*] Загрузка чистого ADB_735.10 от AshamaneCore (архив около 84 МБ)...
+[03:20:35] [*] Загрузка ADB_735.10.rar (попытка 1): https://github.com/AshamaneProject/AshamaneCore/releases/download/ADB_735.10/ADB_735.10.rar
+[03:20:37] [OK] Контрольная сумма SHA-256 совпала: ADB_735.10.rar
+[03:20:37] [OK] Загружено: ADB_735.10.rar (83.9 МБ)
+[03:20:37] [*] Распаковка официального ADB-архива через unrar...
+[03:20:37] > "/tmp/rarcli/rar/unrar" x -y -o+ -inul /tmp/lf-adb-auto/setup_tmp/ADB_735.10.rar /tmp/lf-adb-auto/setup_tmp/adb_extract/
+[03:20:39] exit code: 0
+[03:20:40] [OK] Готовы чистые дампы: ADB_world.sql (349.6 МБ), ADB_hotfixes.sql (120.5 МБ).
+[03:23:52] ==== 2026-10-09 03:23:52 ====
+[03:23:52] [OK] Используется локальный ADB-архив (rar): /tmp/ADB_735.10.rar
+[03:23:52] [*] Распаковка официального ADB-архива через unrar...
+[03:23:52] > "/tmp/rarcli/rar/unrar" x -y -o+ -inul /tmp/ADB_735.10.rar /tmp/lf-adb-rar-final/cache/adb_extract/
+[03:23:54] exit code: 0
+[03:23:56] [OK] Готовы чистые дампы: ADB_world.sql (349.6 МБ), ADB_hotfixes.sql (120.5 МБ).
+[03:23:58] ==== 2026-10-09 03:23:58 ====
+[03:23:58] [OK] Используется локальный ADB-архив (zip): /tmp/lf-adb-zip-final/cache/databases.zip
+[03:23:58] [*] Подготовка портативного 7-Zip 25.01 в tools\7zip...
+[03:23:58] [*] Загрузка 7zr.exe (попытка 1): https://github.com/ip7z/7zip/releases/download/25.01/7zr.exe
+[03:23:59] [OK] Контрольная сумма SHA-256 совпала: 7zr.exe
+[03:23:59] [OK] Загружено: 7zr.exe (587 КБ)
+[03:23:59] [*] Загрузка 7z2501-x64.exe (попытка 1): https://github.com/ip7z/7zip/releases/download/25.01/7z2501-x64.exe
+[03:24:00] [OK] Контрольная сумма SHA-256 совпала: 7z2501-x64.exe
+[03:24:00] [OK] Загружено: 7z2501-x64.exe (1.6 МБ)
+[03:24:00] > "/tmp/lf-work/legionforge/tools/downloads/7zr.exe" x -y -o/tmp/lf-work/legionforge/tools/7zip /tmp/lf-work/legionforge/tools/downloads/7z2501-x64.exe
+[03:24:00] [ERROR] Cannot run a document in the middle of a pipeline: /tmp/lf-work/legionforge/tools/downloads/7zr.exe.
+[03:24:05] ==== 2026-10-09 03:24:05 ====
+[03:24:05] [OK] Используется локальный ADB-архив (zip): /tmp/lf-adb-zip-final/cache/databases.zip
+[03:24:05] [*] Подготовка портативного 7-Zip 25.01 в tools\7zip...
+[03:24:05] [OK] Уже загружено: 7zr.exe
+[03:24:05] [OK] Уже загружено: 7z2501-x64.exe
+[03:24:05] > "/tmp/lf-work/legionforge/tools/downloads/7zr.exe" x -y -o/tmp/lf-work/legionforge/tools/7zip /tmp/lf-work/legionforge/tools/downloads/7z2501-x64.exe
+[03:24:05] [ERROR] Cannot run a document in the middle of a pipeline: /tmp/lf-work/legionforge/tools/downloads/7zr.exe.
+[03:24:15] ==== 2026-10-09 03:24:15 ====
+[03:24:15] [OK] Используется локальный ADB-архив (zip): /tmp/lf-adb-zip-final/cache/databases.zip
+[03:24:15] > "/tmp/lf-work/legionforge/tools/7zip/7z.exe" x -y -bso0 -bsp1 -o/tmp/lf-adb-zip-final/cache/adb_extract /tmp/lf-adb-zip-final/cache/databases.zip
+[03:24:15]   0M Scan /tmp/lf-adb-zip-final/cache/                                        0%     42% 1 - ADB_world.sql                       86% 1 - ADB_world.sql                      
+[03:24:15] exit code: 0
+[03:24:16] [OK] Готовы чистые дампы: ADB_world.sql (349.6 МБ), ADB_hotfixes.sql (120.5 МБ).

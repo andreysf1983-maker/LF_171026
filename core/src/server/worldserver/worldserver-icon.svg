@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2=".9" y2="1">
+      <stop offset="0" stop-color="#21392c"/>
+      <stop offset=".48" stop-color="#11251d"/>
+      <stop offset="1" stop-color="#091711"/>
+    </linearGradient>
+    <linearGradient id="gold" x1=".12" y1="0" x2=".88" y2="1">
+      <stop offset="0" stop-color="#fff0ad"/>
+      <stop offset=".42" stop-color="#d7ad5b"/>
+      <stop offset="1" stop-color="#8c642b"/>
+    </linearGradient>
+    <linearGradient id="letters" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf1"/>
+      <stop offset="1" stop-color="#dfd2a4"/>
+    </linearGradient>
+    <radialGradient id="world" cx=".5" cy=".43" r=".66">
+      <stop offset="0" stop-color="#91b77b" stop-opacity=".23"/>
+      <stop offset=".66" stop-color="#68a86f" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#dfb75d" stop-opacity=".24"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <clipPath id="round"><rect x="18" y="18" width="476" height="476" rx="112"/></clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <rect x="18" y="18" width="476" height="476" fill="url(#bg)"/>
+    <circle cx="256" cy="245" r="222" fill="url(#world)"/>
+    <circle cx="256" cy="250" r="181" fill="none" stroke="#304b36" stroke-width="2"/>
+    <circle cx="256" cy="250" r="164" fill="none" stroke="url(#gold)" stroke-width="12" opacity=".92" filter="url(#glow)"/>
+    <circle cx="256" cy="250" r="143" fill="none" stroke="#b9d68f" stroke-width="2" stroke-dasharray="2 14" opacity=".75"/>
+    <path d="M105 270c42-16 75-9 106 3 26 10 47 11 70-3 37-23 79-25 126-3v58H105z" fill="#172f21" opacity=".9"/>
+    <path d="M112 298l61-49 34 26 49-68 45 58 33-24 63 48" fill="none" stroke="#94bd80" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" opacity=".82"/>
+    <path d="M132 328c48 21 106 22 159 4 34-12 63-12 92 0" fill="none" stroke="#c7d98d" stroke-width="3" opacity=".58"/>
+    <path d="M171 172c-18 24-28 51-28 80m198-80c18 24 28 51 28 80M256 86v29m0 270v29" fill="none" stroke="url(#gold)" stroke-width="4" stroke-linecap="round" opacity=".78"/>
+    <circle cx="256" cy="118" r="6" fill="#fff0ad" filter="url(#glow)"/>
+    <circle cx="256" cy="382" r="6" fill="#fff0ad" filter="url(#glow)"/>
+    <text x="256" y="312" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="154" font-weight="900" letter-spacing="-13" fill="#07140e" stroke="#07140e" stroke-width="18" stroke-linejoin="round">LF</text>
+    <text x="256" y="312" text-anchor="middle" font-family="DejaVu Sans,Arial,sans-serif" font-size="154" font-weight="900" letter-spacing="-13" fill="url(#letters)" stroke="url(#gold)" stroke-width="4" stroke-linejoin="round">LF</text>
+    <path d="M149 363h214" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+    <path d="M91 416c67-19 122-20 165 0 43 20 98 19 165 0" fill="none" stroke="#87b874" stroke-width="3" opacity=".52"/>
+    <rect x="18" y="18" width="476" height="476" rx="112" fill="none" stroke="#f7df9b" stroke-width="4" opacity=".54"/>
+  </g>
+</svg>

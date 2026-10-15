@@ -1,0 +1,1774 @@
+49787	The Ghostlands	-439	130906	Go to the Ghostlands Kill Credit	0
+47904	Preserve the True Future	-435	124644	Save 4 Chromies Credit	0
+47906	The Deaths of Chromie	-435	124646	Save 8 Chromies Credit	0
+48021	Chromie	-435	125077	Wyrmrest Temple Portal Kill Credit	0
+46275	A Kingdom's Heart	-434	119406	Kill Credit: Advisors Heard	0
+46275	A Kingdom's Heart	-434	119418	Kill Credit: Stormwind Keep	0
+46275	A Kingdom's Heart	-434	119405	Kill Credit: Walk the Streets	0
+46275	A Kingdom's Heart	-434	119404	Kill Credit: Speak with Anduin	0
+46282	The King's Path	-434	119426	Kill Credit: Meet Anduin	0
+46769	Relieved of Their Valuables	-428	120317	Kill Credit	0
+46237	Bloodbringer's Missive	-427	119165	Credit - Bloodbringer Gossip	0
+46241	The Minions of Hel'nurath	-427	119168	Credit - Cultist Questioned	0
+46243	The Wrathsteed of Xoroth	-427	119170	Credit - Wrathsteed Bound	0
+46207	The Trial of Rage	-426	121145	7.2 Class Mounts - Warrior - Scenario - Return to Skyhold Credit - SCS	0
+45026	Expending Fel Energy	-425	118484	Kill Credit: Fel Energy expended	0
+45028	The Fate of Kanrethad	-425	118937	Kill Credit 005	0
+45028	The Fate of Kanrethad	-425	118936	Kill Credit 004	0
+45028	The Fate of Kanrethad	-425	118935	Kill Credit 003	0
+45028	The Fate of Kanrethad	-425	118934	Kill Credit 002	0
+45028	The Fate of Kanrethad	-425	118933	Kill Credit 001	0
+45573	Rise Up	-424	117296	Ascended the Peak Credit	0
+45573	Rise Up	-424	117288	Demon Kill Credit	0
+45576	Rise Up	-424	117296	Ascended the Peak Credit	0
+45576	Rise Up	-424	117288	Demon Kill Credit	0
+45628	This Time, Leave a Trail	-424	117406	Gunpowder Lit Credit	0
+45629	This Time, Leave a Trail	-424	117406	Gunpowder Lit Credit	0
+45706	The Power of Thousands	-423	117527	Kill Credit: Portal to Thousand Needles Taken	0
+45723	The Crone's Wrath	-423	117541	Demon Kill Credit	0
+45769	Conflagration	-423	117854	Doomstone Overload Kill Credit	0
+46258	The Calm After the Storm	-423	120507	Doomstone Placed Kill Credit	0
+45143	Judgment Awaits	-422	116365	Kill Credit: Silver Hand Recruits judged	0
+45147	Felstone Destruction	-422	116337	Kill Credit: Felstone Pendant destroyed	0
+45149	Ending the Crescent Curse	-422	116530	Kill Credit: Felbound Spirits released	0
+45346	Shambling Specimens	-421	116983	Kill Credit: Shambling Corpses collected	0
+45347	Crafting a Cure	-421	117015	Kill Credit: Untested Cure administered	0
+45347	Crafting a Cure	-421	117016	Kill Credit: Untested Cure administered	0
+45354	Dispersion of the Discs	-420	116674	7.2 Class Mounts - Mage - Quest - Ritual of the Archmage - Complete Credit	0
+45630	Servant to No One	-420	121117	Credit - Servant Summoned	0
+45845	Burning Within	-420	121189	7.2 Class Mounts - Mage - Portal to Alturus' Sanctum Credit	0
+45845	Burning Within	-420	121194	7.2 Class Mounts - Mage - Portal to Karazhan Credit	0
+46722	Nothing Up My Sleeve	-420	120189	Credit - Trick Performed	0
+46723	Down the Rabbit Hole	-420	120190	Credit - Wolf Killed	0
+46343	The Trail of Ban-Lu	-419	120775	Pawprints Kill Credit	0
+46343	The Trail of Ban-Lu	-419	120774	Pawprints Kill Credit	0
+46343	The Trail of Ban-Lu	-419	120773	Pawprints Kill Credit	0
+46343	The Trail of Ban-Lu	-419	120772	Pawprints Kill Credit	0
+46347	Clean-up on Aisle Sha	-419	120761	Remnant of Anger Credit	0
+45552	Soothing Wounds	-418	117450	Kill Credit: Manaroot foraged	0
+45555	Felbound Beasts	-418	117167	Kill Credit: Felbound beasts freed	0
+46060	Salvation	-418	118661	Kill Credit: Manaroot Salve applied	0
+44877	Attack on the Roost	-417	115897	Demon Kill Credit	0
+44888	Aviana's Grace	-417	115748	Kill Credit	0
+46318	Defense of Aviana	-417	119991	Kill Credit: Defense of Aviana	0
+46334	To Fel and Back	-416	121332	Return to Fel Hammer Credit	0
+46334	To Fel and Back	-416	119954	Wild Felwing Ridden Credit	0
+44787	The Bonemother	-413	116769	Ride to Acherus Kill Credit	0
+44787	The Bonemother	-413	116348	Bone Broodmother Kill Credit	0
+44787	The Bonemother	-413	119089	Thorim's Beacon Kill Credit	0
+45103	We Ride!	-413	116313	Demon Kill Credit	0
+45103	We Ride!	-413	116313	Demon Kill Credit	0
+45103	We Ride!	-413	116313	Demon Kill Credit	0
+45103	We Ride!	-413	116309	Kill Credit: Daumyr Mounted	0
+45243	On Daumyr's Wings	-413	121018	Kill Credit: Arrived at Illidari Camp	0
+45398	Harnessing Power	-413	121075	Room Entered Kill Credit	0
+46305	Thorim's Flame	-413	119653	Thorim's Flame Kill Credit	0
+46812	Draconic Secrets	-413	120370	Codex Read Credit	0
+46813	The Lost Glacier	-413	120324	Finale Kill Credit	0
+39877	In the Loop	-410	106642	7.0 Professions - Enchanting - In the Loop - Kill Credit - Using Enchanting Vellum - SCS	0
+39903	An Enchanting Home	-410	99336	Tigrid Hovel Credit	0
+40265	A Touch of Magic	-410	106957	7.0 Professions - Enchanting - A Touch of Magic - Kill Credit - Echant Crate - SCS	0
+40265	A Touch of Magic	-410	106956	7.0 Professions - Enchanting - A Touch of Magic - Kill Credit - Echant Grimoire - SCS	0
+40265	A Touch of Magic	-410	106959	7.0 Professions - Enchanting - A Touch of Magic - Kill Credit - Echant Pen- SCS	0
+38669	Our Last Hope	-407	98369	Kill Credit: Equip Glaive - Off-Hand	0
+38669	Our Last Hope	-407	97574	Kill Credit: Equip Glaive - Main Hand	0
+38672	Breaking Out	-407	112287	Kill Credit: Reunion Finished - Altruis	0
+38672	Breaking Out	-407	99326	Kill Credit: Reunion Finished - Kayn	0
+38672	Breaking Out	-407	112277	Kill Credit: Altruis Picked up Weapons	0
+38672	Breaking Out	-407	112276	Kill Credit: Kayn Picked up Weapons	0
+38723	Stop Gul'dan!	-407	106241	"Stop Gul'dan!" Crusher & Sledge's Power Quest Kill Credit	0
+38723	Stop Gul'dan!	-407	99303	Kill Credit: Enter the Chamber	0
+38727	Stop the Bombardment	-407	96692	"Stop the Bombardment" Soul Engine Devastator Banner Quest Kill Credit	0
+38727	Stop the Bombardment	-407	96733	"Stop the Bombardment" Forge of Corruption Devastator Banner Quest Kill Credit	0
+38727	Stop the Bombardment	-407	96734	"Stop the Bombardment" The Doom Fortress Devastator Banner Quest Kill Credit	0
+38729	Return to the Black Temple	-407	100651	"Return to the Black Temple" Keystone Activated Quest Kill Credit	0
+38765	Enter the Illidari: Shivarra	-407	97831	"Enter the Illidari" First Summoned Guardian Quest Kill Credit	0
+38765	Enter the Illidari: Shivarra	-407	94407	"Enter the Illidari: Shivarra" Legion Gateway Kill Credit	0
+38766	Before We're Overrun	-407	106003	"Before We're Overrun" Doom Commander Beliash's Power Quest Kill Credit	0
+38819	Their Numbers Are Legion	-407	101319	"Their Numbers Are Legion" Spire of Woe Stabilizer Destroyed Quest Kill Credit	0
+38819	Their Numbers Are Legion	-407	97400	"Their Numbers Are Legion" Bridge Kill Credit	0
+38819	Their Numbers Are Legion	-407	97409	"Their Numbers Are Legion" First Fortress Stabilizer Destroyed Quest Kill Credit	0
+38819	Their Numbers Are Legion	-407	97395	"Their Numbers Are Legion" Injured Demon Hunter Quest Kill Credit	0
+38819	Their Numbers Are Legion	-407	97383	"Their Numbers Are Legion" First Soul Harvester Destroyed Quest Kill Credit	0
+39049	Eye On the Prize	-407	96159	Colossal Infernal	33570880
+39049	Eye On the Prize	-407	105946	"Eye On the Prize" Inquisitor Baleful's Power Quest Kill Credit	0
+39050	Meeting With the Queen	-407	100722	"Meeting With the Queen" Ritual Completed Quest Kill Credit	0
+39262	Give Me Sight Beyond Sight	-407	96437	"Give Me Sight Beyond Sight" Spectral Sight Quest Kill Credit	0
+39279	Assault on Mardum	-407	97139	"Assault on Mardum" First Legion Portal Destroyed Quest Kill Credit	0
+39279	Assault on Mardum	-407	97154	"Assault on Mardum" First Fel Spreader Destroyed Quest Kill Credit	0
+39279	Assault on Mardum	-407	102225	"Assault on Mardum" Legion Communicator #3 Quest Kill Credit	0
+39279	Assault on Mardum	-407	102224	"Assault on Mardum" Legion Communicator #2 Quest Kill Credit	0
+39279	Assault on Mardum	-407	102223	"Assault on Mardum" Legion Communicator #1 Quest Kill Credit	0
+39495	Hidden No More	-407	106014	"Hidden No More" Fel Lord Caza's Power Quest Kill Credit	0
+39495	Hidden No More	-407	98755	"Hidden No More" Rockslide Hidden Quest Kill Credit	0
+39683	Forged in Fire	-407	106254	"Forged in Fire" Immolanth's Power Quest Kill Credit	0
+39686	All The Way Up	-407	96814	Kill Credit: Use Elevator	0
+39688	Between Us and Freedom	-407	106255	"Between Us and Freedom" Bastillax's Power Quest Kill Credit	0
+39694	Between Us and Freedom	-407	106255	"Between Us and Freedom" Bastillax's Power Quest Kill Credit	0
+40051	Fel Secrets	-407	99071	"Fel Secrets" Quest Kill Credit	0
+40253	Stop Gul'dan!	-407	106241	"Stop Gul'dan!" Crusher & Sledge's Power Quest Kill Credit	0
+40253	Stop Gul'dan!	-407	99303	Kill Credit: Enter the Chamber	0
+40254	Forged in Fire	-407	106254	"Forged in Fire" Immolanth's Power Quest Kill Credit	0
+40255	Between Us and Freedom	-407	106255	"Between Us and Freedom" Bastillax's Power Quest Kill Credit	0
+40256	Between Us and Freedom	-407	106255	"Between Us and Freedom" Bastillax's Power Quest Kill Credit	0
+40373	A New Direction	-407	99278	Kill Credit: Choose Kayn or Altruis	0
+40373	A New Direction	-407	100166	Kill Credit: Gaze into Pool of Judgement	0
+40378	Enter the Illidari: Ashtongue	-407	97831	"Enter the Illidari" First Summoned Guardian Quest Kill Credit	0
+40378	Enter the Illidari: Ashtongue	-407	101534	"Enter the Illidari: Ashtongue" See Felsaber Quest Kill Credit	0
+40378	Enter the Illidari: Ashtongue	-407	88872	"Enter the Illidari: Ashtongue" Legion Gateway Kill Credit	0
+40379	Enter the Illidari: Coilskar	-407	97831	"Enter the Illidari" First Summoned Guardian Quest Kill Credit	0
+40379	Enter the Illidari: Coilskar	-407	94406	"Enter the Illidari: Coilskar" Legion Gateway Kill Credit	0
+44154	The Rite of the Executioner	-406	113001	Credit - Essence Looted	0
+44782	Away From Prying Eyes	-406	115463	Kill Credit: Council Arrives	0
+44782	Away From Prying Eyes	-406	115458	Kill Credit: Activate Purple Parlor Portal	0
+44782	Away From Prying Eyes	-406	115408	Kill Credit: Enter Purple Parlor	0
+44821	In Dire Need	-406	115476	Kill Credit: Hear the Council's Plea	0
+44920	Order of Incantations	-406	116021	Credit - Speak to Apprentices	0
+44924	The Archmage Accosted	-406	115828	Credit - Xylem Escapes	0
+44924	The Archmage Accosted	-406	115827	Credit - Xylem Runs	0
+45045	The Vial of Ancient Mana	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45050	Infiltration Plans	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45052	Depleted Nether Crystal	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45053	Thief's Instructions	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45054	"Ancient" Elven War Orders	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45059	Fel Infused Totem Fragment	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45060	Damaged Kirin Tor Insignia	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45061	Scrolls of the Faldrottin	-406	115900	Kill Credit: Find Someone in Dalaran	0
+45123	Elemental: The Folly of Levia Laurence	-406	116592	Credit - Levia Journal Credit	0
+45123	Elemental: The Folly of Levia Laurence	-406	116220	Credit - Levia Inn Credit	0
+45123	Elemental: The Folly of Levia Laurence	-406	118253	Credit - Wand Shop Investigated	0
+45123	Elemental: The Folly of Levia Laurence	-406	116221	Credit - Levia Scribe Credit	0
+45125	Dabbling in the Demonic	-406	118329	Credit - Ritual Completed	0
+45192	Runes of Rending	-406	116303	Credit - Wards Passed	0
+45412	Protection: Aid of the Illidari	-406	116879	Kill Credit: Kor'vas Found	0
+45413	Gathering Information	-406	116890	Kill Credit: Stolen Item Identified	0
+45413	Gathering Information	-406	117004	Kill Credit: Bank employees investigated	0
+45413	Gathering Information	-406	117002	Kill Credit: Talk to Glutonia	0
+45413	Gathering Information	-406	117000	Kill Credit: Talk to Teller C	0
+45413	Gathering Information	-406	116999	Kill Credit: Talk to Teller B	0
+45413	Gathering Information	-406	116998	Kill Credit: Talk to Teller A	0
+45414	Confirming Suspicions	-406	117027	Kill Credit: Share Velen's Vision	0
+45414	Confirming Suspicions	-406	117064	Kill Credit: Speak to Velen	0
+45414	Confirming Suspicions	-406	117026	Kill Credit: Find Velen	0
+45414	Confirming Suspicions	-406	117028	Kill Credit: First Aid Shop Visited	0
+45414	Confirming Suspicions	-406	117029	Kill Credit: Kor'vas Fly In	0
+45415	Between Worlds	-406	117137	Kill Credit: Speak to Kor'vas	0
+45415	Between Worlds	-406	118073	Kill Credit: Teleport to Hellfire Peninsula	0
+45482	Arcane: Fate of the Tideskorn	-406	119229	Credit - Watcher Questioned	0
+45482	Arcane: Fate of the Tideskorn	-406	119228	Credit - Priestess Questioned	0
+45482	Arcane: Fate of the Tideskorn	-406	119227	Credit - Scout Questioned	0
+45486	The Reluctant Queen	-406	117166	Credit - Talk to Eyir	0
+45486	The Reluctant Queen	-406	117152	Credit - Talk to Priestess	0
+45486	The Reluctant Queen	-406	120700	Credit - Skold-Ashil Reached	0
+45486	The Reluctant Queen	-406	120699	Credit - Escort Started	0
+45523	To Tame the Drekirjar	-406	117233	Credit - Sigrin Enters Longhouse	0
+45524	The Forgotten Heir	-406	117336	Credit - Outcast Found	0
+45525	Unanswered Questions	-406	117356	Credit - Eyir Confronted	0
+45527	Eyir's Forgiveness	-406	117494	Credit - Eyir's Judgement	0
+45726	The Tainted Marsh	-406	119948	Spirit Cleansed	0
+45796	Destroying the Nest	-406	118048	Proxy - Feltotem Cavern Monster	0
+45842	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45861	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45862	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45863	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45864	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45865	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45866	A Gift From the Six	-406	118159	Kill Credit: Unlock Artifact Traits	0
+45902	The Imp Mother's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45904	The God-Queen's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45905	Kruul's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45906	Jarod's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45908	Xylem's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45909	Navarrogg's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45910	Raest's Gift	-406	115713	Kill Credit: Appearance Unlocked	0
+45916	The Acolyte Imperiled	-406	118299	Credit - Ritssyn Defended	0
+45916	The Acolyte Imperiled	-406	118298	Credit - Levia's Ritual Investigated	0
+45917	Following the Scent	-406	118490	Credit - Hound Followed	0
+45917	Following the Scent	-406	119909	Credit - Escort Started	0
+46314	Vengeance: Seeking Kor'vas	-406	116879	Kill Credit: Kor'vas Found	0
+47022	Protection: Aid of the Illidari	-406	116879	Kill Credit: Kor'vas Found	0
+47023	Guardian: Aid of the Illidari	-406	116879	Kill Credit: Kor'vas Found	0
+47024	Brewmaster: Aid of the Illidari	-406	116879	Kill Credit: Kor'vas Found	0
+47025	Blood: Aid of the Illidari	-406	116879	Kill Credit: Kor'vas Found	0
+47049	Demonology: Fate of the Tideskorn	-406	119229	Credit - Watcher Questioned	0
+47049	Demonology: Fate of the Tideskorn	-406	119228	Credit - Priestess Questioned	0
+47049	Demonology: Fate of the Tideskorn	-406	119227	Credit - Scout Questioned	0
+47050	Enhancement: Fate of the Tideskorn	-406	119229	Credit - Watcher Questioned	0
+47050	Enhancement: Fate of the Tideskorn	-406	119228	Credit - Priestess Questioned	0
+47050	Enhancement: Fate of the Tideskorn	-406	119227	Credit - Scout Questioned	0
+47051	Assassination: Fate of the Tideskorn	-406	119229	Credit - Watcher Questioned	0
+47051	Assassination: Fate of the Tideskorn	-406	119228	Credit - Priestess Questioned	0
+47051	Assassination: Fate of the Tideskorn	-406	119227	Credit - Scout Questioned	0
+47052	Retribution: Fate of the Tideskorn	-406	119229	Credit - Watcher Questioned	0
+47052	Retribution: Fate of the Tideskorn	-406	119228	Credit - Priestess Questioned	0
+47052	Retribution: Fate of the Tideskorn	-406	119227	Credit - Scout Questioned	0
+47055	Fire: The Folly of Levia Laurence	-406	116592	Credit - Levia Journal Credit	0
+47055	Fire: The Folly of Levia Laurence	-406	116220	Credit - Levia Inn Credit	0
+47055	Fire: The Folly of Levia Laurence	-406	118253	Credit - Wand Shop Investigated	0
+47055	Fire: The Folly of Levia Laurence	-406	116221	Credit - Levia Scribe Credit	0
+47056	Fury: The Folly of Levia Laurence	-406	116592	Credit - Levia Journal Credit	0
+47056	Fury: The Folly of Levia Laurence	-406	116220	Credit - Levia Inn Credit	0
+47056	Fury: The Folly of Levia Laurence	-406	118253	Credit - Wand Shop Investigated	0
+47056	Fury: The Folly of Levia Laurence	-406	116221	Credit - Levia Scribe Credit	0
+47057	Unholy: The Folly of Levia Laurence	-406	116592	Credit - Levia Journal Credit	0
+47057	Unholy: The Folly of Levia Laurence	-406	116220	Credit - Levia Inn Credit	0
+47057	Unholy: The Folly of Levia Laurence	-406	118253	Credit - Wand Shop Investigated	0
+47057	Unholy: The Folly of Levia Laurence	-406	116221	Credit - Levia Scribe Credit	0
+47058	Outlaw: The Folly of Levia Laurence	-406	116592	Credit - Levia Journal Credit	0
+47058	Outlaw: The Folly of Levia Laurence	-406	116220	Credit - Levia Inn Credit	0
+47058	Outlaw: The Folly of Levia Laurence	-406	118253	Credit - Wand Shop Investigated	0
+47058	Outlaw: The Folly of Levia Laurence	-406	116221	Credit - Levia Scribe Credit	0
+47059	Feral: The Folly of Levia Laurence	-406	116592	Credit - Levia Journal Credit	0
+47059	Feral: The Folly of Levia Laurence	-406	116220	Credit - Levia Inn Credit	0
+47059	Feral: The Folly of Levia Laurence	-406	118253	Credit - Wand Shop Investigated	0
+47059	Feral: The Folly of Levia Laurence	-406	116221	Credit - Levia Scribe Credit	0
+48559	An Offering of Light	-406	126698	Kill Credit: Light	0
+48560	An Offering of Shadow	-406	126699	Kill Credit: Shadow	0
+34586	Establish Your Garrison	-403	79757	Kill Credit Bunny	0
+34735	Thunderlord Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+35142	Goren Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+35637	Assault on Stonefury Cliffs	-403	85260	Kill Credit (Bloodmaul - Minus)	0
+35637	Assault on Stonefury Cliffs	-403	85261	Kill Credit (Bloodmaul - Normal)	0
+35637	Assault on Stonefury Cliffs	-403	85265	Kill Credit (Bloodmaul - Collect/Interact Minor)	0
+35637	Assault on Stonefury Cliffs	-403	82531	Kill Credit (Bloodmaul - High HP Normal)	0
+35637	Assault on Stonefury Cliffs	-403	85262	Kill Credit (Bloodmaul - Elite)	0
+35637	Assault on Stonefury Cliffs	-403	85263	Kill Credit (Bloodmaul - Rare Elite/Event/Miniboss)	0
+35637	Assault on Stonefury Cliffs	-403	89159	Kill Credit (Bloodmaul - Shackle Key A)	0
+35641	Assault on Stonefury Cliffs	-403	85260	Kill Credit (Bloodmaul - Minus)	0
+35641	Assault on Stonefury Cliffs	-403	85261	Kill Credit (Bloodmaul - Normal)	0
+35641	Assault on Stonefury Cliffs	-403	85265	Kill Credit (Bloodmaul - Collect/Interact Minor)	0
+35641	Assault on Stonefury Cliffs	-403	82531	Kill Credit (Bloodmaul - High HP Normal)	0
+35641	Assault on Stonefury Cliffs	-403	85262	Kill Credit (Bloodmaul - Elite)	0
+35641	Assault on Stonefury Cliffs	-403	85263	Kill Credit (Bloodmaul - Rare Elite/Event/Miniboss)	0
+35641	Assault on Stonefury Cliffs	-403	89160	Kill Credit (Bloodmaul - Shackle Key H)	0
+35914	Internal: Default Invasion Reward	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+35935	Iron Horde Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+35974	Assault on Darktide Roost	-403	85726	Kill Credit (Vignette Mob)	0
+35974	Assault on Darktide Roost	-403	83800	Kill Credit (Normal Mob)	0
+35974	Assault on Darktide Roost	-403	85728	Kill Credit (Elite Mob)	0
+35974	Assault on Darktide Roost	-403	85727	Kill Credit (Bossl Mob)	0
+35974	Assault on Darktide Roost	-403	85729	Kill Credit (Minus)	0
+35977	Assault on Darktide Roost	-403	85726	Kill Credit (Vignette Mob)	0
+35977	Assault on Darktide Roost	-403	85728	Kill Credit (Elite Mob)	0
+35977	Assault on Darktide Roost	-403	85727	Kill Credit (Bossl Mob)	0
+35977	Assault on Darktide Roost	-403	83800	Kill Credit (Normal Mob)	0
+35977	Assault on Darktide Roost	-403	85729	Kill Credit (Minus)	0
+36171	Botani Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36347	Assault on Socrethar's Rise	-403	85079	Kill Credit (Sargerei - Anchorite's Rise)	0
+36347	Assault on Socrethar's Rise	-403	85319	Kill Credit (Sargerei - Anchorite's Rise)	0
+36347	Assault on Socrethar's Rise	-403	85321	Kill Credit (Sargerei - Anchorite's Rise)	0
+36348	Assault on Socrethar's Rise	-403	85079	Kill Credit (Sargerei - Anchorite's Rise)	0
+36348	Assault on Socrethar's Rise	-403	85319	Kill Credit (Sargerei - Anchorite's Rise)	0
+36348	Assault on Socrethar's Rise	-403	85321	Kill Credit (Sargerei - Anchorite's Rise)	0
+36352	Locating the Lapidarist	-403	85323	Locating the Lapidarist Credit	0
+36376	Goren Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36380	Diamonds Are Forever	-403	85322	Diamonds Are Forever Credit	0
+36383	Assault on the Pit	-403	85228	Kill Credit (Iron Horde Tier 1)	0
+36383	Assault on the Pit	-403	85229	Kill Credit (Iron Horde Tier 2)	0
+36383	Assault on the Pit	-403	85230	Kill Credit (Iron Horde Tier 3)	0
+36383	Assault on the Pit	-403	86298	Kill Credit (Iron Horde Tier 0.5)	0
+36412	Shadowmoon Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36414	Shadowmoon Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36435	Unintelligible Intelligence	-403	85485	Unintelligble Intelligence Credit	0
+36457	Bypassing Security	-403	85486	Bypassing Security Credit	0
+36461	Locating the Lapidarist	-403	85323	Locating the Lapidarist Credit	0
+36489	Assault on the Pit	-403	85228	Kill Credit (Iron Horde Tier 1)	0
+36489	Assault on the Pit	-403	85229	Kill Credit (Iron Horde Tier 2)	0
+36489	Assault on the Pit	-403	85230	Kill Credit (Iron Horde Tier 3)	0
+36489	Assault on the Pit	-403	86298	Kill Credit (Iron Horde Tier 0.5)	0
+36490	Assault on Pillars of Fate	-403	85609	Kill Credit (Shadowmoon Orc - Tier 1)	0
+36490	Assault on Pillars of Fate	-403	85607	Kill Credit (Shadowmoon Orc - Tier 2)	0
+36490	Assault on Pillars of Fate	-403	85608	Kill Credit (Shadowmoon Orc - Tier 3)	0
+36490	Assault on Pillars of Fate	-403	85611	Kill Credit (Shadowmoon Orc - Tier 5)	0
+36490	Assault on Pillars of Fate	-403	85610	Kill Credit (Shadowmoon Orc - Tier 4)	0
+36490	Assault on Pillars of Fate	-403	86556	Kill Credit (Shadowmoon Orc - Tier 0)	0
+36491	Assault on Pillars of Fate	-403	85609	Kill Credit (Shadowmoon Orc - Tier 1)	0
+36491	Assault on Pillars of Fate	-403	85607	Kill Credit (Shadowmoon Orc - Tier 2)	0
+36491	Assault on Pillars of Fate	-403	85608	Kill Credit (Shadowmoon Orc - Tier 3)	0
+36491	Assault on Pillars of Fate	-403	85610	Kill Credit (Shadowmoon Orc - Tier 4)	0
+36491	Assault on Pillars of Fate	-403	85611	Kill Credit (Shadowmoon Orc - Tier 5)	0
+36491	Assault on Pillars of Fate	-403	86556	Kill Credit (Shadowmoon Orc - Tier 0)	0
+36593	Breakers Invasion! UNUSED	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36620	Strategic Choices	-403	86124	Area Reached Credit	0
+36623	Ogre Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36627	Big Frostfire Gun	-403	86055	Big Frostfire Gun Kill Credit	0
+36648	Assault on Stonefury Cliffs	-403	91953	Stonefury Cliffs Credit	0
+36649	Assault on Shattrath Harbor	-403	91959	Shattrath Harbor Credit	0
+36650	Ogre Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36653	Botani Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36655	Iron Horde Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36667	Assault on Shattrath Harbor	-403	91959	Shattrath Harbor Credit	0
+36669	Assault on Stonefury Cliffs	-403	91953	Stonefury Cliffs Credit	0
+36674	Assault on the Iron Siegeworks	-403	91955	Iron Siegeworks Credit	0
+36675	Assault on Magnarok	-403	91952	Magnarok Credit	0
+36676	Assault on the Everbloom Wilds	-403	91966	Everbloom Wilds Credit	0
+36678	Assault on Mok'gol Watchpost	-403	91964	Mok'gol Watchpost Credit	0
+36679	Assault on Darktide Roost	-403	91962	Darktide Roost Credit	0
+36680	Assault on Socrethar's Rise	-403	91961	Socrethar's Rise Credit	0
+36681	Assault on Lost Veil Anzu	-403	91960	Lost Veil Anzu Credit	0
+36682	Assault on Pillars of Fate	-403	91958	Pillars of Fate Credit	0
+36683	Assault on Skettis	-403	91957	Skettis Credit	0
+36685	Assault on the Heart of Shattrath	-403	103087	Heart of Shattrath Credit	0
+36686	Assault on the Pit	-403	103086	The Pit Credit	0
+36687	Challenge at the Ring of Blood	-403	86624	Bonus Objective Complete Credit	0
+36688	Assault on Skettis	-403	91957	Skettis Credit	0
+36689	Assault on Pillars of Fate	-403	91958	Pillars of Fate Credit	0
+36690	Assault on Lost Veil Anzu	-403	91960	Lost Veil Anzu Credit	0
+36691	Assault on Socrethar's Rise	-403	91961	Socrethar's Rise Credit	0
+36692	Assault on Darktide Roost	-403	91962	Darktide Roost Credit	0
+36693	Assault on Mok'gol Watchpost	-403	91964	Mok'gol Watchpost Credit	0
+36695	Assault on the Everbloom Wilds	-403	91966	Everbloom Wilds Credit	0
+36696	Assault on the Iron Siegeworks	-403	91955	Iron Siegeworks Credit	0
+36697	Assault on Magnarok	-403	91952	Magnarok Credit	0
+36699	Assault on the Heart of Shattrath	-403	103087	Heart of Shattrath Credit	0
+36700	Challenge at the Ring of Blood	-403	86624	Bonus Objective Complete Credit	0
+36701	Assault on the Pit	-403	103086	The Pit Credit	0
+36822	Assault on the Iron Siegeworks	-403	87624	Grom'kar Minus Proxy	0
+36822	Assault on the Iron Siegeworks	-403	87610	Grom'kar Tier One Proxy	0
+36822	Assault on the Iron Siegeworks	-403	87618	Grom'kar Elite Proxy	0
+36822	Assault on the Iron Siegeworks	-403	87621	Grom'kar Rare Elite Proxy	0
+36823	Assault on the Iron Siegeworks	-403	87624	Grom'kar Minus Proxy	0
+36823	Assault on the Iron Siegeworks	-403	87610	Grom'kar Tier One Proxy	0
+36823	Assault on the Iron Siegeworks	-403	87618	Grom'kar Elite Proxy	0
+36823	Assault on the Iron Siegeworks	-403	87621	Grom'kar Rare Elite Proxy	0
+36826	Assault on Magnarok	-403	87507	Kill Credit (Magnarok - Minus)	0
+36826	Assault on Magnarok	-403	87513	Kill Credit (Magnarok - Normal)	0
+36826	Assault on Magnarok	-403	87514	Kill Credit (Magnarok - High HP Normal)	0
+36826	Assault on Magnarok	-403	87512	Kill Credit (Magnarok - Elite)	0
+36826	Assault on Magnarok	-403	87511	Kill Credit (Magnarok - Rare Elite/Event/Miniboss)	0
+36826	Assault on Magnarok	-403	87742	Kill Credit (Magnarok - 5man Boss)	0
+36826	Assault on Magnarok	-403	87510	Kill Credit (Magnarok - Collect/Interact Minor)	0
+36827	Assault on Magnarok	-403	87507	Kill Credit (Magnarok - Minus)	0
+36827	Assault on Magnarok	-403	87513	Kill Credit (Magnarok - Normal)	0
+36827	Assault on Magnarok	-403	87513	Kill Credit (Magnarok - Normal)	0
+36827	Assault on Magnarok	-403	87512	Kill Credit (Magnarok - Elite)	0
+36827	Assault on Magnarok	-403	87511	Kill Credit (Magnarok - Rare Elite/Event/Miniboss)	0
+36827	Assault on Magnarok	-403	87742	Kill Credit (Magnarok - 5man Boss)	0
+36827	Assault on Magnarok	-403	87510	Kill Credit (Magnarok - Collect/Interact Minor)	0
+36830	Shadow Council Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+36831	Shadow Council Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37204	Rekindling an Old Flame	-403	87973	Kill Credit (Magnarok - Firaga)	0
+37268	Shadowmoon Invasion! BETA	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37269	Shadowmoon Invasion! BETA	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37289	Shadowmoon Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37291	Thunderlord Invasion!	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37512	Primals Invasion! BETA	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37513	Ogres Invasion! BETA	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37514	Breakers Invasion!! BETA	-403	80686	Garrison Event - Invasion - MASTER PROXY	0
+37523	Assault on the Gorian Proving Grounds	-403	91963	Gorian Proving Grounds Credit	0
+37524	Assault on the Gorian Proving Grounds	-403	91963	Gorian Proving Grounds Credit	0
+37585	Assault on the Iron Siegeworks	-403	87624	Grom'kar Minus Proxy	0
+37585	Assault on the Iron Siegeworks	-403	87610	Grom'kar Tier One Proxy	0
+37585	Assault on the Iron Siegeworks	-403	87618	Grom'kar Elite Proxy	0
+37585	Assault on the Iron Siegeworks	-403	87621	Grom'kar Rare Elite Proxy	0
+37622	Assault on the Iron Siegeworks	-403	87624	Grom'kar Minus Proxy	0
+37622	Assault on the Iron Siegeworks	-403	87610	Grom'kar Tier One Proxy	0
+37622	Assault on the Iron Siegeworks	-403	87618	Grom'kar Elite Proxy	0
+37622	Assault on the Iron Siegeworks	-403	87621	Grom'kar Rare Elite Proxy	0
+37623	Assault on Stonefury Cliffs	-403	85260	Kill Credit (Bloodmaul - Minus)	0
+37623	Assault on Stonefury Cliffs	-403	85261	Kill Credit (Bloodmaul - Normal)	0
+37623	Assault on Stonefury Cliffs	-403	85265	Kill Credit (Bloodmaul - Collect/Interact Minor)	0
+37623	Assault on Stonefury Cliffs	-403	82531	Kill Credit (Bloodmaul - High HP Normal)	0
+37623	Assault on Stonefury Cliffs	-403	85262	Kill Credit (Bloodmaul - Elite)	0
+37623	Assault on Stonefury Cliffs	-403	85263	Kill Credit (Bloodmaul - Rare Elite/Event/Miniboss)	0
+37624	Assault on Stonefury Cliffs	-403	85260	Kill Credit (Bloodmaul - Minus)	0
+37624	Assault on Stonefury Cliffs	-403	85261	Kill Credit (Bloodmaul - Normal)	0
+37624	Assault on Stonefury Cliffs	-403	85265	Kill Credit (Bloodmaul - Collect/Interact Minor)	0
+37624	Assault on Stonefury Cliffs	-403	82531	Kill Credit (Bloodmaul - High HP Normal)	0
+37624	Assault on Stonefury Cliffs	-403	85262	Kill Credit (Bloodmaul - Elite)	0
+37624	Assault on Stonefury Cliffs	-403	85263	Kill Credit (Bloodmaul - Rare Elite/Event/Miniboss)	0
+37625	Assault on Magnarok	-403	87507	Kill Credit (Magnarok - Minus)	0
+37625	Assault on Magnarok	-403	87513	Kill Credit (Magnarok - Normal)	0
+37625	Assault on Magnarok	-403	87514	Kill Credit (Magnarok - High HP Normal)	0
+37625	Assault on Magnarok	-403	87512	Kill Credit (Magnarok - Elite)	0
+37625	Assault on Magnarok	-403	87511	Kill Credit (Magnarok - Rare Elite/Event/Miniboss)	0
+37625	Assault on Magnarok	-403	87742	Kill Credit (Magnarok - 5man Boss)	0
+37625	Assault on Magnarok	-403	87510	Kill Credit (Magnarok - Collect/Interact Minor)	0
+37626	Assault on Magnarok	-403	87507	Kill Credit (Magnarok - Minus)	0
+37626	Assault on Magnarok	-403	87513	Kill Credit (Magnarok - Normal)	0
+37626	Assault on Magnarok	-403	87513	Kill Credit (Magnarok - Normal)	0
+37626	Assault on Magnarok	-403	87512	Kill Credit (Magnarok - Elite)	0
+37626	Assault on Magnarok	-403	87511	Kill Credit (Magnarok - Rare Elite/Event/Miniboss)	0
+37626	Assault on Magnarok	-403	87742	Kill Credit (Magnarok - 5man Boss)	0
+37626	Assault on Magnarok	-403	87510	Kill Credit (Magnarok - Collect/Interact Minor)	0
+37631	Assault on Socrethar's Rise	-403	85079	Kill Credit (Sargerei - Anchorite's Rise)	0
+37631	Assault on Socrethar's Rise	-403	85319	Kill Credit (Sargerei - Anchorite's Rise)	0
+37631	Assault on Socrethar's Rise	-403	85321	Kill Credit (Sargerei - Anchorite's Rise)	0
+37632	Assault on Socrethar's Rise	-403	85079	Kill Credit (Sargerei - Anchorite's Rise)	0
+37632	Assault on Socrethar's Rise	-403	85319	Kill Credit (Sargerei - Anchorite's Rise)	0
+37632	Assault on Socrethar's Rise	-403	85321	Kill Credit (Sargerei - Anchorite's Rise)	0
+37633	Assault on Darktide Roost	-403	85726	Kill Credit (Vignette Mob)	0
+37633	Assault on Darktide Roost	-403	85728	Kill Credit (Elite Mob)	0
+37633	Assault on Darktide Roost	-403	85727	Kill Credit (Bossl Mob)	0
+37633	Assault on Darktide Roost	-403	83800	Kill Credit (Normal Mob)	0
+37633	Assault on Darktide Roost	-403	85729	Kill Credit (Minus)	0
+37634	Assault on Darktide Roost	-403	85726	Kill Credit (Vignette Mob)	0
+37634	Assault on Darktide Roost	-403	85728	Kill Credit (Elite Mob)	0
+37634	Assault on Darktide Roost	-403	85727	Kill Credit (Bossl Mob)	0
+37634	Assault on Darktide Roost	-403	83800	Kill Credit (Normal Mob)	0
+37634	Assault on Darktide Roost	-403	85729	Kill Credit (Minus)	0
+38022	[DEPRECATED]Assault on the Temple of Sha'naar	-403	86624	Bonus Objective Complete Credit	0
+38051	Battle At The Iron Front	-403	90371	Kill Credit	0
+38051	Battle At The Iron Front	-403	90337	Kill Credit	0
+38051	Battle At The Iron Front	-403	90867	Kill Credit	0
+38051	Battle At The Iron Front	-403	90868	Elite Kill Credit	0
+38051	Battle At The Iron Front	-403	93035	Kill Credit Plus	0
+38051	Battle At The Iron Front	-403	93014	Schematics Kill Credit	0
+38051	Battle At The Iron Front	-403	93036	Capture Kill Credit	0
+38054	Battle At The Iron Front	-403	90371	Kill Credit	0
+38054	Battle At The Iron Front	-403	90337	Kill Credit	0
+38054	Battle At The Iron Front	-403	90867	Kill Credit	0
+38054	Battle At The Iron Front	-403	90868	Elite Kill Credit	0
+38054	Battle At The Iron Front	-403	93035	Kill Credit Plus	0
+38054	Battle At The Iron Front	-403	93014	Schematics Kill Credit	0
+38054	Battle At The Iron Front	-403	93036	Capture Kill Credit	0
+38176	Missive: Assault on Stonefury Cliffs	-403	91953	Stonefury Cliffs Credit	0
+38177	Missive: Assault on Magnarok	-403	91952	Magnarok Credit	0
+38178	Missive: Assault on the Iron Siegeworks	-403	91955	Iron Siegeworks Credit	0
+38179	Missive: Assault on the Everbloom Wilds	-403	91966	Everbloom Wilds Credit	0
+38181	Missive: Assault on Mok'gol Watchpost	-403	91964	Mok'gol Watchpost Credit	0
+38182	Missive: Assault on Darktide Roost	-403	91962	Darktide Roost Credit	0
+38183	Missive: Assault on Socrethar's Rise	-403	91961	Socrethar's Rise Credit	0
+38184	Missive: Assault on Lost Veil Anzu	-403	91960	Lost Veil Anzu Credit	0
+38185	Missive: Assault on Pillars of Fate	-403	91958	Pillars of Fate Credit	0
+38186	Missive: Assault on Skettis	-403	91957	Skettis Credit	0
+38187	Missive: Assault on Shattrath Harbor	-403	91959	Shattrath Harbor Credit	0
+38189	Missive: Assault on Stonefury Cliffs	-403	91953	Stonefury Cliffs Credit	0
+38190	Missive: Assault on Magnarok	-403	91952	Magnarok Credit	0
+38191	Missive: Assault on the Iron Siegeworks	-403	91955	Iron Siegeworks Credit	0
+38192	Missive: Assault on the Everbloom Wilds	-403	91966	Everbloom Wilds Credit	0
+38194	Missive: Assault on the Gorian Proving Grounds	-403	91963	Gorian Proving Grounds Credit	0
+38195	Missive: Assault on Mok'gol Watchpost	-403	91964	Mok'gol Watchpost Credit	0
+38196	Missive: Assault on Darktide Roost	-403	91962	Darktide Roost Credit	0
+38197	Missive: Assault on Socrethar's Rise	-403	91961	Socrethar's Rise Credit	0
+38198	Missive: Assault on Lost Veil Anzu	-403	91960	Lost Veil Anzu Credit	0
+38199	Missive: Assault on Pillars of Fate	-403	91958	Pillars of Fate Credit	0
+38200	Missive: Assault on Skettis	-403	91957	Skettis Credit	0
+38201	Missive: Assault on Shattrath Harbor	-403	91959	Shattrath Harbor Credit	0
+38202	Missive: Assault on the Gorian Proving Grounds	-403	91963	Gorian Proving Grounds Credit	0
+38865	Battle At The Iron Front	-403	90867	Kill Credit	0
+38865	Battle At The Iron Front	-403	93035	Kill Credit Plus	0
+38865	Battle At The Iron Front	-403	90371	Kill Credit	0
+38865	Battle At The Iron Front	-403	90337	Kill Credit	0
+38865	Battle At The Iron Front	-403	93014	Schematics Kill Credit	0
+38865	Battle At The Iron Front	-403	93036	Capture Kill Credit	0
+38865	Battle At The Iron Front	-403	90868	Elite Kill Credit	0
+38866	Battle At The Iron Front	-403	90867	Kill Credit	0
+38866	Battle At The Iron Front	-403	93035	Kill Credit Plus	0
+38866	Battle At The Iron Front	-403	90371	Kill Credit	0
+38866	Battle At The Iron Front	-403	90337	Kill Credit	0
+38866	Battle At The Iron Front	-403	93014	Schematics Kill Credit	0
+38866	Battle At The Iron Front	-403	93036	Capture Kill Credit	0
+38866	Battle At The Iron Front	-403	90868	Elite Kill Credit	0
+39443	Battle At The Iron Front	-403	90867	Kill Credit	0
+39443	Battle At The Iron Front	-403	93035	Kill Credit Plus	0
+39443	Battle At The Iron Front	-403	90371	Kill Credit	0
+39443	Battle At The Iron Front	-403	90337	Kill Credit	0
+39443	Battle At The Iron Front	-403	93014	Schematics Kill Credit	0
+39443	Battle At The Iron Front	-403	93036	Capture Kill Credit	0
+39443	Battle At The Iron Front	-403	90868	Elite Kill Credit	0
+39444	Battle At The Iron Front	-403	90867	Kill Credit	0
+39444	Battle At The Iron Front	-403	93035	Kill Credit Plus	0
+39444	Battle At The Iron Front	-403	90371	Kill Credit	0
+39444	Battle At The Iron Front	-403	90337	Kill Credit	0
+39444	Battle At The Iron Front	-403	93014	Schematics Kill Credit	0
+39444	Battle At The Iron Front	-403	93036	Capture Kill Credit	0
+39444	Battle At The Iron Front	-403	90868	Elite Kill Credit	0
+40941	Missive: Assault on the Pit	-403	103086	The Pit Credit	0
+40942	Missive: Assault on the Pit	-403	103086	The Pit Credit	0
+40943	Missive: Assault on the Heart of Shattrath	-403	103087	Heart of Shattrath Credit	0
+40944	Missive: Assault on the Heart of Shattrath	-403	103087	Heart of Shattrath Credit	0
+34424	The Chase is On	-402	78986	Run Across Bridge Credit	0
+34428	To Even the Odds	-402	79071	Armed Prisoner Credit	0
+34433	Nullin' Void	-402	79553	Portal Closed Credit	0
+34509	Into the Jaws of the Jungle	-402	78975	Run to Altar Credit	0
+34738	Nullin' Void	-402	79553	Portal Closed Credit	0
+34816	The Chase is On	-402	78986	Run Across Bridge Credit	0
+34848	To Even the Odds	-402	79071	Armed Prisoner Credit	0
+32980	Eaters of the Elements	-401	74359	Kill Credit: Goren Wave 1	0
+32980	Eaters of the Elements	-401	74360	Kill Credit: Goren Wave 2	0
+34040	Maker's Mark	-401	78126	Siege Parts Kill Credit	0
+34284	Garrison Campaign: The Search for Owynn Graddock	-401	78060	Kill Credit: Clue 1	0
+34284	Garrison Campaign: The Search for Owynn Graddock	-401	86322	Kill Credit: Took Flight	0
+34286	Seeking the Truth	-401	78252	Kill Credit	0
+34287	Cleansing the Souls	-401	78431	Kill Credit	0
+34289	Soulgrinder Survivor	-401	78386	Borgal's Spiritbinder Totem	0
+34309	Garrison Campaign: The Search for Shadow Hunter Bwu'ja	-401	78060	Kill Credit: Clue 1	0
+34316	Seeking the Truth	-401	78252	Kill Credit	0
+34319	Soulgrinder Survivor	-401	78386	Borgal's Spiritbinder Totem	0
+34338	The Descent	-401	78294	Kill Credit: The Descent - Investigate Crater	0
+34338	The Descent	-401	78295	Kill Credit: The Descent - Escape the Cauldron	0
+34339	A Goren's Feast	-401	78289	Kill Credit: A Gorger's Feast	0
+34340	Heating Up	-401	78292	Kill Credit: Heating Up	0
+34355	Dirty Rats	-401	78253	Kill Credit Bunny	0
+34362	The Shadow Gate	-401	78290	Kill Credit	0
+34381	The Shadow Gate	-401	78290	Kill Credit	0
+34454	Mind Controlled Rylaks	-401	78586	Kill Credit Bunny	0
+34455	Free their Minds	-401	78586	Kill Credit Bunny	0
+34469	Cleansing the Souls	-401	78431	Kill Credit	0
+35187	Infiltrating the Sargerei	-401	81611	Kill Credit: Wear Sargerei Disguise	0
+35194	Facing Demons	-401	88396	Kill Credit: Demon Portal destroyed	0
+35195	Socrethar's Fury	-401	81716	Kill Credit: Confront Socrethar	0
+35217	Pearing It Up	-401	81680	Kill Credit: Kick Pear	0
+35685	Socrethar's Demise	-401	82673	Kill Credit: Issue the Challenge	0
+35687	Socrethar's Demise	-401	82673	Kill Credit: Issue the Challenge	0
+35838	The Warlord's Council	-401	83395	Kill Credit: Overhear Iron Horde Plans	0
+35844	The Warlord's Council	-401	83395	Kill Credit: Overhear Iron Horde Plans	0
+36168	The Trial of Faith	-401	84719	Spirit of Exarch Hataaru	0
+36168	The Trial of Faith	-401	84814	Spirit of Maraad	0
+36222	The Champion of Blood	-401	84826	Kill Credit: Talk to Gurgthock	0
+36341	Primal Fury	-401	85238	Kill Credit: Witness Hellscream's Challenge	0
+36342	Primal Fury	-401	85238	Kill Credit: Witness Hellscream's Challenge	0
+37889	The Invasion of Tanaan	-401	90117	Kill Credit - 6.2 Invasion Started	0
+37921	Clearing the Docks	-401	90025	Kill Credit: 6.1 Iron Docks Monster	0
+37934	In, Through, and Beyond!	-401	90260	Kill Credit - 6.2 Mortar Reached	0
+37934	In, Through, and Beyond!	-401	91872	Kill Credit - 6.2 Mortar Destroyed	0
+37935	The Assault Base	-401	90374	Kill Credit - 6.2 Hub Flag Planted	0
+37935	The Assault Base	-401	90375	Kill Credit - 6.2 Mutumba At Hub	0
+38256	Hook, Line, and... Sink Him!	-401	92112	Grapple Kill Credit	0
+38272	The Bleeding Hollow	-401	91448	Credit - Found BH Ritual	0
+38416	Secrets of the Sargerei	-401	91778	Credit - Entered Ossuary	0
+38416	Secrets of the Sargerei	-401	91798	Credit - Entered Teron Room	0
+38417	The Sargerei Menace	-401	91752	Credit - Killed Sargerei	0
+38435	The Invasion of Tanaan	-401	90117	Kill Credit - 6.2 Invasion Started	0
+38444	In, Through, and Beyond!	-401	90260	Kill Credit - 6.2 Mortar Reached	0
+38444	In, Through, and Beyond!	-401	91872	Kill Credit - 6.2 Mortar Destroyed	0
+38445	The Assault Base	-401	91932	Kill Credit - 6.2 Naielle At Hub	0
+38445	The Assault Base	-401	90374	Kill Credit - 6.2 Hub Flag Planted	0
+38463	The Cipher of Damnation	-401	92138	Kill Credit - 6.2 - GD Chapter - Entered the Refuge	0
+38562	Secrets of the Sargerei	-401	91778	Credit - Entered Ossuary	0
+38562	Secrets of the Sargerei	-401	91798	Credit - Entered Teron Room	0
+38565	The Sargerei Menace	-401	91752	Credit - Killed Sargerei	0
+38569	Clearing the Docks	-401	90025	Kill Credit: 6.1 Iron Docks Monster	0
+38572	Hook, Line, and... Sink Him!	-401	92112	Grapple Kill Credit	0
+39394	The Cipher of Damnation	-401	92138	Kill Credit - 6.2 - GD Chapter - Entered the Refuge	0
+33248	Proving Grounds	-400	72319	Proving Grounds Credit	0
+33249	Proving Grounds	-400	72319	Proving Grounds Credit	0
+37433	Proving Grounds	-400	72319	Proving Grounds Credit	0
+37434	Proving Grounds	-400	72319	Proving Grounds Credit	0
+32837	Grandpa Grumplefloot	-399	71565	Grandpa Grumplefloot Credit	0
+32839	The Bear and the Lady Fair	-399	71573	The Bear and the Lady Fair Credit	0
+32841	Master Boom Boom	-399	71567	Master Boom Boom Credit	0
+32843	Razorgrin	-399	71568	Razorgrin Credit	0
+32845	Splat	-399	71569	Splat Credit	0
+32847	Mecha-Bruce	-399	71570	Mecha-Bruce Credit	0
+32851	Blingtron 3000	-399	71571	Blingtron Credit	0
+32855	The Blind Hero	-399	71574	Blind Hero Credit	0
+32857	Ro-Shambo	-399	71572	Ro-Shambo Credit	0
+32859	Ty'thar	-399	71566	Ty'thar Credit	0
+32339	Rebuilding the Mallet (Tracker)	-397	68935	Tracker Quest Credit: The Handle	0
+32339	Rebuilding the Mallet (Tracker)	-397	68933	Tracker Quest Credit: The Harmonic Ointment	0
+32339	Rebuilding the Mallet (Tracker)	-397	68934	Tracker Quest Credit: The Head	0
+32808	A Little Field Work	-397	71026	"A Little Field Work" Kill Credit	0
+32817	Complete "Loyalty" Scenario	-397	70960	Kill Credit: The King and the Council	0
+32818	Complete "The Dark Heart of Pandaria" Scenario	-397	70961	Kill Credit: The Warchief and the Darkness	0
+31138	The Arts of a Monk	-395	44175	Spell Practice Credit	0
+31142	Palm of the Tiger	-395	44175	Spell Practice Credit	0
+31147	Tiger Palm	-395	44175	Spell Practice Credit	0
+31151	Kick, Punch, It's All in the Mind	-395	44175	Spell Practice Credit	0
+31157	Tiger Palm	-395	44175	Spell Practice Credit	0
+31162	The Arts of a Monk	-395	44175	Spell Practice Credit	0
+31166	Tiger Palm	-395	44175	Spell Practice Credit	0
+31169	The Art of the Monk	-395	44175	Spell Practice Credit	0
+31171	Tiger Palm	-395	44175	Spell Practice Credit	0
+31173	The Tiger Palm	-395	44175	Spell Practice Credit	0
+44949	The Smell of Humans	-394	115858	Location Kill Credit	0
+44969	Snowfeather Reunion	-394	116132	Location Kill Credit	0
+44971	The Smell of Orcs	-394	115858	Location Kill Credit	0
+44974	The Smell of Dwarves	-394	116105	Location Kill Credit	0
+44975	The Smell of Tauren	-394	116105	Location Kill Credit	0
+44988	Direbeak Reunion	-394	116134	Location Kill Credit	0
+44991	The Smell of Draenei	-394	116104	Location Kill Credit	0
+44992	The Smell of Night Elves	-394	116103	Location Kill Credit	0
+44993	The Smell of Blood Elves	-394	116104	Location Kill Credit	0
+44994	The Smell of Undead	-394	116103	Location Kill Credit	0
+45019	Sharptalon Reunion	-394	116133	Location Kill Credit	0
+45020	Bloodgazer Reunion	-394	116135	Location Kill Credit	0
+32900	Heroic Deeds	-392	71496	5.3 Heroic Scenario Final Boss Proxy	0
+32901	Heroic Deeds	-392	71496	5.3 Heroic Scenario Final Boss Proxy	0
+30567	Blanche's Boomer Brew	-391	59575	A Brewing Storm Quest Credit	0
+29216	Malfurion's Breach	-379	53370	Foothold Kill Credit	0
+29259	[DEPRECATED] Hide and Seek	-379	53114	Hide and Seek Credit	0
+41163	The Apocalypse Bringer	-377	103516	7.0 Professions - Archaeology - The Apocolypse Bringer - Kill Credit B - SCS	0
+41163	The Apocalypse Bringer	-377	103504	7.0 Professions - Archaeology - The Apocolypse Bringer - Kill Credit A - SCS	0
+41166	Dark Secrets	-377	103522	7.0 Professions - Archaeology - Dark Secrets - Kill Credit B - SCS	0
+41166	Dark Secrets	-377	104296	7.0 Professions - Archaeology - Dark Secrets - Kill Credit A - SCS	0
+41170	The Relic Renewed	-377	103840	7.0 Professions - Archaeology - The Relic Renewed - Kill Credit - SCS	0
+41172	Echoes of My Ancestors	-377	103566	7.0 Professions - Archaeology - Echoes of My Ancestors - Kill Credit - SCS	0
+41179	What Once Was Lost	-377	104002	7.0 Professions - Archaeology - What Once Was Lost - Kill Credit A - SCS	0
+41179	What Once Was Lost	-377	104003	7.0 Professions - Archaeology - What Once Was Lost - Kill Credit B - SCS	0
+41182	Uncovering the Orb of Sciallax	-377	103596	7.0 Professions - Archaeology - Better Than Nothing - Kill Credit B - SCS	0
+41182	Uncovering the Orb of Sciallax	-377	103595	7.0 Professions - Archaeology - Better Than Nothing - Kill Credit A - SCS	0
+41187	Surveying Student	-377	103735	7.0 Professions - Archaeology - Surveying Student - Kill Credit B - SCS	0
+41190	Crystal Eyes	-377	103756	7.0 Professions - Archaeology - Crystal Eyes - Kill Credit E - SCS	0
+41190	Crystal Eyes	-377	103755	7.0 Professions - Archaeology - Crystal Eyes - Kill Credit D - SCS	0
+41190	Crystal Eyes	-377	103754	7.0 Professions - Archaeology - Crystal Eyes - Kill Credit C - SCS	0
+41190	Crystal Eyes	-377	103753	7.0 Professions - Archaeology - Crystal Eyes - Kill Credit B - SCS	0
+41190	Crystal Eyes	-377	103752	7.0 Professions - Archaeology - Crystal Eyes - Kill Credit A - SCS	0
+41193	Laying to Rest	-377	103731	7.0 Professions - Archaeology - Laying to Rest - Kill Credit B - SCS	0
+41193	Laying to Rest	-377	103556	7.0 Professions - Archaeology - Laying to Rest - Kill Credit - SCS	0
+39177	Ruined Construct	-373	94689	Apexis Crystal Credit	0
+40523	Facet-nating Friends	-373	100536	7.0 Professions - Jewelcrafting - Facet-nating Friends - Kill Credit 02 - SCS	0
+40523	Facet-nating Friends	-373	100535	7.0 Professions - Jewelcrafting - Facet-nating Friends - Kill Credit 01 - SCS	0
+40524	A Familiar Ring to It	-373	106876	Irisse Credit	0
+40524	A Familiar Ring to It	-373	106877	Garuhod Credit	0
+40524	A Familiar Ring to It	-373	106875	Farondis Credit	0
+40530	An Eye for Detail	-373	100581	7.0 Professions - Jewelcrafting - An Eye for Detail - Kill Credit 03 - SCS	0
+40530	An Eye for Detail	-373	100580	7.0 Professions - Jewelcrafting - An Eye for Detail - Kill Credit 02 - SCS	0
+40530	An Eye for Detail	-373	100579	7.0 Professions - Jewelcrafting - An Eye for Detail - Kill Credit 01 - SCS	0
+40535	Raising the Drogbar	-373	100794	7.0 Professions - Jewelcrafting - Raising the Drogbar - Kill Credit 03 - SCS	0
+40535	Raising the Drogbar	-373	100793	7.0 Professions - Jewelcrafting - Raising the Drogbar - Kill Credit 02 - SCS	0
+40535	Raising the Drogbar	-373	100792	7.0 Professions - Jewelcrafting - Raising the Drogbar - Kill Credit 01 - SCS	0
+40536	Bruls Before Jewels	-373	100854	7.0 Professions - Jewelcrafting - Bruls Before Jewels - Kill Credit 03 - SCS	0
+40536	Bruls Before Jewels	-373	100853	7.0 Professions - Jewelcrafting - Bruls Before Jewels - Kill Credit 02 - SCS	0
+40536	Bruls Before Jewels	-373	100859	7.0 Professions - Jewelcrafting - Bruls Before Jewels - Kill Credit 01-2 - SCS	0
+40536	Bruls Before Jewels	-373	100851	7.0 Professions - Jewelcrafting - Bruls Before Jewels - Kill Credit 01 - SCS	0
+40539	Hidden Intentions	-373	100970	7.0 Professions - Jewelcrafting - Hidden Intentions - Kill Credit 03 - SCS	0
+40539	Hidden Intentions	-373	100969	7.0 Professions - Jewelcrafting - Hidden Intentions - Kill Credit 02 - SCS	0
+40539	Hidden Intentions	-373	100968	7.0 Professions - Jewelcrafting - Hidden Intentions - Kill Credit 01 - SCS	0
+40541	The Charge Within	-373	101102	Charge Credit	0
+40547	To Dalaran, With Love	-373	101553	7.0 Professions - Jewelcrafting - To Dalaran, With Love - Kill Credit 03 - SCS	0
+40547	To Dalaran, With Love	-373	101562	7.0 Professions - Jewelcrafting - To Dalaran, With Love - Kill Credit 04 - SCS	0
+40547	To Dalaran, With Love	-373	101157	7.0 Professions - Jewelcrafting - To Dalaran, With Love - Kill Credit 01 - SCS	0
+40547	To Dalaran, With Love	-373	101158	7.0 Professions - Jewelcrafting - To Dalaran, With Love - Kill Credit 02 - SCS	0
+12678	If Chaos Drives, Let Suffering Hold The Reins	-372	28763	[Phase 1] Scarlet Crusade Proxy Creature	0
+12678	If Chaos Drives, Let Suffering Hold The Reins	-372	28764	[Phase 1] Citizen of Havenshire Proxy Creature	0
+12680	Grand Theft Palomino	-372	28767	[Phase 1] Havenshrie Horse Credit, Step 01	0
+12701	Massacre At Light's Point	-372	28849	Scarlet Fleet (PROXY)	0
+12722	Lambs To The Slaughter	-372	28984	[Chapter II] Scarlet Crusader Proxy	0
+12722	Lambs To The Slaughter	-372	28986	Citizen of New Avalon Proxy	0
+12733	Death's Challenge	-372	29025	[609] Ebon Hold Duel Credit	0
+12779	An End To All Things...	-372	29150	Scarlet Soldier Proxy	0
+12801	The Light of Dawn	-372	29245	[Chapter IV] Light of Dawn Credit	0
+13166	The Battle For The Ebon Hold	-372	31100	Acherus Scourge Proxy	0
+39933	The Card Shark	-371	97801	7.0 Professions - Inscription - The Card Sharp - Kill Credit - SCS	0
+39938	Containing the Demon Within	-371	98028	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 06 - SCS	0
+39938	Containing the Demon Within	-371	97998	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 05 - SCS	0
+39938	Containing the Demon Within	-371	97997	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 04 - SCS	0
+39938	Containing the Demon Within	-371	97996	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 03 - SCS	0
+39938	Containing the Demon Within	-371	97995	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 02 - SCS	0
+39938	Containing the Demon Within	-371	97975	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 01 - SCS	0
+39947	Not So Complex?	-371	98078	7.0 Professions - Inscription - Not So Complex - Kill Credit - SCS	0
+39956	The Legacy Passed On	-371	98221	7.0 Professions - Inscription - The Legacy Passed On(Horde) - Kill Credit A - SCS	0
+39956	The Legacy Passed On	-371	98216	7.0 Professions - Inscription - The Legacy Passed On(Horde) - Kill Credit - SCS	0
+39960	The Legacy Passed On	-371	98216	7.0 Professions - Inscription - The Legacy Passed On(Horde) - Kill Credit - SCS	0
+40060	Containing the Demon Within	-371	98028	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 06 - SCS	0
+40060	Containing the Demon Within	-371	97998	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 05 - SCS	0
+40060	Containing the Demon Within	-371	97997	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 04 - SCS	0
+40060	Containing the Demon Within	-371	97996	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 03 - SCS	0
+40060	Containing the Demon Within	-371	97995	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 02 - SCS	0
+40060	Containing the Demon Within	-371	97975	7.0 Professions - Inscription - Containing the Demon Within - Kill Credit 01 - SCS	0
+11320	[NYI] Now this is Ram Racing... Almost.	-370	24263	[DND] Brewfest Speed Bunny Green	33554432
+11320	[NYI] Now this is Ram Racing... Almost.	-370	24264	[DND] Brewfest Speed Bunny Yellow	33554432
+11320	[NYI] Now this is Ram Racing... Almost.	-370	24265	[DND] Brewfest Speed Bunny Red	33554432
+31454	A Legend in the Making	-344	64649	Wrathion Intro Kill Credit	0
+31482	Breath of the Black Prince	-344	66586	Wrathion Finale Meeting Kill Credit	0
+31482	Breath of the Black Prince	-344	64664	Wrathion Finale Kill Credit	0
+31483	Incoming...	-344	64681	Wrathion Naval Fleet Kill Credit	0
+32373	The Measure of a Leader	-344	68316	Wrathion Intro Kill Credit	0
+32389	The Lion Roars	-344	68931	Temple of Kotmogu Kill Credit	0
+32389	The Lion Roars	-344	68932	Silvershard Mines Kill Credit	0
+32390	Call of the Packmaster	-344	69053	Wrathion Finale Kill Credit	0
+32427	The Measure of a Leader	-344	68316	Wrathion Intro Kill Credit	0
+32431	Glory to the Horde	-344	68931	Temple of Kotmogu Kill Credit	0
+32431	Glory to the Horde	-344	68932	Silvershard Mines Kill Credit	0
+32432	The Soul of the Horde	-344	69053	Wrathion Finale Kill Credit	0
+32474	A Test of Valor	-344	69145	Wrathion Valor Kill Credit	0
+32476	A Test of Valor	-344	69145	Wrathion Valor Kill Credit	0
+32593	The Thunder Forge	-344	70093	Unlock Forge Kill Credit	0
+32593	The Thunder Forge	-344	70094	Complete Scenario Kill Credit	0
+32594	Spirit of the Storm Lord	-344	70456	Unlock Courtyard Kill Credit	0
+32595	The Crown of Heaven	-344	70466	Mason's Folly Kill Credit	0
+32595	The Crown of Heaven	-344	70467	Event Complete Kill Credit	0
+32805	Celestial Blessings	-344	70924	Yu'lon Kill Credit	0
+32805	Celestial Blessings	-344	70926	Chi'ji Kill Credit	0
+32805	Celestial Blessings	-344	70927	Xuen Kill Credit	0
+32805	Celestial Blessings	-344	70928	Niuzao Kill Credit	0
+32805	Celestial Blessings	-344	70931	Challenge Kill Credit	0
+32861	Cloak of Virtue	-344	71299	Mason's Folly Kill Credit	0
+32861	Cloak of Virtue	-344	71300	Event Complete Kill Credit	0
+37834	Orb of Dominion	-344	90464	Find Den of Secrets Kill Credit 01	0
+37836	Breaking Badness	-344	90465	Garona Freed Kill Credit 01	0
+37837	An Inside Job	-344	90234	Stealth Quest Kill Credit 01	0
+37839	Light Be With You	-344	94087	Blessing of Naaru or Elements Kill Credit	0
+37840	Draenor's Blessing	-344	94087	Blessing of Naaru or Elements Kill Credit	0
+37841	The Final Assault	-344	85462	Build a Shipyard Kill Credit [INTERNAL ONLY]	0
+39003	Cooking the Books	-344	94052	Travel to Zangarra Kill Credit	0
+39003	Cooking the Books	-344	94053	Give Books to Cordana Kill Credit	0
+39057	Command of the Seas	-344	96725	Docks Upgraded Kill Credit	0
+40501	REUSEME_40501	-344	90234	Stealth Quest Kill Credit 01	0
+30330	The Truffle Shuffle	-304	59490	Spore Planted Credit	0
+33027	The Secret Ingredient Is...	-304	73365	"The Secret Ingredient Is..." Queue Kill Credit	0
+33146	Noodle Time	-304	73416	"Noodle Time" Queue Kill Credit	0
+33358	Noodle Time: Bonus	-304	73416	"Noodle Time" Queue Kill Credit	0
+40991	Opening the Test Kitchen	-304	102559	Nomi Work Order Credit	0
+49813	Adventure Calls	-284	130982	BC/LK Choice Credit	0
+49846	Wars on Two Fronts	-284	131032	Cata/MoP Choice Credit	0
+49860	Adventure Calls	-284	130982	BC/LK Choice Credit	0
+49864	Wars on Two Fronts	-284	131032	Cata/MoP Choice Credit	0
+38945	This Should Be Simple... Right?	-264	94349	Crafting Credit A	0
+38950	The Wayward Tailor	-264	94048	Curious About Dalaran Credit	0
+38954	Where's Lyndras?	-264	94049	Where's Lyndras Credit	0
+38956	Where's Lyndras Again?	-264	94050	Where's Lyndras Again Credit	0
+38964	Where's Lyndras Now?	-264	96292	Credit - Where's Lyndras Now A	0
+38965	Assault on Violet Hold: Into the Hold	-264	114365	Door Credit	0
+38970	The Queen's Grace Loom	-264	94259	The Queen's Grace Loom Credit	0
+38975	Inspire Me!	-264	94306	Inspire Me Credit E	0
+38975	Inspire Me!	-264	94305	Inspire Me Credit D	0
+38975	Inspire Me!	-264	94304	Inspire Me Credit C	0
+38975	Inspire Me!	-264	94303	Inspire Me Credit B	0
+38975	Inspire Me!	-264	94302	Inspire Me Credit A	0
+39602	Where's Lyndras: Sewer Sleuthing	-264	96426	Kill Credit Bunny	0
+26948	Moonfire	-263	44175	Spell Practice Credit	0
+27067	Moonfire	-263	44175	Spell Practice Credit	0
+14009	Learning the Word	-262	44175	Spell Practice Credit	0
+24533	Words of Power	-262	44175	Spell Practice Credit	0
+24966	Of Light and Shadows	-262	44175	Spell Practice Credit	0
+26919	Learning the Word	-262	44175	Spell Practice Credit	0
+26949	Learning the Word	-262	44175	Spell Practice Credit	0
+26970	Learning the Word	-262	44175	Spell Practice Credit	0
+27066	Learning the Word	-262	44175	Spell Practice Credit	0
+14007	Steady Shot	-261	44175	Spell Practice Credit	0
+24530	Oh, A Hunter's Life For Me	-261	44175	Spell Practice Credit	0
+24964	The Thrill of the Hunt	-261	44175	Spell Practice Credit	0
+25139	Steady Shot	-261	44175	Spell Practice Credit	0
+26917	The Hunter's Path	-261	44175	Spell Practice Credit	0
+26947	A Woodsman's Training	-261	44175	Spell Practice Credit	0
+26963	Steadying Your Shot	-261	44175	Spell Practice Credit	0
+27021	The Hunter's Path	-261	44175	Spell Practice Credit	0
+40859	The Latest Fashion: Headguns!	-201	102299	7.0 Professions - Engineering - They Do Something - Kill Credit - SCS	0
+40862	All Charged Up	-201	102332	7.0 Professions - Engineering - All Charged Up - Kill Credit - SCS	0
+40863	Always the Last Thing	-201	102536	7.0 Professions - Engineering - Always the Last Thing - Kill Credit E - SCS	0
+40863	Always the Last Thing	-201	102535	7.0 Professions - Engineering - Always the Last Thing - Kill Credit D - SCS	0
+40863	Always the Last Thing	-201	102485	7.0 Professions - Engineering - Always the Last Thing - Kill Credit C - SCS	0
+40863	Always the Last Thing	-201	102484	7.0 Professions - Engineering - Always the Last Thing - Kill Credit B - SCS	0
+40863	Always the Last Thing	-201	102483	7.0 Professions - Engineering - Always the Last Thing - Kill Credit A - SCS	0
+40869	Fire and Forget	-201	102577	7.0 Professions - Engineering - Fire and Forget - Kill Credit C - SCS	0
+40869	Fire and Forget	-201	102613	Calibrate Credit 02	0
+40869	Fire and Forget	-201	102576	7.0 Professions - Engineering - Fire and Forget - Kill Credit B - SCS	0
+40869	Fire and Forget	-201	102612	Calibrate Credit 01	0
+40869	Fire and Forget	-201	102353	7.0 Professions - Engineering - Fire and Forget - Kill Credit A - SCS	0
+40874	I'd Do It Myself, But...	-201	102684	7.0 Professions - Engineering - I'd Do It Myself But - Kill Credit - SCS	0
+40875	Going to Waste	-201	102674	7.0 Professions - Engineering - Going to Waste - Kill Credit - SCS	0
+40878	Assault on Violet Hold: Cheating Death	-201	107508	7.0 Violet Hold - Final Prisoner Defeated - Kill Credit - SCS	0
+40880	Short Circuit	-201	105610	7.0 Professions - Engineering - Short Circuit - Kill Credit F - SCS	0
+40880	Short Circuit	-201	102836	7.0 Professions - Engineering - Short Circuit - Kill Credit E - SCS	0
+40880	Short Circuit	-201	102835	7.0 Professions - Engineering - Short Circuit - Kill Credit D - SCS	0
+40880	Short Circuit	-201	102834	7.0 Professions - Engineering - Short Circuit - Kill Credit C - SCS	0
+40880	Short Circuit	-201	102833	7.0 Professions - Engineering - Short Circuit - Kill Credit B - SCS	0
+40880	Short Circuit	-201	102832	7.0 Professions - Engineering - Short Circuit - Kill Credit A - SCS	0
+40186	Drogbar Durability	-182	100261	7.0 Professions - Leatherworking - Drogbar Durability - Kill Credit - SCS	0
+40195	A Daring Rescue	-182	99661	7.0 Professions - Leatherworking - A Daring Rescue - Kill Credit 01 - SCS	0
+40196	Adventuring Anxieties	-182	99869	7.0 Professions - Leatherworking - Adventuring Anxieties - Kill Credit 01 - SCS	0
+40199	Leather Legwork	-182	99197	7.0 Professions - Leatherworking - Leather Legwork - Kill Credit 05 - SCS	0
+40199	Leather Legwork	-182	99196	7.0 Professions - Leatherworking - Leather Legwork - Kill Credit 04 - SCS	0
+40199	Leather Legwork	-182	99477	7.0 Professions - Leatherworking - Leather Legwork - Kill Credit 03b - SCS	0
+40199	Leather Legwork	-182	99195	7.0 Professions - Leatherworking - Leather Legwork - Kill Credit 03 - SCS	0
+40199	Leather Legwork	-182	99194	7.0 Professions - Leatherworking - Leather Legwork - Kill Credit 02 - SCS	0
+40199	Leather Legwork	-182	99193	7.0 Professions - Leatherworking - Leather Legwork - Kill Credit 01 - SCS	0
+40200	Battle Bonds	-182	99199	7.0 Professions - Leatherworking - Battle Bonds - Kill Credit - SCS	0
+40205	Respect for the Past	-182	99319	7.0 Professions - Leatherworking - Respect for the Past - Kill Credit 04 - SCS	0
+40205	Respect for the Past	-182	99318	7.0 Professions - Leatherworking - Respect for the Past - Kill Credit 03 - SCS	0
+40205	Respect for the Past	-182	99317	7.0 Professions - Leatherworking - Respect for the Past - Kill Credit 02 - SCS	0
+40205	Respect for the Past	-182	99316	7.0 Professions - Leatherworking - Respect for the Past - Kill Credit 01 - SCS	0
+40207	Scales of the Arcane	-182	99112	7.0 Professions - Leatherworking - Scales of the Air - Kill Credit 03 - SCS	0
+40207	Scales of the Arcane	-182	99111	7.0 Professions - Leatherworking - Scales of the Air - Kill Credit 02 - SCS	0
+40207	Scales of the Arcane	-182	99110	7.0 Professions - Leatherworking - Scales of the Air - Kill Credit 01 - SCS	0
+40215	Mounting Made Easy	-182	105350	Great Northern Elderhorn Credit 07	0
+40215	Mounting Made Easy	-182	105349	Great Northern Elderhorn Credit 06	0
+40215	Mounting Made Easy	-182	105348	Great Northern Elderhorn Credit 05	0
+40215	Mounting Made Easy	-182	105347	Great Northern Elderhorn Credit 04	0
+40215	Mounting Made Easy	-182	105346	Great Northern Elderhorn Credit 03	0
+40215	Mounting Made Easy	-182	105345	Great Northern Elderhorn Credit 02	0
+40215	Mounting Made Easy	-182	105344	Great Northern Elderhorn Credit 01	0
+40241	Battle Bonds	-182	99199	7.0 Professions - Leatherworking - Battle Bonds - Kill Credit - SCS	0
+40327	Testing the Metal	-182	99662	7.0 Professions - Leatherworking - Testing the Metal - Kill Credit 01 - SCS	0
+40327	Testing the Metal	-182	99714	7.0 Professions - Leatherworking - Testing the Metal - Kill Credit 02 - SCS	0
+39330	Ley Hunting	-181	95669	Zarkhenar Credit	0
+39330	Ley Hunting	-181	95668	Dragon Pool Credit	0
+39330	Ley Hunting	-181	95670	Nar'thalas Credit	0
+39337	Forlorn Filter	-181	105758	7.0 Professions - Alchemy - Forlorn Filter - Kill Credit - SCS	0
+39341	Vault of the Wardens: Demon's Bile	-181	106272	Door Credit	0
+39341	Vault of the Wardens: Demon's Bile	-181	112768	Bile Credit	0
+39344	Going Underground	-181	105839	7.0 Professions - Alchemy - Going Underground - Kill Credit - SCS	0
+39430	Flasking for a Favor	-181	105709	7.0 Professions - Alchemy - Flasking for a Favor - Kill Credit - SCS	0
+39431	Mending the Filter	-181	105761	7.0 Professions - Alchemy - Mending the Filter - Kill Credit A - SCS	0
+14010	Eviscerate	-162	44175	Spell Practice Credit	0
+24532	Evisceratin' the Enemy	-162	44175	Spell Practice Credit	0
+24967	Stab!	-162	44175	Spell Practice Credit	0
+25141	Eviscerate	-162	44175	Spell Practice Credit	0
+26915	The Deepest Cut	-162	44175	Spell Practice Credit	0
+26946	A Rogue's Advantage	-162	44175	Spell Practice Credit	0
+29802	A Hidden Message	-162	55691	Charge Ring Kill Credit	0
+29802	A Hidden Message	-162	55690	Get Message Kill Credit	0
+29847	To Catch a Thief	-162	56426	Egg Located Kill Credit	0
+14008	Frost Nova	-161	44175	Spell Practice Credit	0
+24526	Filling Up the Spellbook	-161	44175	Spell Practice Credit	0
+24965	Magic Training	-161	44175	Spell Practice Credit	0
+25149	Frost Nova	-161	44175	Spell Practice Credit	0
+26916	Mastering the Arcane	-161	44175	Spell Practice Credit	0
+26940	Frost Nova	-161	44175	Spell Practice Credit	0
+26968	Frost Nova	-161	44175	Spell Practice Credit	0
+24528	The Power of the Light	-141	44175	Spell Practice Credit	0
+26918	The Power of the Light	-141	44175	Spell Practice Credit	0
+26966	The Light's Power	-141	44175	Spell Practice Credit	0
+27023	The Way of the Sunwalkers	-141	44175	Spell Practice Credit	0
+38500	Leysmithing Mastery	-121	92641	Handcrafted Gauntlets Credit	0
+38523	Leystone Hoofplates	-121	92492	Farrier Credit	0
+38525	Part of the Team	-121	100271	Kill Credit	0
+38528	Leystone's Potential	-121	93086	Demon Attack D Credit	0
+38528	Leystone's Potential	-121	93085	Demon Attack C Credit	0
+38564	A Sweet Bargain	-121	92925	Glaciela Recruited Credit	0
+38833	The Art of Demonsteel	-121	93306	Demonsteel C Credit	0
+38833	The Art of Demonsteel	-121	93305	Demonsteel B Credit	0
+38833	The Art of Demonsteel	-121	93304	Demonsteel A Credit	0
+39681	The Properties of Leystone	-121	96642	7.0 Professions - Blacksmithing - Strange New Ores - Kill Credit - SCS	0
+39702	Legend of Black Rook Hold	-121	96736	7.0 Professions - Blacksmithing - Legend of Blackrook Hold - Kill Credit - SCS	0
+45051	Reverse Blacksmithing	-121	115942	Kill Credit - Deconstruct Broken Darkspear	0
+45057	Saving My Head	-121	115944	Kill Credit - Combine at Forge	0
+14011	Primal Strike	-82	44175	Spell Practice Credit	0
+24527	Your Path Begins Here	-82	44175	Spell Practice Credit	0
+25143	Primal Strike	-82	44175	Spell Practice Credit	0
+26969	Primal Strike	-82	44175	Spell Practice Credit	0
+27027	Primal Strike	-82	44175	Spell Practice Credit	0
+14013	Charge	-81	44175	Spell Practice Credit	0
+24531	Getting Battle-Ready	-81	44175	Spell Practice Credit	0
+24969	Charging into Battle	-81	44175	Spell Practice Credit	0
+25147	Charge	-81	44175	Spell Practice Credit	0
+26913	Charging into Battle	-81	44175	Spell Practice Credit	0
+26945	Learning New Techniques	-81	44175	Spell Practice Credit	0
+26958	Your First Lesson	-81	44175	Spell Practice Credit	0
+27020	The First Lesson	-81	44175	Spell Practice Credit	0
+14012	Corruption	-61	44175	Spell Practice Credit	0
+24968	Dark Deeds	-61	44175	Spell Practice Credit	0
+25145	Corruption	-61	44175	Spell Practice Credit	0
+26914	Corruption	-61	44175	Spell Practice Credit	0
+32295	An Unusual Tome	-61	67944	Language Credit	0
+32295	An Unusual Tome	-61	67945	Purpose Credit	0
+32324	Seek the Signal	-61	68053	Black Temple Entrance Credit	0
+32325	Infiltrating the Black Temple	-61	68054	Black Temple Top Credit	0
+30934	Criteria Effects Test Quest	-1	61358	Test Quest Kill Target	0
+30910	Greenstone Village	0	61283	"Save Dojo" Kill Credit	0
+30910	Greenstone Village	0	61284	"Save Home 1" Kill Credit	0
+30910	Greenstone Village	0	61285	"Save Home 2" Kill Credit	0
+30910	Greenstone Village	0	61286	"Save Scribe" Kill Credit	0
+30910	Greenstone Village	0	61287	"Save Tavern" Kill Credit	0
+30910	Greenstone Village	0	61288	"Save Woodcarver" Kill Credit	0
+36814	Assault on the Everbloom Wilds	0	88174	Kill Credit (Primal Forest Tier 1)	0
+36814	Assault on the Everbloom Wilds	0	88175	Kill Credit (Primal Forest Tier 2)	0
+36814	Assault on the Everbloom Wilds	0	88176	Kill Credit (Primal Forest Tier 3)	0
+36814	Assault on the Everbloom Wilds	0	88278	Kill Credit (Primal Forest Minus Mob)	0
+36815	Assault on the Everbloom Wilds	0	88278	Kill Credit (Primal Forest Minus Mob)	0
+36815	Assault on the Everbloom Wilds	0	88174	Kill Credit (Primal Forest Tier 1)	0
+36815	Assault on the Everbloom Wilds	0	88175	Kill Credit (Primal Forest Tier 2)	0
+36815	Assault on the Everbloom Wilds	0	88176	Kill Credit (Primal Forest Tier 3)	0
+37515	The Iron Horde Approaches... BETA	0	80686	Garrison Event - Invasion - MASTER PROXY	0
+39324	Through the Portal	0	95192	Kill Credit Bunny	0
+39352	Extinguishing the Sentinels	0	95230	Kill Credit Bunny	0
+39352	Extinguishing the Sentinels	0	95229	Kill Credit Bunny	0
+39352	Extinguishing the Sentinels	0	95228	Kill Credit Bunny	0
+2681	The Stones That Bind Us	4	7668	Servant of Razelikh	0
+2681	The Stones That Bind Us	4	7669	Servant of Grol	0
+2681	The Stones That Bind Us	4	7670	Servant of Allistarj	0
+2681	The Stones That Bind Us	4	7671	Servant of Sevine	0
+38699	Competitive Exorcise	12	92883	Legion Forces Kill Credit Proxy	0
+25445	Zalazane's Fall	14	40428	[DND] Quest Credit Bunny - ET Battle	33554688
+29096	Mor'shan Caravan Pick-Up	17	52303	Mor'shan Caravan Pick-Up Credit	0
+9065	The Pattymac Special	22	25499	PattyMack - Test - The Dummy	33554432
+36452	Spawn Tracking & Spell Visuals: Do They Work?	22	85474	ELM Internal Quest Target	0
+14	The People's Militia	40	121	Defias Pathstalker	32768
+44684	Corruption Runs Deep	41	114641	Soil Sample	33554432
+28938	Save the Children	45	51625	Confused Murloc - Quest Credit	0
+26904	Corruption	132	44175	Spell Practice Credit	0
+6041	When Smokey Sings, I Get Violent	139	12247	Scourge Structure	33554944
+9664	Establishing New Outposts	139	17689	<TXT>Crown Guard Capture Quest Doodad	33554944
+9664	Establishing New Outposts	139	17690	<TXT>Eastwall Capture Quest Doodad	33554944
+9664	Establishing New Outposts	139	17696	<TXT>Northpass Capture Quest Doodad	33554944
+9664	Establishing New Outposts	139	17698	<TXT>Plaguewood Capture Quest Doodad	33554944
+9665	Bolstering Our Defenses	139	17689	<TXT>Crown Guard Capture Quest Doodad	33554944
+9665	Bolstering Our Defenses	139	17690	<TXT>Eastwall Capture Quest Doodad	33554944
+9665	Bolstering Our Defenses	139	17696	<TXT>Northpass Capture Quest Doodad	33554944
+9665	Bolstering Our Defenses	139	17698	<TXT>Plaguewood Capture Quest Doodad	33554944
+41395	Due Reward	357	104099	Kill Credit: Honor Twinkles' Memory	0
+24640	The Arts of a Warrior	368	44175	Spell Practice Credit	0
+24752	The Arts of a Mage	368	44175	Spell Practice Credit	0
+24760	The Arts of a Shaman	368	44175	Spell Practice Credit	0
+24766	The Arts of a Druid	368	44175	Spell Practice Credit	0
+24772	The Arts of a Rogue	368	44175	Spell Practice Credit	0
+24778	The Arts of a Hunter	368	44175	Spell Practice Credit	0
+24784	Learnin' tha Word	368	44175	Spell Practice Credit	0
+26274	The Arts of a Warlock	368	44175	Spell Practice Credit	0
+13524	Escape from Silverbrook	394	28019	Escape from Silverbrook Credit	0
+3520	Screecher Spirits	440	8612	Screecher Spirit	0
+25501	Poaching for Dummies	440	39702	Tanaris Basilisk Kill Credit Bunny	33554688
+38890	Not Dead Yet!	440	93709	Kill Credit	0
+38896	Tearing down the Legion	440	92883	Legion Forces Kill Credit Proxy	0
+13915	Hungry, Hungry Hatchling	490	34327	Dino Meat Feeding Credit	0
+13916	Poached, Scrambled, Or Raw?	490	34338	Silithid Egg Feeding Credit	0
+13917	Gorishi Grub	490	34336	Silithid Meat Feeding Credit	0
+26198	The Arts of a Mage	801	44175	Spell Practice Credit	0
+26200	The Arts of a Priest	801	44175	Spell Practice Credit	0
+26201	The Power of a Warlock	801	44175	Spell Practice Credit	0
+26204	The Arts of a Warrior	801	44175	Spell Practice Credit	0
+26207	The Arts of a Rogue	801	44175	Spell Practice Credit	0
+28903	<PH>Faceless	1377	51424	Twilight Gateway Credit	0
+26997	The Usual Suspects	1519	44827	Stormwind Dock Worker Tracking Bunny	33554688
+27106	A Villain Unmasked	1519	44979	Major Samuelson Quest Tracking Bunny	33554688
+30988	The Alliance Way	1519	61798	Walk With Varian Credit	0
+30989	An Old Pit Fighter	1519	61824	Fight With Varian Credit	0
+31014	Hellscream's Gift	1637	62209	Arena Credit	0
+29134	A Wrinkle in Time	1941	52605	Anachronos Vision Camera Bunny	33554688
+8105	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8105	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8105	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8105	The Battle for Arathi Basin!	3358	15003	PvP H-Mid Credit Marker	33554432
+8120	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8120	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8120	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8120	The Battle for Arathi Basin!	3358	15001	PvP A-Mid Credit Marker	33554432
+8166	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8166	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8166	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8166	The Battle for Arathi Basin!	3358	15003	PvP H-Mid Credit Marker	33554432
+8167	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8167	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8167	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8167	The Battle for Arathi Basin!	3358	15003	PvP H-Mid Credit Marker	33554432
+8168	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8168	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8168	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8168	The Battle for Arathi Basin!	3358	15003	PvP H-Mid Credit Marker	33554432
+8169	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8169	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8169	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8169	The Battle for Arathi Basin!	3358	15001	PvP A-Mid Credit Marker	33554432
+8170	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8170	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8170	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8170	The Battle for Arathi Basin!	3358	15001	PvP A-Mid Credit Marker	33554432
+8171	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+8171	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+8171	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+8171	The Battle for Arathi Basin!	3358	15001	PvP A-Mid Credit Marker	33554432
+10531	The Battle for Arathi Basin!	3358	15005	PvP ALT-N Credit Marker	33554432
+10531	The Battle for Arathi Basin!	3358	15004	PvP ALT-S Credit Marker	33554432
+10531	The Battle for Arathi Basin!	3358	15002	PvP Mid Credit Marker	33554432
+10531	The Battle for Arathi Basin!	3358	15003	PvP H-Mid Credit Marker	33554432
+10068	Frost Nova	3431	44175	Spell Practice Credit	0
+10069	Ways of the Light	3431	44175	Spell Practice Credit	0
+10070	Steady Shot	3431	44175	Spell Practice Credit	0
+10071	Evisceration	3431	44175	Spell Practice Credit	0
+10072	Learning the Word	3431	44175	Spell Practice Credit	0
+10073	Corruption	3431	44175	Spell Practice Credit	0
+27091	Charge!	3431	44175	Spell Practice Credit	0
+11166	X Marks... Your Doom!	3805	23815	Zul'Aman - Lynx God Invisman	33554432
+12911	Kill Credit Test	3896	29902	Kill Credit Test	0
+14266	Charge	4714	44175	Spell Practice Credit	0
+14272	Eviscerate	4714	44175	Spell Practice Credit	0
+14274	Corruption	4714	44175	Spell Practice Credit	0
+14276	Steady Shot	4714	44175	Spell Practice Credit	0
+14279	Learning the Word	4714	44175	Spell Practice Credit	0
+14281	Frost Nova	4714	44175	Spell Practice Credit	0
+14283	Moonfire	4714	44175	Spell Practice Credit	0
+14071	Rolling with my Homies	4737	48323	"Rolling with my Homies" Keys to the Hot Rod Used Kill Credit	0
+24502	Necessary Roughness	4737	48271	"Necessary Roughness" Kill Credit	0
+14212	Sacrifices	4755	35582	Bloodfang Stalker Credit	0
+24547	A Feast of Souls	4812	38121	Soul Feast Kill Credit Bunny	33554688
+24869	Deprogramming	4812	39091	Darnavan Kill Credit 10	0
+24875	Deprogramming	4812	39092	Darnavan Kill Credit 25	0
+24879	Blood Quickening	4812	39123	Blood Quickening Credit 25	0
+25455	A Test of Wills	4815	40133	Naga Ride KC Bunny	33554688
+25634	A Better Vantage	4815	40963	Vashj'ir Gardens Credit	0
+25634	A Better Vantage	4815	40964	Vashj'ir Underpass Credit	0
+25634	A Better Vantage	4815	40965	Vashj'ir Southern Structures Credit	0
+27588	Signal the Attack	4922	46000	"Signal the Attack" Kill Credit	0
+27590	Signal the Attack	4922	46000	"Signal the Attack" Kill Credit	0
+28270	Riding Shotgun!	5034	48183	Shotgun Kill Credit	0
+28555	Expel the Envoys	5034	48881	Neferset City Envoy Credit	0
+28555	Expel the Envoys	5034	48882	Lost City Envoy Credit	0
+28117	Clearing the Depths	5095	47616	Wildlife Kill Credit - Tol Barad Quest - Cursed Depths	0
+28163	The Leftovers	5095	48144	Wildlife Kill Credit - Tol Barad Quest - The Leftovers	0
+28165	D-Block	5095	47785	Wildlife Kill Credit - Tol Barad Quest - D-Block	0
+28188	Prison Revolt	5095	48035	Wildlife Kill Credit - Tol Barad Quest - The Hole	0
+28659	The Leftovers	5095	48144	Wildlife Kill Credit - Tol Barad Quest - The Leftovers	0
+28660	Clearing the Depths	5095	47616	Wildlife Kill Credit - Tol Barad Quest - Cursed Depths	0
+28663	D-Block	5095	47785	Wildlife Kill Credit - Tol Barad Quest - D-Block	0
+28668	Prison Revolt	5095	48035	Wildlife Kill Credit - Tol Barad Quest - The Hole	0
+27978	Ghostbuster	5389	47303	Wildlife Kill Credit - Tol Barad Quest - Largo's Overlook	0
+28130	Not The Friendliest Town	5389	47664	Wildlife Kill Credit - Tol Barad Quest - Rustberg Village	0
+28686	Not The Friendliest Town	5389	47664	Wildlife Kill Credit - Tol Barad Quest - Rustberg Village	0
+28697	Ghostbuster	5389	47303	Wildlife Kill Credit - Tol Barad Quest - Largo's Overlook	0
+29405	The Lesson of the Iron Staff	5736	54139	Main Weapon Equipped Credit	0
+29408	The Lesson of the Burning Scroll	5736	59570	Burning Scroll Credit	0
+29423	The Passion of Shen-zin Su	5736	61128	Fire Spirit At Temple Credit	0
+29664	The Challenger's Fires	5736	56048	Challenger Torch Lit Credit	0
+29664	The Challenger's Fires	5736	56037	Red Flame Credit	0
+29664	The Challenger's Fires	5736	56038	Blue Flame Credit	0
+29664	The Challenger's Fires	5736	56040	Purple Flame Credit	0
+29773	Wugou, the Spirit of Earth	5736	55545	Ox Cart Credit	0
+30027	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30027	The Lesson of the Iron Bough	5736	57849	Off Weapon Equipped Credit	0
+30033	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30033	The Lesson of the Iron Bough	5736	57849	Off Weapon Equipped Credit	0
+30034	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30035	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30035	The Lesson of the Iron Bough	5736	57849	Off Weapon Equipped Credit	0
+30036	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30036	The Lesson of the Iron Bough	5736	57849	Off Weapon Equipped Credit	0
+30037	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30037	The Lesson of the Iron Bough	5736	57849	Off Weapon Equipped Credit	0
+30038	The Lesson of the Iron Bough	5736	54139	Main Weapon Equipped Credit	0
+30817	The Healing of Shen-zin Su	5736	56011	Shen-zin Su Healed Credit	0
+29728	Explosive Evidence	5785	55281	Kill Credit: Dynamite	0
+29746	Breadcrumb Into Ruins	5785	55471	Mogu Ruins Discovery Kill Credit	0
+29842	Seeking Answers	5785	55889	Cairn of Blood Credit Bunny	0
+29902	Fighting the Flames	5785	54647	Wayward Landing Fire Bunny	0
+29923	The Dream Brew	5785	59203	Kill Credit: Dream Brew	0
+29923	The Dream Brew	5785	59204	Kill Credit: Dream Brew	0
+30099	In Unending Numbers	5788	58239	Portal 01 Credit	0
+30099	In Unending Numbers	5788	58240	Portal 02 Credit	0
+30099	In Unending Numbers	5788	58241	Portal 03 Credit	0
+30104	Documenting the Timeways	5788	57856	Legion Demon Credit	0
+30104	Documenting the Timeways	5788	57857	Handmaiden Credit	0
+30104	Documenting the Timeways	5788	57858	Varo'then Credit	0
+30097	Archival Purposes	5789	57855	Archival Purposes Credit	0
+30253	The Family Farm	5805	58746	Kill Credit: The Family Farm	0
+30247	Roll Club: Vale of Eternal Blossoms	5840	58988	Roll Course Golden Valley Credit	0
+30283	A Smashing Impression	5840	63123	Mogu Ritual Destroyed Credit	0
+30288	My Town, It's On Fire Again	5840	63943	Mistfall Village Fire Bunny	0
+30289	Freeing Mind and Body	5840	64206	Dominated Pandaren Defender Credit	0
+30293	In Enemy Hands	5840	63225	Controlled Pandaren Defender Credit	0
+30320	Free Spirits	5840	59231	Captive Pandaren Spirit	33536
+31757	Unleashed Spirits	5840	65935	Unleashed Spirit	0
+30105	The Twilight Prophet	5844	57854	Twilight Prophet Unmask Credit	0
+31522	A Worthy Challenge: Sha of Hatred	5918	66953	Shado-Pan Monastery Credit	0
+32001	A Worthy Challenge: Sha of Hatred	5918	66953	Shado-Pan Monastery Credit	0
+31520	A Worthy Challenge: Sha of Doubt	5956	66951	Temple of the Jade Serpent Credit	0
+31998	A Worthy Challenge: Sha of Doubt	5956	66951	Temple of the Jade Serpent Credit	0
+31519	A Worthy Challenge: Yan-zhu the Uncasked	5963	66952	Stormstout Brewery Credit	0
+32000	A Worthy Challenge: Yan-zhu the Uncasked	5963	66952	Stormstout Brewery Credit	0
+31524	A Worthy Challenge: Raigonn	5976	66954	Gate of the Setting Sun Credit	0
+32003	A Worthy Challenge: Raigonn	5976	66954	Gate of the Setting Sun Credit	0
+31495	Rank and File	6052	64964	"Rank and File" Quest Proxy Kill	0
+31527	A Worthy Challenge: Flameweaver Koegler	6052	66957	Scarlet Halls Credit	0
+32006	A Worthy Challenge: Flameweaver Koegler	6052	66957	Scarlet Halls Credit	0
+31528	A Worthy Challenge: Darkmaster Gandling	6066	66958	Scholomance Credit	0
+32007	A Worthy Challenge: Darkmaster Gandling	6066	66958	Scholomance Credit	0
+31516	Unto Dust Thou Shalt Return	6109	64840	"Unto Dust Thou Shalt Return" Kill Credit	0
+31526	A Worthy Challenge: Durand	6109	66956	Scarlet Monastery Credit	0
+32005	A Worthy Challenge: Durand	6109	66956	Scarlet Monastery Credit	0
+31604	Assault on Zan'vess	6138	65268	Zan'vess Scenario Kill Credit	0
+24471	Aid for the Wounded	6176	37079	Kill Credit Bunny - Wounded Coldridge Mountaineer	33554688
+24489	Trolling for Information	6176	37109	Trolling for Information Kill Credit Bunny SE	33554688
+24489	Trolling for Information	6176	37110	Trolling for Information Kill Credit Bunny SW	33554688
+24489	Trolling for Information	6176	37111	Trolling for Information Kill Credit Bunny W	33554688
+31523	A Worthy Challenge: Xin the Weaponmaster	6182	66959	Mogu'shan Palace Credit	0
+32002	A Worthy Challenge: Xin the Weaponmaster	6182	66959	Mogu'shan Palace Credit	0
+31525	A Worthy Challenge: Wing Leader Ner'onok	6214	66955	Siege of Niuzao Temple Credit	0
+32004	A Worthy Challenge: Wing Leader Ner'onok	6214	66955	Siege of Niuzao Temple Credit	0
+9294	Healing the Lake	6456	88791	Kill Credit Bunny - Irradiated Crystal	0
+26208	The Fight Continues	6457	42463	Operation: Gnomeregan Recap Credit	0
+26342	Paint it Black	6457	42796	Paint it Black Credit	0
+32253	REMOVE (No Longer Used)	6507	69160	Zandalari Cairn Credit	0
+32482	Shwayder's Test Quest	6507	69160	Zandalari Cairn Credit	0
+33521	Save Auchenai Caretakers	6662	75083	Kill Credit: Auchenai Caretaker Saved	0
+33529	Nightmare in the Tomb	6662	75112	Kill Credit: Ritual Investigated	0
+33547	Desperate Times	6662	76825	Kill Credit: Ride to Tomb of Lights	0
+33560	Light's Rest	6662	75253	Kill Credit: Ride with Exarch Maladaar	0
+33588	Task: Break Corrupt Deathweb Eggs	6662	75300	Kill Credit: Deathweb Egg Broken	0
+33656	Talbuk Roundup	6662	75624	Kill Credit: Talbuk Rescued	0
+33658	The Iron Missive	6662	75613	Kill Credit: Iron Horde Supplies Burned	0
+33658	The Iron Missive	6662	75617	Kill Credit: Iron Horde Camp Burned	0
+33907	The Power Shards	6662	78679	Kill Credit: Speak to Soulbinder Tuulani	0
+33908	The Power Shards	6662	78679	Kill Credit: Speak to Soulbinder Tuulani	0
+33913	Desperate Times	6662	76825	Kill Credit: Ride to Tomb of Lights	0
+34015	Invasion of the Soul Eaters	6662	77004	Kill Credit: Corpse Burned	0
+34100	Desperate Measures	6662	77386	Kill Credit: Ritual Performed	0
+34570	REUSE	6662	79171	Kill Credit: Take Portal	0
+34570	REUSE	6662	79173	Kill Credit: Take Portal to Auchindoun	0
+33028	To Karabor!	6719	72446	Fly Into Karabor Credit	0
+33079	The Demons Among Us - Alliance	6719	73697	Kill Credit: Master of Disguise	0
+33108	Task: Poisionous bunnies	6719	72756	[old]Poisonous Bunny	0
+33129	Task: Poisionous bunnies	6719	72756	[old]Poisonous Bunny	0
+33130	Task: Poisionous bunnies	6719	72756	[old]Poisonous Bunny	0
+33154	Fight for Freedom	6719	76287	Kill Credit Bunny	0
+33464	From Over the Walls	6719	76394	Yrel Run Back Credit 01	0
+34055	Origin Unknown	6719	77188	Kill Credit: Portal Closed	0
+34064	The Search For Drogguk	6719	77242	Kill Credit: Drogguk Found	0
+34071	Ending the Gloom	6719	77294	Kill Credit: Planted Velen's Staff at Gloomshade Grove	0
+34074	The Iron March	6719	76952	Kill Credit	0
+34181	Mutation Station	6719	77663	Kill Credit	0
+34181	Mutation Station	6719	77667	Kill Credit	0
+34181	Mutation Station	6719	77678	Kill Credit	0
+34181	Mutation Station	6719	77688	Kill Credit	0
+34181	Mutation Station	6719	77691	Kill Credit	0
+34267	Grommar Forces	6719	77918	Kill Credit	0
+34304	Mutation Station	6719	77678	Kill Credit	0
+34304	Mutation Station	6719	77663	Kill Credit	0
+34304	Mutation Station	6719	77667	Kill Credit	0
+34304	Mutation Station	6719	77688	Kill Credit	0
+34304	Mutation Station	6719	77691	Kill Credit	0
+34640	[Deprecated] Doorway to Draenor	6719	79433	Kill Credit Bunny	0
+37881	Treasure Contract: Explosive Discoveries	6719	89807	Credit Bunny	0
+37882	Dark Grimoire: The First Ingredient	6719	90123	Credit Bunny	0
+37883	Dark Grimoire: The Second Ingredient	6719	90127	Credit Bunny	0
+37884	Dark Grimoire: The Final Ingredient	6719	90128	Credit Bunny	0
+37973	Treasure Contract: The Artificer	6719	90493	Area Trigger Bunny	0
+37973	Treasure Contract: The Artificer	6719	90424	Credit Bunny	0
+37976	Dream of Argus: The First Fragment	6719	90490	Credit Bunny	0
+37977	Dream of Argus: The Second Fragment	6719	90491	Credit Bunny	0
+37978	Dream of Argus: The Final Fragment	6719	90492	Credit Bunny	0
+37979	Dream of Argus: The Crystal Reborn	6719	90626	Area Trigger Bunny	0
+37997	Dream of Argus: The Crystal Reborn	6719	90626	Area Trigger Bunny	0
+32802	Task: Retrieve Warm Frostpear Bulbs	6720	71768	Credit: Frostpear Bulb	0
+33223	Task: Collect Ogre Queasine	6720	73652	Credit: Delectable Ogre Queasine	0
+34269	Task: Kill Wolf Boss	6720	77924	Snowstalker	0
+35251	The Bounty of Bladespire	6720	81799	Bounty of Bladespire Credit	0
+37914	Treasure Contract: The Thunderlord Sage	6720	90192	Credit Bunny	0
+37916	Gronnsbane: The Broken Spear	6720	90172	Credit Bunny	0
+37916	Gronnsbane: The Broken Spear	6720	90174	Credit Bunny	0
+37916	Gronnsbane: The Broken Spear	6720	90175	Credit Bunny	0
+37917	Gronnsbane: The Blessing of Fire	6720	90184	Credit Bunny	0
+37918	Gronnsbane: The Blessing of Frost	6720	90183	Credit Bunny	0
+33557	Muddy Waters	6721	75350	Kill Credit Bunny	0
+33637	Can I Keep It?	6721	75618	Kill Credit Bunny	0
+33709	Let's Go!	6721	77162	Alliance Transition 02 Quest Credit	0
+33746	[DEPRECATED]Y'kish Joins the Party	6721	75618	Kill Credit Bunny	0
+33753	Y'kish the Wingless	6721	75974	Kill Credit Bunny	0
+37941	Treasure Contract: The Infected Orc	6721	90333	Credit Bunny	0
+37942	The Silent Skull: The First Reagent	6721	90328	Credit Bunny	0
+37943	The Silent Skull: The Second Reagent	6721	90327	Credit Bunny	0
+37944	The Silent Skull: The Third Reagent	6721	90330	Credit Bunny	0
+35340	What Happened Here?	6722	82095	Kill Credit: Show Item to Architect	0
+35387	Through The Nether	6755	81203	Kill Credit	0
+35388	The Void March	6755	81229	Kill Credit	0
+37083	Fight, Kill, Salute!	6755	87835	Invisible Trigger	0
+37286	The Bloodshed Never Ends	6755	87835	Invisible Trigger	0
+37788	Treasure Contract: Gutrek's Cleaver	6755	90130	Credit Bunny	0
+37797	Gutrek's Cleaver: The First Piece	6755	90131	Credit Bunny	0
+37798	Gutrek's Cleaver: The Second Piece	6755	90132	Credit Bunny	0
+37799	Gutrek's Cleaver: The Final Piece	6755	90133	Credit Bunny	0
+37260	A Worthy Challenge: Gug'rokk	6874	79115	Bloodmaul Slag Mines Credit	0
+37272	A Worthy Challenge: Gug'rokk	6874	79115	Bloodmaul Slag Mines Credit	0
+37259	A Worthy Challenge: Teron'gor	6912	79117	Auchindoun Credit	0
+37271	A Worthy Challenge: Teron'gor	6912	79117	Auchindoun Credit	0
+37263	A Worthy Challenge: Ner'zhul	6932	79118	Shadowmoon Burial Grounds Credit	0
+37275	A Worthy Challenge: Ner'zhul	6932	79118	Shadowmoon Burial Grounds Credit	0
+38923	Ashran Dominance	6941	95099	Kill Credit	0
+38924	Continue the Domination	6941	95099	Kill Credit	0
+38925	Ashran Dominance	6941	95099	Kill Credit	0
+38926	Continue the Domination	6941	95099	Kill Credit	0
+39217	Don't Hate, Excavate!	6941	94810	Kill Credit	0
+39233	Don't Hate, Excavate!	6941	94810	Kill Credit	0
+39292	Ashran Dominance	6941	98332	Kill Credit	0
+39292	Ashran Dominance	6941	94265	Kill Credit	0
+39292	Ashran Dominance	6941	94266	Kill Credit	0
+39292	Ashran Dominance	6941	94268	Kill Credit	0
+39292	Ashran Dominance	6941	94269	Kill Credit	0
+39292	Ashran Dominance	6941	94267	Kill Credit	0
+39293	Continue the Domination	6941	94265	Kill Credit	0
+39293	Continue the Domination	6941	94266	Kill Credit	0
+39293	Continue the Domination	6941	94268	Kill Credit	0
+39293	Continue the Domination	6941	94269	Kill Credit	0
+39293	Continue the Domination	6941	94267	Kill Credit	0
+39294	Ashran Dominance	6941	94265	Kill Credit	0
+39294	Ashran Dominance	6941	94266	Kill Credit	0
+39294	Ashran Dominance	6941	94268	Kill Credit	0
+39294	Ashran Dominance	6941	94269	Kill Credit	0
+39294	Ashran Dominance	6941	94267	Kill Credit	0
+39295	Continue the Domination	6941	94265	Kill Credit	0
+39295	Continue the Domination	6941	94266	Kill Credit	0
+39295	Continue the Domination	6941	94268	Kill Credit	0
+39295	Continue the Domination	6941	94269	Kill Credit	0
+39295	Continue the Domination	6941	94267	Kill Credit	0
+39520	Ashran Dominance	6941	95099	Kill Credit	0
+39521	Continue the Domination	6941	95099	Kill Credit	0
+39522	Ashran Dominance	6941	95099	Kill Credit	0
+39523	Continue the Domination	6941	95099	Kill Credit	0
+37262	A Worthy Challenge: Skullok, Son of Gruul	6951	79116	Iron Docks Credit	0
+37274	A Worthy Challenge: Skullok, Son of Gruul	6951	79116	Iron Docks Credit	0
+37261	A Worthy Challenge: Skylord Tovra	6984	79120	Iron Depot Credit	0
+37273	A Worthy Challenge: Skylord Tovra	6984	79120	Iron Depot Credit	0
+37264	A Worthy Challenge: High Sage Viryx	6988	78925	Spires of Arak Credit	0
+37277	A Worthy Challenge: High Sage Viryx	6988	78925	Spires of Arak Credit	0
+37265	A Worthy Challenge: Yalnu	7109	79121	Shaper Dungeon [PH] Credit	0
+37278	A Worthy Challenge: Yalnu	7109	79121	Shaper Dungeon [PH] Credit	0
+37266	A Worthy Challenge: Warlord Zaela	7307	79122	Upper Blackrock Spire Credit	0
+37279	A Worthy Challenge: Warlord Zaela	7307	79122	Upper Blackrock Spire Credit	0
+36130	Reporting For Duty	7332	84257	Ashran Alliance Chris Clarkie Kill Credit	0
+36130	Reporting For Duty	7332	84226	Ashran Alliance Misirin Stouttoe Kill Credit	0
+36130	Reporting For Duty	7332	84256	Ashran Alliance Farseer Kylanda Kill Credit	0
+36197	Reporting For Duty	7333	84474	Ashran Horde Harrison Jones Kill Credit	0
+36197	Reporting For Duty	7333	84659	Ashran Horde Zurge Kill Credit	0
+36197	Reporting For Duty	7333	84661	Ashran Horde Mare Wildrunner Kill Credit	0
+41286	Aethril Cluster	7334	103843	Aethril Cluster Credit	0
+41481	Brimstone Destroyer	7334	103594	Brimstone Destroyer Core Credit	0
+41482	Brimstone Destroyer	7334	103594	Brimstone Destroyer Core Credit	0
+41483	Brimstone Destroyer	7334	103594	Brimstone Destroyer Core Credit	0
+41513	Felwort	7334	103647	Felwort Credit	0
+41514	Felwort	7334	103647	Felwort Credit	0
+41515	Felwort	7334	103647	Felwort Credit	0
+41545	Aethril Cluster	7334	103843	Aethril Cluster Credit	0
+41562	Felhide	7334	103686	Felhide Credit	0
+41563	Felhide	7334	103686	Felhide Credit	0
+41564	Felhide	7334	103686	Felhide Credit	0
+41896	Operation Murloc Freedom	7334	105781	Kill Credit (25%)	0
+41896	Operation Murloc Freedom	7334	105366	Kill Credit (5%)	0
+41896	Operation Murloc Freedom	7334	105365	Kill Credit (2%)	0
+42018	Those Beyond Redemption	7334	105961	Credit - Ley Siphon Broken	0
+42018	Those Beyond Redemption	7334	105950	Credit - Leywine Drank	0
+42018	Those Beyond Redemption	7334	105947	Credit - Mana Dust Kicked	0
+42021	Investigation at Mak'rana	7334	113644	Kill Credit	0
+42021	Investigation at Mak'rana	7334	113643	Kill Credit	0
+42022	The Broken Academy	7334	106105	Credit - Citizen Released	0
+42108	Rally the Nightwatchers	7334	106273	Credit - Nightwatcher Buffed	0
+42112	The Withered Return	7334	106295	Credit - Whelpling Revived	0
+42275	Not On My Watch	7334	107375	Eredar Kill Credit Proxy	0
+42277	Interlopers!	7334	107382	Huge Kill Credit Proxy	0
+42277	Interlopers!	7334	107381	Large Kill Credit Proxy	0
+42277	Interlopers!	7334	107383	Standard Kill Credit Proxy	0
+42277	Interlopers!	7334	107384	Small Kill Credit Proxy	0
+42511	Twisted Souls	7334	107695	Kill Credit Proxy	0
+42623	Piracy Doesn't Pay	7334	108019	Grog Kill Credit Proxy	0
+42623	Piracy Doesn't Pay	7334	108021	Salvor Pirate Kill Credit Proxy	0
+42652	Ancient Exemplars	7334	113788	Familiar Kill Credit	0
+42652	Ancient Exemplars	7334	108461	Timeless Mage Kill Credit Proxy	0
+42711	The Eternal Mages	7334	108462	Lower Area Kill Credit Proxy	0
+44054	Demonicide	7334	112450	10% Credit	0
+44054	Demonicide	7334	112449	8% Credit	0
+44054	Demonicide	7334	112448	5% Credit	0
+44054	Demonicide	7334	112447	3% Credit	0
+44054	Demonicide	7334	112446	1% Credit	0
+44737	Helarjar Landing: Grey Shoals	7334	115739	Kill Credit: Azsuna Banner	0
+44784	Advanced Wanding	7334	117780	Wand Target	0
+44786	Midterm: Rune Aptitude	7334	89657	Rune Drawing Credit C	0
+44786	Midterm: Rune Aptitude	7334	89656	Rune Drawing Credit B	0
+44786	Midterm: Rune Aptitude	7334	89655	Rune Drawing Credit A	0
+44788	Work Study: Bestiaries of Azsuna	7334	107356	Book Credit 03	0
+44788	Work Study: Bestiaries of Azsuna	7334	107355	Book Credit 02	0
+44788	Work Study: Bestiaries of Azsuna	7334	107354	Book Credit 01	0
+44847	Straight From the Source	7334	100386	Siphon Destroyed Credit	0
+44874	Unbeleyvable	7334	115764	Kill Credit: Unbeleyvable	0
+44874	Unbeleyvable	7334	118138	Kill Credit: Unbeleyvable	0
+44874	Unbeleyvable	7334	115763	Kill Credit: Unbeleyvable	0
+44874	Unbeleyvable	7334	115762	Kill Credit: Unbeleyvable	0
+44874	Unbeleyvable	7334	115761	Kill Credit: Unbeleyvable	0
+44874	Unbeleyvable	7334	115760	Kill Credit: Unbeleyvable	0
+44874	Unbeleyvable	7334	115759	Kill Credit: Unbeleyvable	0
+44875	The Art of Flow	7334	115821	Kill Credit: Art of Flow	0
+44875	The Art of Flow	7334	115820	Kill Credit: Art of Flow	0
+44875	The Art of Flow	7334	115819	Kill Credit: Art of Flow	0
+39839	Mysterious Dust	7502	97452	Deucus Credit	0
+39839	Mysterious Dust	7502	97451	Pallin Credit	0
+39839	Mysterious Dust	7502	97450	Caelen Credit	0
+39840	The Council's Approval	7502	97655	Council Credit	0
+39845	The Obliterum Forge	7502	97805	Forge Credit	0
+41367	Priority Delivery	7502	104071	Kill Credit: Teleport to the Frozen Throne	0
+41397	A Huge Package	7502	104180	Kill Credit: Deliver Bag of Solid Stone	0
+41397	A Huge Package	7502	104177	Kill Credit: Grab Bag of Solid Stone	0
+46135	Gemcutter Needed	7502	118825	Gemcutter Needed Credit	0
+46136	Gemcutter Needed	7502	118825	Gemcutter Needed Credit	0
+46138	Gemcutter Needed	7502	118825	Gemcutter Needed Credit	0
+46139	Gemcutter Needed	7502	118825	Gemcutter Needed Credit	0
+46206	Whispers of a Frightened World	7502	119929	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	122051	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	122050	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	122049	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	122048	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	120729	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	120728	Kill Credit: Whispers of a Frightened World	0
+46206	Whispers of a Frightened World	7502	105725	Kill Credit: Taken Portal to Wyrmrest Temple	0
+46278	Return to Sender	7502	119414	Kill Credit: Letter Gathered	0
+47330	Whispers of a Frightened World	7502	119929	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	122051	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	122050	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	122049	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	122048	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	120729	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	120728	Kill Credit: Whispers of a Frightened World	0
+47330	Whispers of a Frightened World	7502	105725	Kill Credit: Taken Portal to Wyrmrest Temple	0
+50247	The Mail Must Flow	7502	133038	Kill Credit Small	0
+50250	Posthaste	7502	133039	Kill Credit Large	0
+40896	Threnody of Chieftains	7503	102251	Burial Ground Kill Credit Proxy	0
+40985	Rimescale Naga Incursion: Highmountain	7503	102542	Naga Kill Credit Proxy	0
+41024	Dirge of the Dead	7503	102251	Burial Ground Kill Credit Proxy	0
+41025	Rise of the Fallen	7503	102251	Burial Ground Kill Credit Proxy	0
+41026	Back to the Shadows	7503	102251	Burial Ground Kill Credit Proxy	0
+41055	Primal Payback	7503	111866	Kill Credit: Use the portal	0
+41076	Munitions Testing	7503	103103	Kill Credit: Munitions Testing	0
+41077	Munitions Testing	7503	103103	Kill Credit: Munitions Testing	0
+41095	Critical Crops	7503	102889	Crop Kill Credit	0
+41145	Water of Life	7503	114295	Drogbar Manathirster Kill Credit Proxy [DNT]	0
+41208	Brimstone Destroyer	7503	103594	Brimstone Destroyer Core Credit	0
+41209	Brimstone Destroyer	7503	103594	Brimstone Destroyer Core Credit	0
+41210	Brimstone Destroyer	7503	103594	Brimstone Destroyer Core Credit	0
+41225	Felwort	7503	103647	Felwort Credit	0
+41227	Warden Tower Assault: Cordana's Apex	7503	103652	Gilneas Brigade PvP Tower Boss Kill Credit Proxy	0
+41227	Warden Tower Assault: Cordana's Apex	7503	103650	Gilneas Brigade PvP Tower Kill Credit Proxy	0
+41228	Foxflower Cluster	7503	103649	Foxflower Cluster Credit	0
+41239	Felhide	7503	103686	Felhide Credit	0
+41253	Migrating Highmountain Salmon	7503	103740	Spearfishing Credit	0
+41257	Warden Tower Assault: Cordana's Apex	7503	103768	Queensguard PvP Tower Boss Kill Credit Proxy	0
+41257	Warden Tower Assault: Cordana's Apex	7503	103651	Queensguard PvP Tower Kill Credit Proxy	0
+41308	Border Reinforcements	7503	103837	Tideskorn Raider	33587200
+41420	Warden Tower Assault: Nightwatcher's Perch	7503	103652	Gilneas Brigade PvP Tower Boss Kill Credit Proxy	0
+41420	Warden Tower Assault: Nightwatcher's Perch	7503	103650	Gilneas Brigade PvP Tower Kill Credit Proxy	0
+41421	Warden Tower Assault: Nightwatcher's Perch	7503	103768	Queensguard PvP Tower Boss Kill Credit Proxy	0
+41421	Warden Tower Assault: Nightwatcher's Perch	7503	103651	Queensguard PvP Tower Kill Credit Proxy	0
+41511	Felwort	7503	103647	Felwort Credit	0
+41512	Felwort	7503	103647	Felwort Credit	0
+41544	Foxflower Cluster	7503	103649	Foxflower Cluster Credit	0
+41560	Felhide	7503	103686	Felhide Credit	0
+41561	Felhide	7503	103686	Felhide Credit	0
+41789	Return to the Crag	7503	113657	Kill Credit	0
+41789	Return to the Crag	7503	113656	Kill Credit	0
+44746	Helarjar Landing: Rockaway Coast	7503	115168	Kill Credit: Summoners Dead	0
+41296	Fjarnskaggl Cluster	7541	103847	Fjarnskaggl Cluster Credit	0
+41427	Get Vrekt	7541	102542	Naga Kill Credit Proxy	0
+41451	Assault on Hrydshal	7541	113891	Harpoon Kill Credit	0
+41451	Assault on Hrydshal	7541	113889	Viking Kill Credit	0
+41488	Brimstone Destroyer	7541	103594	Brimstone Destroyer Core Credit	0
+41489	Brimstone Destroyer	7541	103594	Brimstone Destroyer Core Credit	0
+41490	Brimstone Destroyer	7541	103594	Brimstone Destroyer Core Credit	0
+41519	Felwort	7541	103647	Felwort Credit	0
+41520	Felwort	7541	103647	Felwort Credit	0
+41521	Felwort	7541	103647	Felwort Credit	0
+41547	Fjarnskaggl Cluster	7541	103847	Fjarnskaggl Cluster Credit	0
+41568	Felhide	7541	103686	Felhide Credit	0
+41569	Felhide	7541	103686	Felhide Credit	0
+41570	Felhide	7541	103686	Felhide Credit	0
+41925	Razing Hel	7541	91926	Credit Bunny	0
+41927	Ruining the Runewood	7541	98434	10% Credit	0
+41927	Ruining the Runewood	7541	98433	5% Credit	0
+41927	Ruining the Runewood	7541	98432	3% Credit	0
+41927	Ruining the Runewood	7541	98429	2% Credit	0
+41930	Valor Calls	7541	97949	5% Credit	0
+41930	Valor Calls	7541	97948	3% Credit	0
+41930	Valor Calls	7541	97947	2% Credit	0
+41930	Valor Calls	7541	97946	1% Credit	0
+41930	Valor Calls	7541	97945	0.5% Credit	0
+41950	Cry More Thunder!	7541	91768	Credit Bunny	0
+41950	Cry More Thunder!	7541	92360	Credit Bunny	0
+42025	Bareback Brawl	7541	110585	Kill Credit	0
+42177	Reclaiming Morheim	7541	113897	Armament Kill Credit	0
+42177	Reclaiming Morheim	7541	113896	Murloc Kill Credit	0
+43598	Warden Tower Assault: Blackhawk's Bulwark	7541	103652	Gilneas Brigade PvP Tower Boss Kill Credit Proxy	0
+43598	Warden Tower Assault: Blackhawk's Bulwark	7541	103650	Gilneas Brigade PvP Tower Kill Credit Proxy	0
+43599	Warden Tower Assault: Blackhawk's Bulwark	7541	103768	Queensguard PvP Tower Boss Kill Credit Proxy	0
+43599	Warden Tower Assault: Blackhawk's Bulwark	7541	103651	Queensguard PvP Tower Kill Credit Proxy	0
+43600	Warden Tower Assault: Whisperwind's Citadel	7541	103652	Gilneas Brigade PvP Tower Boss Kill Credit Proxy	0
+43600	Warden Tower Assault: Whisperwind's Citadel	7541	103650	Gilneas Brigade PvP Tower Kill Credit Proxy	0
+43601	Warden Tower Assault: Whisperwind's Citadel	7541	103768	Queensguard PvP Tower Boss Kill Credit Proxy	0
+43601	Warden Tower Assault: Whisperwind's Citadel	7541	103651	Queensguard PvP Tower Kill Credit Proxy	0
+43751	Oh, Ship!	7541	111448	Kill Credit: The Deathbringer	0
+43751	Oh, Ship!	7541	111603	Kill Credit: The King's Fang, Boarded	0
+43752	Oh, Ship!	7541	111449	Kill Credit: The King's Fang	0
+43752	Oh, Ship!	7541	111603	Kill Credit: The King's Fang, Boarded	0
+43827	Stormwing the Portals	7541	98186	Credit - Any Portal Destroyed	0
+43964	A Jarl's Feast	7541	112137	20% Credit	0
+43964	A Jarl's Feast	7541	112136	10% Credit	0
+43964	A Jarl's Feast	7541	112135	5% Credit	0
+43964	A Jarl's Feast	7541	112134	1% Credit	0
+44721	Helya's Conquest	7541	114972	Kill Credit: Listened to Havi 2	0
+44721	Helya's Conquest	7541	114964	Kill Credit: Hit Trigger	0
+44771	A Threat Rises	7541	114962	Kill Credit: Listened to Havi	0
+44923	Helarjar Landing: Vrekt	7541	115845	Kill Credit: Vrekt	0
+40390	Hallowed Ground	7543	119218	Kill Credit: Hallowed Ground	0
+40390	Hallowed Ground	7543	117569	Kill Credit: Hallowed Ground	0
+40390	Hallowed Ground	7543	119216	Kill Credit: Hallowed Ground	0
+40390	Hallowed Ground	7543	119217	Kill Credit: Hallowed Ground	0
+44751	No Soldier Left Behind	7543	115199	Kill Credit	0
+45520	Behind Enemy Portals	7543	117092	Kill Credit: Behind Enemy Portals	0
+45520	Behind Enemy Portals	7543	117100	Kill Credit: Behind Enemy Portals - Portal	0
+45541	How Do YOU Like It?!	7543	117100	Kill Credit: Behind Enemy Portals - Portal	0
+45542	Behind Enemy Portals	7543	117100	Kill Credit: Behind Enemy Portals - Portal	0
+45559	Behind Enemy Portals	7543	117100	Kill Credit: Behind Enemy Portals - Portal	0
+45743	Judgement of Odyn	7543	117732	Kill Credit: Felskorn	0
+45744	Fall of the Felskorn	7543	117732	Kill Credit: Felskorn	0
+45970	Duty's End	7543	119694	Maddened Spirit	0
+45970	Duty's End	7543	119635	Feltotem Spiritwalker	0
+45977	Where There is a Whip...	7543	117100	Kill Credit: Behind Enemy Portals - Portal	0
+45988	Ancient Bones	7543	118407	Kill Credit: Ancient Bones placed	0
+46068	Brute Wrangling	7543	118693	Naga Kill Credit	0
+46072	Full Fel	7543	119099	Kill Credit: Full Fel	0
+46077	Felbound Spirits	7543	116530	Kill Credit: Felbound Spirits released	0
+46175	Rolling Thunder	7543	118865	Kill Credit: Special Brewlivery	0
+46201	By Water Be Purged	7543	120087	Kill Credit: Fire	0
+46209	A Flare In The Dark	7543	119015	Prowling Shadowstalker	0
+46212	Get Them Up	7543	119015	Prowling Shadowstalker	0
+46750	Battery Backup	7543	117952	Demon Soul Quest Kill Credit	0
+46752	On Borrowed Wings	7543	117952	Demon Soul Quest Kill Credit	0
+46811	The Broodmother's Wrath	7543	116313	Demon Kill Credit	0
+46814	Call of the Frostwyrm	7543	116313	Demon Kill Credit	0
+46825	Mud Mucking	7543	122093	Mud Mucking Quest Kill Credit DNT	0
+46833	Nature Unshackled	7543	120709	Demon Kill Credit	0
+46845	Vengeance Point	7543	120970	Kill Credit	0
+46866	Torture Chamber	7543	120817	Dying Captive Kill Credit	0
+46932	A Tad More Corruption	7543	120825	Legion Kill Credit	0
+46933	Felrglrglrglrgl	7543	120825	Legion Kill Credit	0
+46942	The Cost of Power	7543	120990	Fel Naga Kill Credit	0
+41273	Buoy Fishing	7558	109754	7.0 Professions - Fishing - Adventure - Buoy Fishing - Kill Credit - SCS	0
+41291	Dreamleaf Cluster	7558	103845	Dreamleaf Cluster Credit	0
+41484	Brimstone Destroyer	7558	103594	Brimstone Destroyer Core Credit	0
+41486	Brimstone Destroyer	7558	103594	Brimstone Destroyer Core Credit	0
+41487	Brimstone Destroyer	7558	103594	Brimstone Destroyer Core Credit	0
+41516	Felwort	7558	103647	Felwort Credit	0
+41517	Felwort	7558	103647	Felwort Credit	0
+41518	Felwort	7558	103647	Felwort Credit	0
+41546	Dreamleaf Cluster	7558	103845	Dreamleaf Cluster Credit	0
+41565	Felhide	7558	103686	Felhide Credit	0
+41566	Felhide	7558	103686	Felhide Credit	0
+41567	Felhide	7558	103686	Felhide Credit	0
+41956	Petrified Acolytes	7558	105545	Harpy Kill Credit Proxy	0
+41956	Petrified Acolytes	7558	91182	Kill Credit	0
+41961	Black Rook Holdings	7558	93067	Kill Credit: Bonus Objective	0
+41965	Lunarwing Liberation	7558	93389	Kill Credit: Sprite Nonsense Normal	0
+41965	Lunarwing Liberation	7558	99008	Kill Credit: Spread Your Lunarwings and Fly	0
+41980	Temple Defense	7558	94204	Kill Credit	0
+41995	Dark Corruption	7558	97799	Kill Credit	0
+41995	Dark Corruption	7558	95747	Kill Credit: Midnight Saber Credit	0
+41995	Dark Corruption	7558	98087	BO Credit: Normal	0
+41996	Tangled Nightmare	7558	113645	Kill Credit	0
+42023	Black Rook Rumble	7558	106650	Kill Credit (NPC)	0
+42070	Warden Tower Assault: Starstalker's Point	7558	103652	Gilneas Brigade PvP Tower Boss Kill Credit Proxy	0
+42070	Warden Tower Assault: Starstalker's Point	7558	103650	Gilneas Brigade PvP Tower Kill Credit Proxy	0
+42075	Botanical Backlash	7558	93336	Kill Credit: Overrun and Overgrown	0
+42076	Shadowfen Village	7558	95322	Kill Credit	0
+42080	Bastion of Bradensbrook	7558	93999	Kill Credit: Assassin	0
+42150	Kal'delar Naga Incursion	7558	102542	Naga Kill Credit Proxy	0
+43183	Warden Tower Assault: Starstalker's Point	7558	103768	Queensguard PvP Tower Boss Kill Credit Proxy	0
+43183	Warden Tower Assault: Starstalker's Point	7558	103651	Queensguard PvP Tower Kill Credit Proxy	0
+43247	Warden Tower Assault: Darkfollow's Spire	7558	103652	Gilneas Brigade PvP Tower Boss Kill Credit Proxy	0
+43247	Warden Tower Assault: Darkfollow's Spire	7558	103650	Gilneas Brigade PvP Tower Kill Credit Proxy	0
+43248	Warden Tower Assault: Darkfollow's Spire	7558	103768	Queensguard PvP Tower Boss Kill Credit Proxy	0
+43248	Warden Tower Assault: Darkfollow's Spire	7558	103651	Queensguard PvP Tower Kill Credit Proxy	0
+38694	Regroup	7637	116254	Teleporter Kill Credit	0
+38695	Crackdown	7637	114969	Kill Credit: Silgryn Found	33587968
+38695	Crackdown	7637	114968	Kill Credit: Vanthir Missing	0
+38695	Crackdown	7637	115036	Kill Credit: Broken Beacon	0
+38695	Crackdown	7637	115754	Kill Credit: Take Portal to Waning Crescent [DNT]	0
+40008	The Only Way Out is Through	7637	98707	Thalyssra Escort Credit	0
+40009	Arcane Thirst	7637	115028	Kill Credit Ancient Switch	0
+40010	Tapping the Leylines	7637	113894	Kill Credit Ancient Switch	0
+40010	Tapping the Leylines	7637	113893	Kill Credit Explore Anora Hollow	0
+40227	Bad Intentions	7637	99235	Kill Credit: Bad Intentions	0
+40297	Lyana Darksorrow	7637	102190	Kill Credit	0
+40315	End of the Line	7637	99576	Kill Credit: End of the Line	0
+40320	Band of Blood Brothers	7637	99622	Kill Credit: Stokalfr	0
+40320	Band of Blood Brothers	7637	99621	Kill Credit: Fjolrik	0
+40320	Band of Blood Brothers	7637	99607	Kill Credit: Katarine	0
+40326	Scattered Memories	7637	114258	Kill Credit Kel'danath's Notes	0
+40328	A Fate Worse Than Dying	7637	102668	Kill Credit	0
+40332	Beach Bonfire	7637	100743	Kill Credit: Throndyr's Pyre	0
+40336	Turning the Tidemistress	7637	104730	Kill Credit: Makeshift Ballista	0
+40342	Surprise the Sashj'tar	7637	99772	Kill Credit: Sashj'tar Deep Naga	0
+40364	Bubble Trouble	7637	99826	Kill Credit: Captured Vrykul	0
+40401	A Way Back In	7637	100226	Kill Credit: A Way Back In	0
+40424	A Desperate Journey	7637	102631	Kill Credit: "A Desperate Journey" Final	0
+40424	A Desperate Journey	7637	102023	Kill Credit: "A Desperate Journey" 2	0
+40424	A Desperate Journey	7637	102014	Kill Credit: "A Desperate Journey" 1	0
+40470	Quality of Life	7637	117669	Kill Credit: "Quality of Life" Finale Event Trigger - AJB	0
+40470	Quality of Life	7637	100382	Kill Credit: "Quality of Life" Finale Event Trigger - AJB	0
+40578	Paying Respects	7637	111892	Tel'anor Fiends Kill Credit: Ghost	0
+40592	Rusty Release DISABLED	7637	100644	Kill Credit: Vrykul Prisoner	0
+40592	Rusty Release DISABLED	7637	100681	Kill Credit: Dagmyr	0
+40617	Turn Around, Nighteyes	7637	100784	Kill Credit: Nighteyes Found	0
+40635	Sashj'tar Slayer	7637	100954	Kill Credit: Azuregale Cove Naga	0
+40694	One Small Step for Magic	7637	101253	Kill Credit: "One Small Step for Magic" Quest Credit - AJB	0
+40725	Arganax	7637	101480	Kill Credit	0
+40725	Arganax	7637	101479	Kill Credit	0
+40745	Shift Change	7637	107526	Nightborne Informant Kill Credit	0
+40747	The Delicate Art of Telemancy	7637	101694	Suramar City Drop Kill Credit	0
+40747	The Delicate Art of Telemancy	7637	101693	First Powerup in The Drift Kill Credit	0
+40747	The Delicate Art of Telemancy	7637	101687	Kicked Out of The Drift Kill Credit	0
+40747	The Delicate Art of Telemancy	7637	101675	First Time in The Drift Kill Credit	0
+40747	The Delicate Art of Telemancy	7637	101542	First Teleporter Used Kill Credit	0
+40748	Network Security	7637	101896	Oculeth Shut Down Coil Kill Credit	0
+40748	Network Security	7637	101703	Finale Teleporter Used Kill Credit	0
+40776	Kazok'thul	7637	101661	Kill Credit	0
+40776	Kazok'thul	7637	101662	Kill Credit	0
+40776	Kazok'thul	7637	101663	Kill Credit	0
+40927	Jandvik's Last Hope	7637	102984	Kill Credit: Toryl Saved	0
+40927	Jandvik's Last Hope	7637	104319	Kill Credit: Tidemistress Sashj'tar	0
+40927	Jandvik's Last Hope	7637	102389	Kill Credit: Toryl Found	0
+40956	Survey Says...	7637	102545	Survey Bunny	0
+40956	Survey Says...	7637	102544	Survey Kill Credit	0
+40963	Take Them in Claw	7637	102810	Nightborne Reclaimer Bunny	0
+40971	Overwhelming Distraction	7637	111657	Conjurer Kill Credit	0
+41001	Shatter the Sashj'tar	7637	101048	Kill Credit: Sashj'tar Ruins Naga	0
+41028	Power Grid	7637	103043	Elven Seal Kill Credit	0
+41028	Power Grid	7637	103042	Beast Seal Kill Credit	0
+41028	Power Grid	7637	103041	Star Seal Kill Credit	0
+41028	Power Grid	7637	103040	Moon Seal Kill Credit	0
+41108	Rain Death Upon Them	7637	114298	Nightborne Kill Credit	0
+41111	Rain Death Upon Them	7637	114298	Nightborne Kill Credit	0
+41140	Search and Rescue!	7637	103644	Kill Credit	0
+41143	Mglrgrs Of Our Grmlgrlr	7637	109983	Kill Credit: "Mglrgrs Of Our Grmlgrlr"	0
+41143	Mglrgrs Of Our Grmlgrlr	7637	109982	Kill Credit: "Mglrgrs Of Our Grmlgrlr"	0
+41143	Mglrgrs Of Our Grmlgrlr	7637	108918	Kill Credit: "Mglrgrs Of Our Grmlgrlr"	0
+41143	Mglrgrs Of Our Grmlgrlr	7637	108602	Kill Credit: "Mglrgrs Of Our Grmlgrlr"	0
+41146	Elegant Design	7637	105747	Kill Credit: "The Master's Legacy"	0
+41214	Parts Unknown	7637	103669	Kill Credit	0
+41214	Parts Unknown	7637	103667	Kill Credit	0
+41214	Parts Unknown	7637	103668	Kill Credit	0
+41214	Parts Unknown	7637	103666	Kill Credit	0
+41214	Parts Unknown	7637	103665	Kill Credit	0
+41214	Parts Unknown	7637	103664	Kill Credit	0
+41216	Survival of the Fittest	7637	103638	Kill Credit: "Survival of the Fittest" - All	0
+41222	Into The Pit!	7637	103641	Kill Credit	0
+41258	Fruit of the Doom	7637	103143	Kill Credit: "Fruit of the Doom"	0
+41301	Starlight Rose Cluster	7637	103849	Starlight Rose Cluster Credit	0
+41309	Mangelrath	7637	104167	Kill Credit	0
+41309	Mangelrath	7637	104175	Kill Credit	0
+41409	Timing Is Everything	7637	104211	Kill Credit: Timing Is Everything	0
+41409	Timing Is Everything	7637	104375	Kill Credit: Azuregale Paddlefoot	0
+41426	Against Their Will	7637	104340	Kill Credit: Against Their Will	0
+41452	Feline Frantic	7637	104390	Wagon Bunny	0
+41452	Feline Frantic	7637	104389	Barrel Bunny	0
+41452	Feline Frantic	7637	104391	Bench Bunny	0
+41452	Feline Frantic	7637	104388	Crate Bunny	0
+41465	Estate Jewelry: A Braggart's Brooch	7637	106282	Kill Credit: "Estate Jewelry: A Braggarts Brooch"	0
+41466	Estate Jewelry: Haute Claw-ture	7637	107572	Kill Credit: "Estate Jewelry: Haute Claw-Ture"	0
+41491	Brimstone Destroyer	7637	103594	Brimstone Destroyer Core Credit	0
+41492	Brimstone Destroyer	7637	103594	Brimstone Destroyer Core Credit	0
+41493	Brimstone Destroyer	7637	103594	Brimstone Destroyer Core Credit	0
+41494	Eminent Grow-main	7637	105740	Kill Credit	0
+41499	Squid Out of Water	7637	104370	Kill Credit: Squid Out Of Water	0
+41522	Felwort	7637	103647	Felwort Credit	0
+41523	Felwort	7637	103647	Felwort Credit	0
+41524	Felwort	7637	103647	Felwort Credit	0
+41548	Starlight Rose Cluster	7637	103849	Starlight Rose Cluster Credit	0
+41571	Felhide	7637	103686	Felhide Credit	0
+41572	Felhide	7637	103686	Felhide Credit	0
+41573	Felhide	7637	103686	Felhide Credit	0
+41697	DANGER: Colerian, Alteria, and Selenyi	7637	114268	Assassin Trio Credit	0
+41760	Kel'danath's Legacy	7637	112801	Charm Withered Kill Credit	0
+41916	A Better Future	7637	115288	Kill Credit: A Brighter Future	0
+41989	Blood of My Blood	7637	114257	Kill Credit Lunastre Memorial	0
+42089	The Fallen Ones	7637	106102	Fal'dorei Cocoon Credit Proxy	0
+42089	The Fallen Ones	7637	106101	Fal'dorei Kill Credit Proxy	0
+42090	Skittering Subjects	7637	106211	Leyline Spiderling Pickup Proxy	0
+42111	Aggressive Reconnaisance	7637	106374	Kill Credit	0
+42111	Aggressive Reconnaisance	7637	100274	Kill Credit	0
+42111	Aggressive Reconnaisance	7637	100273	Kill Credit	0
+42111	Aggressive Reconnaisance	7637	100271	Kill Credit	0
+42209	Freeing the Taken	7637	108520	Prisoner Freed Kill Credit Proxy	0
+42224	Cloaked in Moonshade	7637	107446	Kill Credit Find Moonfall	0
+42225	Breaking the Seal	7637	107818	Kill Credit Moonfall Seal C	0
+42225	Breaking the Seal	7637	107817	Kill Credit Moonfall Seal B	0
+42225	Breaking the Seal	7637	107816	Kill Credit Moonfall Seal A	0
+42227	Into the Crevasse	7637	107918	Kill Credit Falanaar Tunnels	0
+42366	The Bigger They Are, The Harder They Fel	7637	117671	Kill Credit: "One Small Step for Magic" Quest Credit - AJB	0
+42396	Do The Thing!	7637	107307	Crab Kill Credit	0
+42396	Do The Thing!	7637	107304	Driftwood Kill Credit	0
+42396	Do The Thing!	7637	107306	Seaweed Kill Credit	0
+42396	Do The Thing!	7637	107305	Clam Kill Credit	0
+42396	Do The Thing!	7637	108711	Kill Credit: "Do The Thing!"	0
+42688	Mrgls of Endearment	7637	108315	Kill Credit: "Murlocs of Endearment"	0
+42722	Friends in Cages	7637	108520	Prisoner Freed Kill Credit Proxy	0
+42830	Pest Management	7637	109068	Flyeater Pickup Proxy	0
+42832	The Fruit of Our Efforts	7637	109209	Draught Kill Credit	0
+42832	The Fruit of Our Efforts	7637	109208	Nectar Kill Credit	0
+42832	The Fruit of Our Efforts	7637	109207	Infusion Kill Credit	0
+42833	How It's Made: Arcwine	7637	109244	Infusion Credit	0
+42833	How It's Made: Arcwine	7637	109243	Distribution Credit	0
+42833	How It's Made: Arcwine	7637	109242	Small Orchard Credit	0
+42833	How It's Made: Arcwine	7637	109241	Aging Chamber Credit	0
+42834	Intense Concentration	7637	109345	Nightwell Spring Bunny	33555200
+42835	The Old Fashioned Way	7637	109205	Unfortified Arcwine produced Proxy	0
+42835	The Old Fashioned Way	7637	109204	Iltheux Conversation Credit Proxy	0
+42837	Balance to Spare	7637	109068	Flyeater Pickup Proxy	0
+42859	A Draught of Hope	7637	109443	Pickup Arcwine Credit	0
+42880	Meeting their Quota	7637	109205	Unfortified Arcwine produced Proxy	0
+42880	Meeting their Quota	7637	109204	Iltheux Conversation Credit Proxy	0
+42969	A Spy in Our Midst	7637	109392	Spy Followed Proxy	0
+42969	A Spy in Our Midst	7637	109376	Rendezvous Point	33555200
+43311	Or Against Us	7637	112904	Arluin Kill Credit	0
+43313	Rumor Has It	7637	110876	Disgruntled Servant	33024
+43313	Rumor Has It	7637	110880	Rumor Quest Credit	0
+43435	The Battle Rages On	7637	110535	Nightborne Kill Credit	0
+43445	Air Superiority	7637	114298	Nightborne Kill Credit	0
+43565	Bring Home the Beacon	7637	111947	Kill Credit Vigil Surveyed	0
+43565	Bring Home the Beacon	7637	111946	Kill Credit Evermoon Bazaar Surveyed	0
+43565	Bring Home the Beacon	7637	111945	Kill Credit Evermoon Commons Surveyed	0
+43567	All In	7637	113070	Enter Shal'Aran Kill Credit	0
+43567	All In	7637	113069	Arcway Scenario Kill Credit	0
+43569	Arluin's Request	7637	112173	Arluelle Kill Credit	0
+43582	Shalassic Park	7637	110933	Normal Kill Credit	0
+43582	Shalassic Park	7637	113701	Kill Credit	0
+43583	Life Finds a Way	7637	113704	Small Kill Credit	0
+43583	Life Finds a Way	7637	111020	Large Kill Credit	0
+43583	Life Finds a Way	7637	110933	Normal Kill Credit	0
+43583	Life Finds a Way	7637	113701	Kill Credit	0
+43588	Leyline Feed: Kel'balor	7637	111955	Kill Credit: "Leying Lines: 02"	0
+43807	Withered Wrangling: Ambervale	7637	112801	Charm Withered Kill Credit	0
+43810	Down to Business	7637	101762	Kill Credit: Down to Business	0
+43812	Down to Business	7637	101762	Kill Credit: Down to Business	0
+43814	Unspeakable Collaborators	7637	111753	Collaborator Kill Credit	0
+43930	Fiends of Tel'anor	7637	111892	Tel'anor Fiends Kill Credit: Ghost	0
+43930	Fiends of Tel'anor	7637	111890	Tel'anor Fiends Kill Credit: Harpy	0
+43932	Forces of Oppression	7637	111911	Lower City Enemy Kill Credit: Large	0
+43932	Forces of Oppression	7637	111910	Lower City Enemy Kill Credit: Normal	0
+43943	Withered Army Training	7637	111948	Withered Scenario Launch Credit	0
+43959	Stelleris Shakedown	7637	112013	Stelleris Shakedown Credit	0
+43969	Hired Help	7637	109416	Persuasion Credit	0
+43969	Hired Help	7637	109415	Sigil Credit	0
+44157	Withered Wrangling: Tel'anor	7637	112801	Charm Withered Kill Credit	0
+44158	Withered Wrangling: Falanaar	7637	112801	Charm Withered Kill Credit	0
+44489	Lyana Darksorrow	7637	102190	Kill Credit	0
+44636	Building an Army	7637	114524	Withered Scenario Launch Credit	0
+44672	Ancient Mana	7637	114610	Kill Credit Ancient Mana Node	0
+44719	Breaching the Sanctum	7637	115112	Kill Credit: Secure Breach [DNT]	0
+44719	Breaching the Sanctum	7637	115111	Kill Credit: Enter Oculeth Portal [DNT]	0
+44719	Breaching the Sanctum	7637	115110	Kill Credit: Started Shield Break [DNT]	0
+44723	More Like Me	7637	114965	Duskwatch Subjugator Kill Credit	0
+44727	Smuggled!	7637	114999	Shal'dorei Civilian Kill Credit	0
+44738	Full Might of the Elves	7637	115255	Kill Credit: Siege Scenario	0
+44744	Lifelines	7637	115090	Kill Credit: Nightborne Assailants Slain	0
+44744	Lifelines	7637	115089	Kill Credit: Lifelines Citizen Fed	0
+44752	Essence Triangulation	7637	115317	Bazaar Conversation Kill Credit	0
+44752	Essence Triangulation	7637	115316	Waning Crescent Conversation Kill Credit	0
+44752	Essence Triangulation	7637	115315	Artisan's Gallery Conversation Kill Credit	0
+44752	Essence Triangulation	7637	115314	Terrace of Order Conversation Kill Credit	0
+44752	Essence Triangulation	7637	115311	City Entrance Conversation Kill Credit	0
+44752	Essence Triangulation	7637	115310	Upper Promenade Conversation Kill Credit	0
+44752	Essence Triangulation	7637	115309	Spawn Conversation Kill Credit	0
+44753	On Public Display	7637	115569	Echo of Vanthir	33587200
+44769	Arming the Populace	7637	115344	Kill Credit: Citizen Armed	0
+44780	Backlash	7637	115385	Kill Credit: Large Enemy Slain	0
+44780	Backlash	7637	115384	Kill Credit: Normal Enemy Slain	0
+44780	Backlash	7637	115383	Kill Credit: Citizen Freed	0
+44799	Safe Keeping	7637	115629	Kill Credit: Safehouse Delivery	0
+44801	Defending Shal'aran	7637	115623	Kill Credit: Duskwatch Forces	0
+44802	Ancient Guidance	7637	116363	Kill Credit: Ancient Guidance Boss	0
+44805	In the Thick of It	7637	116215	Kill Credit: Nightborne/Felborne	0
+44815	Sick of the Sycophants	7637	115977	Kill Credit: Loyalist Sycophant	0
+44816	Continued Exposure	7637	116120	Kill Credit: Withered Exposed	0
+44817	Stirring the Swarm	7637	116532	Kill Credit: Nightborne	0
+44822	Temporal Investigations	7637	115745	Kill Credit: Investigation Complete [DNT]	0
+44832	Scouting the Breach	7637	115579	Kill Credit: Valtrois Done with Barrier [DNT]	0
+44832	Scouting the Breach	7637	115578	Kill Credit: Found Barrier [DNT]	0
+44832	Scouting the Breach	7637	115574	Kill Credit: Bottom of Sanctum [DNT]	0
+44858	Trolling Them	7637	115609	Kill Credit: Trolling Them	0
+44860	Trolling Them	7637	115609	Kill Credit: Trolling Them	0
+44867	Contain their Advance	7637	115962	Kill Credit: Elite Felborne	0
+44867	Contain their Advance	7637	115961	Kill Credit: Normal Felborne	0
+44873	Oculeth Ex Machina	7637	115365	Kill Credit: Speak with Oculeth	0
+44928	Something's Not Quite Right...	7637	102033	Kill Credit: Something's Not Quite Right...	0
+45064	Felborne No More	7637	115955	Kill Credit: Felborne No More	0
+45209	Those Scrying Eyes	7637	116345	Kill Credit Ly'leth Message	0
+39742	Vault of the Wardens	7814	100326	Kill Credit: Bonus Objective	0
+39742	Vault of the Wardens	7814	97970	Kill Credit: Bonus Objective	0
+39742	Vault of the Wardens	7814	97969	Kill Credit: Bonus Objective	0
+45420	The Nighthold: The Eye of Aman'Thul	8025	116908	Kill Credit Eye of Aman'thul	0
+45295	Return to Karazhan: Clearing Out the Cobwebs	8443	115115	Coldmist Stalker	0
+46507	Tomb of Sargeras: The Dread Stalker	8524	120013	The Dread Stalker	0
+46297	Overwhelming Power	8574	119606	Kill Credit: Demon Slain	0
+46297	Overwhelming Power	8574	126259	Kill Credit: Eredar Brute Encountered	0
+46732	The Prophet's Gambit	8574	120232	Kill Credit: Prepare for Battle	0
+46732	The Prophet's Gambit	8574	120230	Kill Credit: Survivors Found	0
+46816	Rendezvous	8574	120648	Kill Credit: Lothraxion Visible	0
+46816	Rendezvous	8574	120644	Kill Credit: Pylon Visible	0
+46839	From Darkness	8574	120813	Kill Credit: Walk with Turalyon	0
+46843	Return to the Vindicaar	8574	126603	Kill Credit: Beacon	0
+46938	Alone in the Abyss	8574	123401	Kill Credit: Battlefield Greeting Seen	0
+46938	Alone in the Abyss	8574	123360	Kill Credit: Velen and Illidan Run Off Seen	0
+46938	Alone in the Abyss	8574	121131	Kill Credit: Teleport to Landing	0
+47002	The Crown of the Triumvirate	8574	121115	Quest Credit Stalker - Protect Velen	0
+47002	The Crown of the Triumvirate	8574	121114	Quest Credit Stalker - Follow Velen	0
+47104	Imprisoned Inquisitor	8574	123615	Kill Credit: Romuul Spoken To Mission Start	0
+47134	Foiling the Legion's Jailbreak	8574	121348	Kill Credit: Escape Arcatraz	0
+47134	Foiling the Legion's Jailbreak	8574	122018	Find Boss Room Kill Credit: TK Side Mission 2	0
+47134	Foiling the Legion's Jailbreak	8574	124512	Kill Credit: Search Arcatraz	0
+47134	Foiling the Legion's Jailbreak	8574	121864	Rommul talk arrival Kill Credit	0
+47135	For Their Own Good	8574	123763	Cleansing WQ Marsuul Kill Credit	0
+47182	Long Overdue	8574	121987	Kill credit: Bunker Buster Demons	0
+47287	The Vindicaar Matrix Core	8574	122098	Aura Activated: Matrix Core: Kill Credit	0
+47431	Gathering Light	8574	123024	Kill Credit: "Gathering Light"	0
+47431	Gathering Light	8574	121549	Kill Credit: "Punching A Hole"	0
+47431	Gathering Light	8574	122382	Kill Credit: "Gathering Light"	0
+47431	Gathering Light	8574	126241	Kill Credit: "Gathering Light"	0
+47431	Gathering Light	8574	123851	Kill Credit: Teleport to Krokuun	0
+47456	Calming the Void	8574	122433	Cleansing WQ Kill Credit	0
+47496	Bunker Buster	8574	121987	Kill credit: Bunker Buster Demons	0
+47496	Bunker Buster	8574	123964	Vindicaar Target	0
+47563	Spirits of the Fallen	8574	119383	Kill Credit: Demon	0
+47589	Righteous Fury	8574	128720	Kill Credit:Any Cannon Destroyed	0
+47589	Righteous Fury	8574	128719	Kill Credit:Any Cannon Destroyed	0
+47589	Righteous Fury	8574	123049	Kill Credit:Any Cannon Destroyed	0
+47589	Righteous Fury	8574	123066	Kill Credit: Anchoring Crystal C Destroyed	0
+47589	Righteous Fury	8574	123065	Kill Credit: Anchoring Crystal B Destroyed	0
+47589	Righteous Fury	8574	123048	Kill Credit: Anchoring Crystal A Destroyed	0
+47641	Signs of Resistance	8574	123228	Kill Credit: Meet Outside Village	0
+47652	The Light Mother	8574	101898	Kill Credit: "The Light Mother"	0
+47652	The Light Mother	8574	126657	Kill Credit: "The Light Mother"	0
+47653	Light's Return	8574	123261	Kill Credit: "Light's Return"	0
+47707	Melting Down	8574	125251	Kill Credit	0
+47712	The Devastator	8574	123569	Kill Credit	0
+47712	The Devastator	8574	125934	Invisible Stalker	0
+47720	Eternal Vengeance	8574	119606	Kill Credit: Demon Slain	0
+47724	Besieged	8574	123066	Kill Credit: Anchoring Crystal C Destroyed	0
+47724	Besieged	8574	123065	Kill Credit: Anchoring Crystal B Destroyed	0
+47724	Besieged	8574	123048	Kill Credit: Anchoring Crystal A Destroyed	0
+47724	Besieged	8574	128720	Kill Credit:Any Cannon Destroyed	0
+47724	Besieged	8574	128719	Kill Credit:Any Cannon Destroyed	0
+47724	Besieged	8574	123049	Kill Credit:Any Cannon Destroyed	0
+47743	The Child of Light and Shadow	8574	126163	Kill Credit: "Gift of Light and Shadow"	0
+47754	Lightly Roasted	8574	124903	Kill Credit: "Lightly Roasted"	0
+47889	The Speaker Calls	8574	124597	Kill Credit: Meet Magni in Krokuun	0
+47890	Visions of Torment	8574	124602	Kill Credit: Vision Seen	0
+47890	Visions of Torment	8574	124600	Kill Credit: Meet Magni by Fragment	0
+47891	Dire News	8574	124952	Kill Credit: Romuul Greeting	0
+47892	Storming the Citadel	8574	126673	Kill Credit: Beacon Arrives	0
+47892	Storming the Citadel	8574	124966	Kill Credit: Arrive at Hub	0
+47987	Preventive Measures	8574	125029	Kill Credit: Lay Soldier to Rest	0
+47991	Dark Machinations	8574	125220	Kill Credit: Spire of Woe D Destroyed	0
+47991	Dark Machinations	8574	125219	Kill Credit: Spire of Woe C Destroyed	0
+47991	Dark Machinations	8574	125217	Kill Credit: Spire of Woe B Destroyed	0
+47991	Dark Machinations	8574	125201	Kill Credit: Spire of Woe A Destroyed	0
+47992	Dawn of Justice	8574	125184	Kill Credit: Vehicle Romp Credit Proxy	0
+47992	Dawn of Justice	8574	125184	Kill Credit: Vehicle Romp Credit Proxy	0
+47992	Dawn of Justice	8574	126741	Kill Credit: Portal Destroyed	0
+47992	Dawn of Justice	8574	125184	Kill Credit: Vehicle Romp Credit Proxy	0
+47993	Lord of the Spire	8574	126818	Kill Credit: Conversation Heard	0
+47993	Lord of the Spire	8574	125182	Kill Credit: Meet Forces in Courtyard	0
+48272	Visions of Fear	8574	125791	Kill Credit: Vision Seen	0
+48273	The Speaker Listens	8574	124597	Kill Credit: Meet Magni in Krokuun	0
+48277	The Speaker Seeks	8574	124597	Kill Credit: Meet Magni in Krokuun	0
+48280	Visions of Another	8574	125817	Kill Credit: Vision Seen	0
+48440	Into the Night	8574	123349	Kill Credit: Arrival on Vindicaar Conversation Heard	0
+48440	Into the Night	8574	121126	Kill Credit: Travel to Argus	0
+48592	Holding the Spire	8574	126741	Kill Credit: Portal Destroyed	0
+48592	Holding the Spire	8574	125184	Kill Credit: Vehicle Romp Credit Proxy	0
+48614	Woeful Implications	8574	126857	Kill Credit: Spire of Woe A Destroyed	0
+48615	War Never Changes	8574	126871	Kill Credit: Lightforged Armament Recovered	0
+48803	Forging a Key to the Past	8574	127269	Kill Credit	0
+49077	Moments of Reflection	8638	129133	Kill Credit: Mount Hyjal Message	0
+49077	Moments of Reflection	8638	128430	Kill Credit: Tyrande Message	0
+49077	Moments of Reflection	8638	128431	Kill Credit: Malfurion Message	0
+40761	Whispers from Oronaar	8701	122769	Defaced Naaru Figurine	33587968
+46941	The Path Forward	8701	122534	Quest Credit Stalker - Velen Place Beacon	0
+47183	Arkhaan's Plan	8701	121555	Quest Credit Stalker - Escort Complete	0
+47183	Arkhaan's Plan	8701	128064	Quest Credit Stalker - Escort Start	0
+47184	Arkhaan's Peril	8701	121593	Quest Credit Stalker - Enter Void	0
+47203	Throwing Shade	8701	121660	Quest Credit Stalker - LW conversation 4	0
+47689	Gatekeeper's Challenge: Tenacity	8701	124163	Quest Credit - Pass Rollers	0
+47689	Gatekeeper's Challenge: Tenacity	8701	124162	Quest Credit - Pass Laser Field	0
+47689	Gatekeeper's Challenge: Tenacity	8701	124150	Quest Credit - Pass Rune Gauntlet	0
+47883	The Longest Vigil	8701	124809	Quest Credit - Talk to Quoram	0
+48081	A Floating Ruin	8701	125814	Quest Credit Stalker - Fly to Mac'Aree	0
+48107	The Sigil of Awakening	8701	125345	Quest Credit - Place Sigil	0
+48344	We Have a Problem	8701	126224	Quest Credit Stalker - Go to Conservatory	0
+48199	The Burning Heart	8899	126949	Kill Credit: "The Burning Heart"	0
+48200	Securing a Foothold	8899	126388	Kill Credit: "Securing a Foothold"	0
+48201	Reinforce Light's Purchase	8899	127063	Kill Credit: Southern Foothold	0
+48202	Reinforce the Veiled Den	8899	127064	Kill Credit: Northeastern Foothold	0
+48203	The Burning Throne	8899	120483	Kill Credit: The Burning Throne	0
+48526	Scuttled	8899	126555	Kill Credit	0
+48637	Cleansing Fire	8899	126986	Kill Credit: Ven'orn's Lair Spiders Burned	0
+48780	Gladius	8899	127186	Kill Credit: Shooting Gallery Targets	0
+48780	Gladius	8899	127185	Kill Credit: Enter Antorus	0
+48983	Mining Regulation	8899	127914	Kill Credit	0
+49014	The Burning Throne	8899	120483	Kill Credit: The Burning Throne	0
+47654	Seat of the Triumvirate: The Crest of Knowledge	8910	126624	Kill Credit: EGA Scene Credit	0
+48231	The Seat of the Triumvirate: Armor of the Triumvirate	8910	125606	Kill Credit	0

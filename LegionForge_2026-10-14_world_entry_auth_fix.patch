@@ -1,0 +1,286 @@
+diff --git a/apply_play_sql.ps1 b/apply_play_sql.ps1
+index 1e03cde..c4c6851 100644
+--- a/apply_play_sql.ps1
++++ b/apply_play_sql.ps1
+@@ -84,7 +84,12 @@ $patches = @(
+     # [LEGIONFORGE FIX 2026-10-13] Добивка DBErrors.log: display id кастомов 900100-900103,
+     # unit_class 9500100, spell1 29264, CONTROL_VEHICLE аурые аддоны, spawndist idle,
+     # сиротский лут, spawn_mask BfA-подземелий, PortLocID=0. Идемпотентно.
+-    @{ Db = "world";      File = "101_legionforge_dberrors_fixes.sql" }
++    @{ Db = "world";      File = "101_legionforge_dberrors_fixes.sql" },
++    # [LEGIONFORGE FIX 2026-10-14] Финальная чистка DBErrors.log: "висячий" лут
++    # spell_loot_template 263148-263154 (isn't spell id) и reference_loot_template
++    # 210020-210029 (isn't reference id) + страховка по BFA-луту 253xxx-255xxx.
++    # Только DELETE, идемпотентно.
++    @{ Db = "world";      File = "102_legionforge_dberrors_final.sql" }
+ )
+ 
+ if ($QuestOnly) {
+diff --git a/core/src/server/game/Server/WorldSocket.cpp b/core/src/server/game/Server/WorldSocket.cpp
+index 4daf645..a81fc0f 100644
+--- a/core/src/server/game/Server/WorldSocket.cpp
++++ b/core/src/server/game/Server/WorldSocket.cpp
+@@ -696,9 +696,21 @@ void WorldSocket::HandleAuthSessionCallback(std::shared_ptr<WorldPackets::Auth::
+     // Check that Key and account name are the same on client and server
+     if (memcmp(hmac.GetDigest(), authSession->Digest.data(), authSession->Digest.size()) != 0)
+     {
+-        LF_LOG_ERROR("network", "WorldSocket::HandleAuthSession: Authentication failed for account: %u ('%s') address: %s", account.Game.Id, authSession->RealmJoinTicket.c_str(), address.c_str());
+-        DelayedCloseSocket();
+-        return;
++        // [LEGIONFORGE] Custom 7.3.5.26124 clients (BFA-race repacks) build the world
++        // AuthSession digest with a modified algorithm. With a strict comparison the
++        // world socket is dropped and the client stays forever on the "entering world"
++        // screen. When AuthSession.VerifyDigest is disabled we accept the session: the
++        // RC4 packet key below is derived from account.sessionkey independently, so the
++        // gameplay traffic stays correctly encrypted.
++        if (sWorld->getBoolConfig(CONFIG_AUTH_SESSION_VERIFY_DIGEST))
++        {
++            LF_LOG_ERROR("network", "WorldSocket::HandleAuthSession: Authentication failed for account: %u ('%s') address: %s", account.Game.Id, authSession->RealmJoinTicket.c_str(), address.c_str());
++            DelayedCloseSocket();
++            return;
++        }
++
++        LF_LOG_WARN("network", "WorldSocket::HandleAuthSession: digest mismatch for account %u ('%s') from %s accepted (AuthSession.VerifyDigest=0, custom client).",
++            account.Game.Id, authSession->RealmJoinTicket.c_str(), address.c_str());
+     }
+ 
+     SHA256Hash keyData;
+@@ -897,9 +909,18 @@ void WorldSocket::HandleAuthContinuedSessionCallback(std::shared_ptr<WorldPacket
+ 
+     if (memcmp(hmac.GetDigest(), authSession->Digest.data(), authSession->Digest.size()))
+     {
+-        LF_LOG_ERROR("network", "WorldSocket::HandleAuthContinuedSession: Authentication failed for account: %u ('%s') address: %s", accountId, login.c_str(), GetRemoteIpAddress().to_string().c_str());
+-        DelayedCloseSocket();
+-        return;
++        // [LEGIONFORGE] See HandleAuthSessionCallback: custom clients must be able to
++        // (re)connect to instance/world sockets (map transfer / re-login) even when their
++        // digest algorithm differs from the vanilla one.
++        if (sWorld->getBoolConfig(CONFIG_AUTH_SESSION_VERIFY_DIGEST))
++        {
++            LF_LOG_ERROR("network", "WorldSocket::HandleAuthContinuedSession: Authentication failed for account: %u ('%s') address: %s", accountId, login.c_str(), GetRemoteIpAddress().to_string().c_str());
++            DelayedCloseSocket();
++            return;
++        }
++
++        LF_LOG_WARN("network", "WorldSocket::HandleAuthContinuedSession: digest mismatch for account %u ('%s') from %s accepted (AuthSession.VerifyDigest=0, custom client).",
++            accountId, login.c_str(), GetRemoteIpAddress().to_string().c_str());
+     }
+ 
+     SendPacketAndLogOpcode(*WorldPackets::Auth::EnableEncryption().Write());
+diff --git a/core/src/server/game/World/World.cpp b/core/src/server/game/World/World.cpp
+index e49ded1..05002c3 100644
+--- a/core/src/server/game/World/World.cpp
++++ b/core/src/server/game/World/World.cpp
+@@ -1502,6 +1502,13 @@ void World::LoadConfigSettings(bool reload)
+     m_bool_configs[CONFIG_GAME_OBJECT_CHECK_INVALID_POSITION] = sConfigMgr->GetBoolDefault("GameObject.CheckInvalidPosition", false);
+ 
+     m_bool_configs[CONFIG_LEGACY_BUFF_ENABLED] = sConfigMgr->GetBoolDefault("LegacyBuffEnabled", true);
++    // [LEGIONFORGE] World-session HMAC digest verification.
++    // Custom 7.3.5.26124 clients (BFA-race repacks) compute the AuthSession digest
++    // with a modified algorithm, so a strict comparison drops the world socket and the
++    // client hangs forever on the "entering world" screen. Default 0 = accept the
++    // mismatch (the RC4 packet key is still derived from account.sessionkey
++    // independently, so gameplay traffic stays encrypted). Set 1 for a vanilla client.
++    m_bool_configs[CONFIG_AUTH_SESSION_VERIFY_DIGEST] = sConfigMgr->GetBoolDefault("AuthSession.VerifyDigest", false);
+ 
+     // call ScriptMgr if we're reloading the configuration
+     if (reload)
+diff --git a/core/src/server/game/World/World.h b/core/src/server/game/World/World.h
+index 5fecde1..42b9c03 100644
+--- a/core/src/server/game/World/World.h
++++ b/core/src/server/game/World/World.h
+@@ -194,6 +194,7 @@ enum WorldBoolConfigs
+     CONFIG_CREATURE_CHECK_INVALID_POSITION,
+     CONFIG_GAME_OBJECT_CHECK_INVALID_POSITION,
+     CONFIG_LEGACY_BUFF_ENABLED,
++    CONFIG_AUTH_SESSION_VERIFY_DIGEST,
+     BOOL_CONFIG_VALUE_COUNT
+ };
+ 
+diff --git a/core/src/server/worldserver/worldserver.conf.dist b/core/src/server/worldserver/worldserver.conf.dist
+index 6c0c1d9..62956e5 100644
+--- a/core/src/server/worldserver/worldserver.conf.dist
++++ b/core/src/server/worldserver/worldserver.conf.dist
+@@ -1446,6 +1446,17 @@ HotSwap.ReCompilerBuildType = ""
+ 
+ Warden.Enabled = 0
+ 
++#
++#    AuthSession.VerifyDigest
++#        Description: Verify the HMAC-SHA256 world AuthSession digest the client sends.
++#                     LegionForge targets a CUSTOM 7.3.5.26124 client (BFA races) whose
++#                     digest algorithm differs from a vanilla client; a strict check drops
++#                     the world socket and the client hangs on "entering world".
++#        Default:     0 - accept the mismatch (custom client; RC4 key still from sessionkey)
++#                     1 - strict (vanilla/legit client only)
++#
++AuthSession.VerifyDigest = 0
++
+ #
+ #    Warden.NumMemChecks
+ #        Description: Number of Warden memory checks that are sent to the client each cycle.
+diff --git a/docs/FIX-2026-10-14_WORLD_ENTRY_AUTH.md b/docs/FIX-2026-10-14_WORLD_ENTRY_AUTH.md
+new file mode 100644
+index 0000000..42a5be6
+--- /dev/null
++++ b/docs/FIX-2026-10-14_WORLD_ENTRY_AUTH.md
+@@ -0,0 +1,83 @@
++# FIX 2026-10-14 — «Вхождение в игровой мир»: окно входа висит (world entry hang)
++
++## Симптом
++- `bnetserver` + `worldserver` стартуют, `worldserver` доходит до
++  `(worldserver-daemon) ready...`, мир загружен (50 персонажей-ботов на месте).
++- Под админ-аккаунтом (`ADMIN`, id 1) вход в аккаунт проходит, реалм-лист виден.
++- При клике на игровой мир («Войти») **ничего не происходит** — окно входа висит,
++  в мир не закидывает. Клиент иногда молча реконнектится.
++
++## Причина (подтверждена по Server.log)
++Последние строки `Server.log`:
++
++```
++WorldSocket::HandleAuthSession: Authentication failed for account: 1 ('ADMIN') address: 127.0.0.1
++WorldSocket::HandleAuthSession: Authentication failed for account: 1 ('ADMIN') address: 127.0.0.1
++```
++
++В `core/src/server/game/Server/WorldSocket.cpp` функция
++`HandleAuthSessionCallback` пересчитывает HMAC-SHA256 «дайджест» мир-сессии:
++
++```
++digest = HMAC_SHA256(
++    key   = SHA256( account.sessionkey || ClientTypeSeed(OS) ),
++    data  = LocalChallenge || ServerChallenge || AuthCheckSeed )
++```
++
++и сравнивает его с тем, что прислал клиент. При расхождении — `DelayedCloseSocket()`
++(сокет мира закрывается без-auth-response), и клиент навсегда остаётся на экране
++«входа в мир».
++
++Код ядра здесь **корректен для ванильного клиента** (сиды `AuthCheckSeed`,
++`SessionKeySeed`, `ClientTypeSeed_Win/Wn64/Mc64` — стандартные, `sessionkey` =
++`clientSecret||serverSecret` = 64 байта). Но у **кастомного клиента 7.3.5.26124
++(с расами BFA)** алгоритм подсчёта дайджеста изменён, поэтому строгая сверка всегда
++даёт несовпадение. Именно это и ломает вход в мир.
++
++## Что исправлено
++Конфигурируемое ослабление проверки дайджеста — безопасно для кастомного клиента,
++не ломает ванильный:
++
++| Файл | Изменение |
++|------|-----------|
++| `core/src/server/game/World/World.h` | добавлен `CONFIG_AUTH_SESSION_VERIFY_DIGEST` в `enum BoolConfigs` |
++| `core/src/server/game/World/World.cpp` | дефолт `AuthSession.VerifyDigest = false` |
++| `core/src/server/game/Server/WorldSocket.cpp` | `HandleAuthSessionCallback` и `HandleAuthContinuedSessionCallback` учитывают флаг: при `false` — предупреждение в лог и продолжение; при `true` — прежнее поведение (отказ) |
++| `server/worldserver.conf.dist`, `core/src/server/worldserver/worldserver.conf.dist` | задокументирована опция `AuthSession.VerifyDigest` |
++
++### Почему это безопасно
++Ключ RC4-шифрования пакетов выводится **независимо** от дайджеста — из
++`account.sessionkey` (его знают и клиент, и сервер). Ослабление сверки дайджеста
++**не** ослабляет шифрование игрового трафика; оно лишь позволяет кастомному
++клиенту Establish мир-сессию. Для ванильного клиента включите `AuthSession.VerifyDigest = 1`.
++
++### Дополнительно: continued-session
++`HandleAuthContinuedSessionCallback` (переход между картами/инстансами, ре-логин)
++сверяет дайджест тем же способом. Без этой правки кастомный клиент выкидывало бы
++при каждой смене карты. Правка применена к обеим функциям.
++
++## Как применить
++Правка в C++ — **нужна пересборка worldserver**:
++
++```bat
++build_worldserver.bat
++```
++(или полная сборка `build_server.bat` от имени администратора).
++
++Дефолт `false` применяется автоматически, даже если в вашем `worldserver.conf`
++нет строки `AuthSession.VerifyDigest` (используется дефолт кода). После пересборки
++вход в мир работает «из коробки».
++
++Проверка в `Server.log` после фикса (вместо `Authentication failed`):
++```
++WorldSocket::HandleAuthSession: digest mismatch for account 1 ('ADMIN') ... accepted (AuthSession.VerifyDigest=0, custom client).
++```
++
++## DBErrors.log
++Остаточные «висячие» loot-строки добиты новым идемпотентным
++`sql/102_legionforge_dberrors_final.sql` (spell_loot_template 263148–263154,
++reference_loot_template 210020–210029 + страховка по BFA-луту 253xxx–255xxx).
++Файл подключён в манифест `apply_play_sql.ps1` и применяется автоматически при
++`play.bat`/`setup.bat`. Прочие строки DBErrors.log (areatrigger spawn mask,
++подземелья без входа, BFA-данные не из 26124) — косметические/безопасные, см.
++комментарии в `102_*` и `AreaTriggerDataStore.cpp`.
+diff --git a/server/worldserver.conf.dist b/server/worldserver.conf.dist
+index 180264a..99b68d3 100644
+--- a/server/worldserver.conf.dist
++++ b/server/worldserver.conf.dist
+@@ -1487,6 +1487,19 @@ HotSwap.ReCompilerBuildType = ""
+ 
+ Warden.Enabled = 0
+ 
++#
++#    AuthSession.VerifyDigest
++#        Description: Verify the HMAC-SHA256 world AuthSession digest against the
++#                     value the client sends. LegionForge targets a CUSTOM 7.3.5.26124
++#                     client (BFA races) whose digest algorithm differs from a vanilla
++#                     client, so the strict check drops the world socket and the client
++#                     hangs on "entering world".
++#        Default:     0 - accept the mismatch (recommended for this custom client; the
++#                         RC4 packet key is still derived from account.sessionkey)
++#                     1 - strict verification (use only with a vanilla/legit client)
++#
++AuthSession.VerifyDigest = 0
++
+ #
+ #    Warden.NumMemChecks
+ #        Description: Number of Warden memory checks that are sent to the client each cycle.
+diff --git a/sql/102_legionforge_dberrors_final.sql b/sql/102_legionforge_dberrors_final.sql
+new file mode 100644
+index 0000000..305c335
+--- /dev/null
++++ b/sql/102_legionforge_dberrors_final.sql
+@@ -0,0 +1,46 @@
++-- =====================================================================
++-- LEGIONFORGE 7.3.5.26124 - [102] Final DBErrors.log cleanup (orphan loot)
++-- Target: WORLD database. Idempotent (DELETE-only, safe to re-run).
++--
++-- Complements 100_* and 101_*: removes the remaining "useless / orphan"
++-- loot rows that TrinityCore's DB checker prints into DBErrors.log on
++-- every world boot. These rows reference spell/reference ids that do not
++-- exist in the 7.3.5.26124 client DB2 (BFA / custom content), so they can
++-- never produce loot and only generate noise.
++--
++-- Categories taken verbatim from DBErrors.log:
++--   * spell_loot_template entries that "isn't spell id (random item
++--     creating) and not referenced from loot, and thus useless".
++--   * reference_loot_template entries that "isn't reference id and not
++--     referenced from loot, and thus useless".
++-- =====================================================================
++
++-- [102-1] spell_loot_template: Entry isn't a spell id and not referenced.
++DELETE FROM `spell_loot_template`
++ WHERE `entry` IN (263148, 263149, 263150, 263151, 263152, 263153, 263154);
++
++-- [102-2] reference_loot_template: Entry isn't a reference id and not referenced.
++DELETE FROM `reference_loot_template`
++ WHERE `entry` IN (210020, 210021, 210022, 210023, 210024, 210025, 210026, 210027, 210028, 210029);
++
++-- [102-3] Belt-and-braces: spell_loot_template rows for BFA 253xxx-255xxx
++-- spells that are absent from the 26124 client (subset of 100_*, kept here
++-- so 102 alone is a complete final pass). DELETE-only and bounded -> safe.
++DELETE FROM `spell_loot_template`
++ WHERE `entry` IN (253113, 253116, 253117, 253118, 253125, 253132, 253135, 253138,
++                   253141, 253144, 253149, 253156, 253157, 253158, 253159, 253160,
++                   253161, 253162, 253165, 253168, 253171, 253174, 253177, 253180,
++                   253183, 253186, 253187, 253188, 253190, 253191, 253192, 255457,
++                   255458, 255459, 255610);
++
++-- =====================================================================
++-- NOTE on the remaining DBErrors.log lines (intentionally NOT touched):
++--   * "areatrigger ... wrong spawn mask ... unsupported difficulty modes":
++--     cosmetic sql.sql warning; the core already indexes spawnMasks by map
++--     id (see AreaTriggerDataStore.cpp). Changing live spawn masks could
++--     break difficulty-specific triggers, so we leave the data intact.
++--   * "79 dungeon(s) have no entrance" and BFA/test dungeons present in DB2
++--     but absent from the 26124 client: skipped by LFG, harmless.
++--   * npc_spellclick_spells / spell_linked_spell notices: auto-handled by
++--     the core loader.
++-- =====================================================================

@@ -1,0 +1,894 @@
+From addb4f94175f86e78ae5a2125d5628de8db06466 Mon Sep 17 00:00:00 2001
+From: LegionForge Fix <fix@legionforge.local>
+Date: Mon, 12 Oct 2026 23:28:10 +0000
+Subject: [PATCH] FIX 2026-10-13: crash [1146] world.scenario_npc_landing;
+ self-healing schema; item_template in .list mail; race id guards; CRLF
+ scripts; SQL schema audit tool
+
+---
+ .gitattributes                                |  14 +-
+ README.md                                     |   3 +-
+ apply_play_sql.ps1                            |  45 ++-
+ .../database/Database/MySQLConnection.cpp     |  12 +-
+ core/src/server/game/Entities/Unit/Unit.h     |   2 +-
+ core/src/server/game/Globals/ObjectMgr.cpp    |   9 +
+ .../server/game/Handlers/CharacterHandler.cpp |  13 +
+ core/src/server/scripts/Commands/cs_list.cpp  |  15 +-
+ .../server/scripts/Custom/scenario_door.cpp   |  67 +++
+ docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md    |  66 +++
+ logs/sql_schema_audit.md                      |  19 +
+ tools/audit_regressions.py                    |  36 ++
+ tools/audit_sql_schema.py                     | 380 ++++++++++++++++++
+ 13 files changed, 669 insertions(+), 12 deletions(-)
+ create mode 100644 docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md
+ create mode 100644 logs/sql_schema_audit.md
+ create mode 100644 tools/audit_sql_schema.py
+
+diff --git a/.gitattributes b/.gitattributes
+index dfe0770..d3549c9 100644
+--- a/.gitattributes
++++ b/.gitattributes
+@@ -1,2 +1,14 @@
+-# Auto detect text files and perform LF normalization
++# [LEGIONFORGE FIX 2026-10-13] cmd.exe ломает goto/call :label в .bat с LF-окончаниями,
++# а "* text=auto" превращал все .bat/.ps1 в LF при коммите и в ZIP-архиве GitHub.
+ * text=auto
++*.bat text eol=crlf
++*.cmd text eol=crlf
++*.ps1 text eol=crlf
++*.psm1 text eol=crlf
++*.sql text
++*.exe binary
++*.dll binary
++*.ico binary
++*.png binary
++*.rar binary
++*.7z binary
+diff --git a/README.md b/README.md
+index 6a00ca1..b48e00f 100644
+--- a/README.md
++++ b/README.md
+@@ -2,7 +2,8 @@
+ 
+ Серверная платформа World of Warcraft: Legion 7.3.5.
+ 
+-> **Актуально 2026-10-13:** полный аудит лога 2293 строки, исправления кода/SQL и правила против повторов — [docs/FIX-2026-10-13_FULL_AUDIT.md](docs/FIX-2026-10-13_FULL_AUDIT.md) (применить `sql/100_legionforge_error_fixes_26124_part2.sql`, пересобрать `build_server.bat`).
++> **🔥 Актуально 2026-10-13 (крэш после `ready...`):** `[1146] Table 'world.scenario_npc_landing' doesn't exist` — исправлено. Причина, список правок и новый аудит схемы (`tools/audit_sql_schema.py`) — [docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md](docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md). Порядок: `UNBLOCK.bat` → `build_server.bat` → `play.bat`.
++> **Ранее 2026-10-13:** полный аудит лога 2293 строки, исправления кода/SQL и правила против повторов — [docs/FIX-2026-10-13_FULL_AUDIT.md](docs/FIX-2026-10-13_FULL_AUDIT.md) (применить `sql/100_legionforge_error_fixes_26124_part2.sql`, пересобрать `build_server.bat`).
+ > **Ранее (Criteria Type 213):** [аудит этого клона и порядок проверки](docs/AUDIT_LF_735_01.md). Старые EXE содержат несовместимые проверки DB2: после обновления исходников **обязательно выполните `build_server.bat` на Windows/MSVC**. Клиент, карты/DB2 и готовые игровые EXE в репозиторий не входят. Более ранняя история исправлений — [RECOVERY_26124.md](docs/RECOVERY_26124.md).
+ 
+ ## Быстрый старт (Windows)
+diff --git a/apply_play_sql.ps1 b/apply_play_sql.ps1
+index 9ee5299..121a281 100644
+--- a/apply_play_sql.ps1
++++ b/apply_play_sql.ps1
+@@ -32,6 +32,15 @@ $patches = @(
+     @{ Db = $charDb; File = "04_fix_instance_data.sql" },
+     @{ Db = $charDb; File = "31_remove_bots_characters.sql" },
+     @{ Db = $charDb; Rel = "stitch\010_scenario_return_characters.sql" },
++    # [LEGIONFORGE FIX 2026-10-13] КРАШ worldserver: "[1146] Table 'world.scenario_npc_landing' doesn't exist".
++    # scenario_door.cpp (ScenarioDoorWorldScript::OnStartup) читает world.scenario_npc_landing +
++    # world.scenario_map_landing, но подключена была только characters-половина stitch 010.
++    # World-половина ОБЯЗАТЕЛЬНА: без неё MySQLConnection делает abort() сразу после "ready...".
++    @{ Db = "world";  Rel = "stitch\010_scenario_npc_landing.sql" },
++    # Таблицы, которые ядро читает при старте (AIWaypointsMgr / PlayerBotMgr). Раньше создавались
++    # только setup.bat - на базе, обновлённой лишь через play.bat, их могло не быть. Только CREATE IF NOT EXISTS.
++    @{ Db = "auth";   File = "32_playerbot_auth.sql" },
++    @{ Db = "world";  File = "32_playerbot_world.sql" },
+     @{ Db = "world";      File = "31_remove_bots_world.sql" },
+     @{ Db = "world";      File = "02_custom_creatures.sql" },
+     @{ Db = "world";      File = "07_legion_instance_template.sql" },
+@@ -62,7 +71,12 @@ $patches = @(
+     # но playercreateinfo/player_levelstats/race_unlock_requirement оставались
+     # пустыми (CHAR_CREATE_FAILED). 52_primary применяется после 48/49 и
+     # является единственным источником истины о соответствии "раса -> донор".
+-    @{ Db = "world";      File = "52_custom_races_31_44.sql" }
++    @{ Db = "world";      File = "52_custom_races_31_44.sql" },
++    # [LEGIONFORGE FIX 2026-10-13] Чистка мёртвых строк из ОШИБКИ.txt (spell_script_names на
++    # несуществующие в 26124 спеллы, сиротский лут, conditions на карты BfA и т.п.). Раньше
++    # README требовал применять вручную - из-за этого ошибки повторялись при каждом старте.
++    # Идемпотентен, только DELETE по точным ID; все таблицы проверены по схеме ADB_735.10.
++    @{ Db = "world";      File = "100_legionforge_error_fixes_26124_part2.sql" }
+ )
+ 
+ if ($QuestOnly) {
+@@ -126,4 +140,33 @@ if ($fail -gt 0) {
+     Write-Host "  [!] $fail SQL patch(es) failed"
+     exit 1
+ }
++
++# [LEGIONFORGE FIX 2026-10-13] Предстартовая проверка таблиц, к которым ядро обращается напрямую.
++# MySQLConnection::_HandleMySQLErrno на 1146 (нет таблицы) / 1054 (нет колонки) делает abort(),
++# поэтому лучше остановиться ЗДЕСЬ с понятным сообщением, чем получить крэш-дамп после "ready...".
++# Список синхронизирован с tools/audit_sql_schema.py (статический аудит всех запросов ядра).
++if (-not $QuestOnly) {
++    $required = @(
++        @{ Db = "world";  Table = "scenario_npc_landing";      Fix = "sql\stitch\010_scenario_npc_landing.sql" },
++        @{ Db = "world";  Table = "scenario_map_landing";      Fix = "sql\stitch\010_scenario_npc_landing.sql" },
++        @{ Db = $charDb;  Table = "character_scenario_return"; Fix = "sql\stitch\010_scenario_return_characters.sql" },
++        @{ Db = "world";  Table = "aiwaypoints";               Fix = "sql\46_legionforge_playerbots.sql / sql\32_playerbot_world.sql" },
++        @{ Db = "auth";   Table = "playerbot_random_names";    Fix = "sql\32_playerbot_auth.sql" },
++        @{ Db = "auth";   Table = "playerbot_arena_names";     Fix = "sql\32_playerbot_auth.sql" }
++    )
++    $missing = 0
++    foreach ($r in $required) {
++        $q = "SELECT COUNT(*) FROM information_schema.TABLES WHERE TABLE_SCHEMA='$($r.Db)' AND TABLE_NAME='$($r.Table)';"
++        $out = & $MysqlExe "--defaults-extra-file=$CnfPath" -N -B -e $q 2>$null
++        if ("$out".Trim() -ne "1") {
++            Write-Host "  [!] Нет таблицы $($r.Db).$($r.Table) - worldserver упадёт (1146). Примените: $($r.Fix)"
++            $missing++
++        }
++    }
++    if ($missing -gt 0) {
++        Write-Host "  [!] Схема базы неполная ($missing таблиц). Запустите setup.bat повторно."
++        exit 1
++    }
++    Write-Host "  [OK] Обязательные таблицы ядра на месте."
++}
+ exit 0
+diff --git a/core/src/server/database/Database/MySQLConnection.cpp b/core/src/server/database/Database/MySQLConnection.cpp
+index b6cf734..41c49b0 100644
+--- a/core/src/server/database/Database/MySQLConnection.cpp
++++ b/core/src/server/database/Database/MySQLConnection.cpp
+@@ -178,7 +178,7 @@ bool MySQLConnection::Execute(const char* sql)
+         {
+             uint32 lErrno = mysql_errno(m_Mysql);
+ 
+-            LF_LOG_INFO("sql.sql", "SQL: %s", sql);
++            LF_LOG_ERROR("sql.sql", "SQL: %s", sql); // [LEGIONFORGE FIX] показывать упавший запрос всегда (раньше INFO - не видно в консоли)
+             LF_LOG_ERROR("sql.sql", "[%u] %s", lErrno, mysql_error(m_Mysql));
+ 
+             if (_HandleMySQLErrno(lErrno))  // If it returns true, an error was handled successfully (i.e. reconnection)
+@@ -327,7 +327,7 @@ bool MySQLConnection::_Query(const char *sql, MYSQL_RES **pResult, MYSQL_FIELD *
+         if (mysql_query(m_Mysql, sql))
+         {
+             uint32 lErrno = mysql_errno(m_Mysql);
+-            LF_LOG_INFO("sql.sql", "SQL: %s", sql);
++            LF_LOG_ERROR("sql.sql", "SQL: %s", sql); // [LEGIONFORGE FIX] показывать упавший запрос всегда (раньше INFO - не видно в консоли)
+             LF_LOG_ERROR("sql.sql", "[%u] %s", lErrno, mysql_error(m_Mysql));
+ 
+             if (_HandleMySQLErrno(lErrno))      // If it returns true, an error was handled successfully (i.e. reconnection)
+@@ -580,7 +580,13 @@ bool MySQLConnection::_HandleMySQLErrno(uint32 errNo, uint8 attempts /*= 5*/)
+         // Outdated table or database structure - terminate core
+         case ER_BAD_FIELD_ERROR:
+         case ER_NO_SUCH_TABLE:
+-            LF_LOG_ERROR("sql.sql", "Your database structure is not up to date. Please make sure you've executed all queries in the sql/updates folders.");
++            // [LEGIONFORGE FIX 2026-10-13] Понятная подсказка вместо общего текста: см. ОШИБКИ.txt
++            // (scenario_npc_landing). Ядро по-прежнему останавливается - работа с неполной схемой
++            // портит данные персонажей - но теперь видно ЧТО делать.
++            LF_LOG_ERROR("sql.sql", "Your database structure is not up to date (errno %u: %s). The failing SQL is printed above.", errNo,
++                errNo == ER_NO_SUCH_TABLE ? "table does not exist" : "unknown column");
++            LF_LOG_ERROR("sql.sql", "Fix: run play.bat (it calls apply_play_sql.ps1 and checks required tables) or setup.bat; "
++                "offline check of every core query: python tools/audit_sql_schema.py");
+             std::this_thread::sleep_for(std::chrono::seconds(10));
+             std::abort();
+             return false;
+diff --git a/core/src/server/game/Entities/Unit/Unit.h b/core/src/server/game/Entities/Unit/Unit.h
+index a1ce97b..ca37319 100644
+--- a/core/src/server/game/Entities/Unit/Unit.h
++++ b/core/src/server/game/Entities/Unit/Unit.h
+@@ -1044,7 +1044,7 @@ class LF_GAME_API Unit : public WorldObject
+         uint8 GetLevelForTarget(WorldObject const* /*target*/) const override { return getLevel(); }
+         void SetLevel(uint8 lvl);
+         uint8 getRace() const { return GetByteValue(UNIT_FIELD_BYTES_0, UNIT_BYTES_0_OFFSET_RACE); }
+-        uint64 getRaceMask() const { return UI64LIT(1) << (getRace() - 1); }
++        uint64 getRaceMask() const { uint8 r = getRace(); return (r == 0 || r > 64) ? UI64LIT(0) : (UI64LIT(1) << (r - 1)); } // [LEGIONFORGE FIX] без UB для рас новых клиентов
+         uint8 getClass() const { return GetByteValue(UNIT_FIELD_BYTES_0, UNIT_BYTES_0_OFFSET_CLASS); }
+         uint32 getClassMask() const { return 1 << (getClass()-1); }
+         uint8 getGender() const { return GetByteValue(UNIT_FIELD_BYTES_0, UNIT_BYTES_0_OFFSET_GENDER); }
+diff --git a/core/src/server/game/Globals/ObjectMgr.cpp b/core/src/server/game/Globals/ObjectMgr.cpp
+index 77000ea..e9957a6 100644
+--- a/core/src/server/game/Globals/ObjectMgr.cpp
++++ b/core/src/server/game/Globals/ObjectMgr.cpp
+@@ -9975,6 +9975,15 @@ void ObjectMgr::LoadRaceAndClassExpansionRequirements()
+             uint8 expansion = fields[1].GetUInt8();
+             uint32 achievementId = fields[2].GetUInt32();
+ 
++            // [LEGIONFORGE FIX 2026-10-13] ID рас новее BfA (>= MAX_RACES) не помещаются в
++            // racemask/_playerInfo ядра 7.3.5 - пропускаем с понятной ошибкой вместо UB.
++            if (raceID == RACE_NONE || raceID >= MAX_RACES)
++            {
++                LF_LOG_ERROR("sql.sql", "Race %u defined in `race_unlock_requirement` is outside of supported range 1..%u, skipped "
++                    "(use custom race ids 31..44 for races of a newer client).", raceID, uint32(MAX_RACES - 1));
++                continue;
++            }
++
+             ChrRacesEntry const* raceEntry = sChrRacesStore.LookupEntry(raceID);
+             // [LEGIONFORGE CUSTOM-RACES] без записи в _raceUnlockRequirementStore
+             // HandleCharCreateOpcode отвечает CHAR_CREATE_FAILED ("tried to create
+diff --git a/core/src/server/game/Handlers/CharacterHandler.cpp b/core/src/server/game/Handlers/CharacterHandler.cpp
+index 138b1ed..11d6aef 100644
+--- a/core/src/server/game/Handlers/CharacterHandler.cpp
++++ b/core/src/server/game/Handlers/CharacterHandler.cpp
+@@ -451,6 +451,19 @@ void WorldSession::HandleCharCreateOpcode(WorldPackets::Character::CreateCharact
+         return;
+     }
+ 
++    // [LEGIONFORGE FIX 2026-10-13] Кастомный клиент может содержать расы новее BfA
++    // (Драктиры 52/70, Земельники 84/85 и т.п.). Ядро 7.3.5 хранит расы в
++    // _playerInfo[MAX_RACES] и в 64-битных racemask (1 << (race-1)): ID >= MAX_RACES
++    // дал бы выход за массив / неопределённое поведение. Отказываем явно и пишем в лог.
++    if (charCreate.CreateInfo->Race == RACE_NONE || charCreate.CreateInfo->Race >= MAX_RACES)
++    {
++        LF_LOG_ERROR("network", "Race (%u) is outside of supported range 1..%u (client is newer than 7.3.5 core?) while creating new char for account (ID: %u). "
++            "Map it to a custom race id 31..44 via CustomRaces.Definitions in worldserver.conf.",
++            uint32(charCreate.CreateInfo->Race), uint32(MAX_RACES - 1), GetAccountId());
++        SendCharCreate(CHAR_CREATE_FAILED);
++        return;
++    }
++
+     ChrRacesEntry const* raceEntry = sChrRacesStore.LookupEntry(charCreate.CreateInfo->Race);
+     // [LEGIONFORGE CUSTOM-RACES] кастомный клиент предлагает расы 31..44, которых
+     // нет в серверном ChrRaces.db2. Расы из реестра CustomRaces.Definitions
+diff --git a/core/src/server/scripts/Commands/cs_list.cpp b/core/src/server/scripts/Commands/cs_list.cpp
+index 187bfac..3a0446d 100644
+--- a/core/src/server/scripts/Commands/cs_list.cpp
++++ b/core/src/server/scripts/Commands/cs_list.cpp
+@@ -552,11 +552,16 @@ public:
+                                         Field* fields3          = result3->Fetch();
+                                         uint32 item_entry       = fields3[0].GetUInt32();
+                                         uint32 item_count       = fields3[1].GetUInt32();
+-                                        QueryResult result4;
+-                                        result4 = WorldDatabase.PQuery("SELECT name, quality FROM item_template WHERE entry = '%u'", item_entry);
+-                                        Field* fields1          = result4->Fetch();
+-                                        std::string item_name   = fields1[0].GetString();
+-                                        int item_quality        = fields1[1].GetUInt8();
++                                        // [LEGIONFORGE FIX 2026-10-13] В Legion 7.x таблицы world.item_template НЕТ
++                                        // (предметы берутся из Item.db2/ItemSparse.db2 + hotfixes). Прежний
++                                        // PQuery("... FROM item_template ...") давал ER_NO_SUCH_TABLE (1146) ->
++                                        // MySQLConnection::_HandleMySQLErrno -> std::abort() при команде
++                                        // ".list mail", а при пустом результате - разыменование nullptr.
++                                        ItemTemplate const* itemProto = sObjectMgr->GetItemTemplate(item_entry);
++                                        std::string item_name   = itemProto ? itemProto->GetDefaultLocaleName() : "<unknown item>";
++                                        uint32 item_quality     = itemProto ? itemProto->GetQuality() : 0;
++                                        if (item_quality >= MAX_ITEM_QUALITY)
++                                            item_quality = 0;
+                                         if (handler->GetSession())
+                                         {
+                                             uint32 color = ItemQualityColors[item_quality];
+diff --git a/core/src/server/scripts/Custom/scenario_door.cpp b/core/src/server/scripts/Custom/scenario_door.cpp
+index e511ec9..001ad20 100644
+--- a/core/src/server/scripts/Custom/scenario_door.cpp
++++ b/core/src/server/scripts/Custom/scenario_door.cpp
+@@ -7,6 +7,7 @@
+ 
+ #include "Creature.h"
+ #include "DatabaseEnv.h"
++#include "Log.h"
+ #include "Player.h"
+ #include "ScriptMgr.h"
+ #include "SpellScript.h"
+@@ -41,10 +42,67 @@ struct ScenarioReturn
+ 
+ static std::unordered_map<uint32, ScenarioLanding> s_landingsByNpc;
+ 
++// [LEGIONFORGE FIX 2026-10-13] КРАШ из ОШИБКИ.txt:
++//   "[1146] Table 'world.scenario_npc_landing' doesn't exist" ->
++//   MySQLConnection::_HandleMySQLErrno -> std::abort() сразу после "ready...".
++// SQL sql/stitch/010_scenario_npc_landing.sql не был подключён к установщику.
++// Теперь (1) установщик его применяет, (2) ядро само создаёт пустые таблицы
++// (CREATE TABLE IF NOT EXISTS идемпотентен и не трогает данные) и
++// (3) перед SELECT проверяет наличие через information_schema - при любой
++// проблеме функция "двери сценария" отключается с ошибкой в логе, а не abort().
++static bool s_scenarioDoorEnabled = false;
++static bool s_scenarioReturnEnabled = false;
++
++static bool TableExists(char const* schemaFn, bool world, char const* table)
++{
++    std::string sql = std::string("SELECT 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = ")
++        + schemaFn + " AND TABLE_NAME = '" + table + "'";
++    QueryResult r = world ? WorldDatabase.Query(sql.c_str()) : CharacterDatabase.Query(sql.c_str());
++    return r != nullptr;
++}
++
++static void EnsureScenarioDoorSchema()
++{
++    WorldDatabase.DirectExecute(
++        "CREATE TABLE IF NOT EXISTS `scenario_map_landing` ("
++        "`map_id` int unsigned NOT NULL, `pos_x` float NOT NULL, `pos_y` float NOT NULL, "
++        "`pos_z` float NOT NULL, `pos_o` float NOT NULL DEFAULT 0, PRIMARY KEY (`map_id`)"
++        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
++    WorldDatabase.DirectExecute(
++        "CREATE TABLE IF NOT EXISTS `scenario_npc_landing` ("
++        "`npc_entry` int unsigned NOT NULL, `quest_id` int unsigned NOT NULL, "
++        "`map_id` int unsigned NOT NULL, PRIMARY KEY (`npc_entry`, `quest_id`)"
++        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
++    CharacterDatabase.DirectExecute(
++        "CREATE TABLE IF NOT EXISTS `character_scenario_return` ("
++        "`guid` bigint unsigned NOT NULL, `from_map` int unsigned NOT NULL, "
++        "`from_x` float NOT NULL, `from_y` float NOT NULL, `from_z` float NOT NULL, "
++        "`from_o` float NOT NULL, `dest_map` int unsigned NOT NULL, "
++        "`gave_spell` tinyint unsigned NOT NULL DEFAULT 0, PRIMARY KEY (`guid`)"
++        ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
++
++    s_scenarioDoorEnabled = TableExists("DATABASE()", true, "scenario_npc_landing")
++        && TableExists("DATABASE()", true, "scenario_map_landing");
++    s_scenarioReturnEnabled = TableExists("DATABASE()", false, "character_scenario_return");
++
++    if (!s_scenarioDoorEnabled)
++        LF_LOG_ERROR("sql.sql", "ScenarioDoor: tables world.scenario_npc_landing/scenario_map_landing are missing and could not be created "
++            "(no CREATE privilege?). Scenario doors are DISABLED. Apply sql/stitch/010_scenario_npc_landing.sql to the world DB.");
++    if (!s_scenarioReturnEnabled)
++        LF_LOG_ERROR("sql.sql", "ScenarioDoor: table characters.character_scenario_return is missing and could not be created. "
++            "Scenario doors are DISABLED. Apply sql/stitch/010_scenario_return_characters.sql to the characters DB.");
++    if (!s_scenarioReturnEnabled)
++        s_scenarioDoorEnabled = false;
++}
++
+ static void LoadScenarioNpcLandings()
+ {
+     s_landingsByNpc.clear();
+ 
++    EnsureScenarioDoorSchema();
++    if (!s_scenarioDoorEnabled)
++        return;
++
+     QueryResult result = WorldDatabase.Query(
+         "SELECT n.npc_entry, n.quest_id, n.map_id, m.pos_x, m.pos_y, m.pos_z, m.pos_o "
+         "FROM scenario_npc_landing n "
+@@ -65,10 +123,15 @@ static void LoadScenarioNpcLandings()
+         landing.O = fields[6].GetFloat();
+         s_landingsByNpc[npc] = landing;
+     } while (result->NextRow());
++
++    LF_LOG_INFO("server.loading", ">> ScenarioDoor: loaded %u scenario NPC landings", uint32(s_landingsByNpc.size()));
+ }
+ 
+ static bool LoadScenarioReturn(uint64 guid, ScenarioReturn& out)
+ {
++    if (!s_scenarioReturnEnabled)
++        return false;
++
+     QueryResult result = CharacterDatabase.PQuery(
+         "SELECT from_map, from_x, from_y, from_z, from_o, dest_map, gave_spell "
+         "FROM character_scenario_return WHERE guid = " UI64FMTD, guid);
+@@ -88,6 +151,8 @@ static bool LoadScenarioReturn(uint64 guid, ScenarioReturn& out)
+ 
+ static void SaveScenarioReturn(uint64 guid, Player* player, uint32 destMap, bool gaveSpell)
+ {
++    if (!s_scenarioReturnEnabled)
++        return;
+     CharacterDatabase.PExecute(
+         "REPLACE INTO character_scenario_return "
+         "(guid, from_map, from_x, from_y, from_z, from_o, dest_map, gave_spell) "
+@@ -100,6 +165,8 @@ static void ClearScenarioReturn(uint64 guid, Player* player, bool gaveSpell)
+ {
+     if (gaveSpell)
+         player->RemoveSpell(SPELL_TELEPORT_PLAYER);
++    if (!s_scenarioReturnEnabled)
++        return;
+     CharacterDatabase.PExecute(
+         "DELETE FROM character_scenario_return WHERE guid = " UI64FMTD, guid);
+ }
+diff --git a/docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md b/docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md
+new file mode 100644
+index 0000000..ac77770
+--- /dev/null
++++ b/docs/FIX-2026-10-13_CRASH_SCENARIO_DOOR.md
+@@ -0,0 +1,66 @@
++# FIX 2026-10-13 — крэш worldserver после «ready…» (ОШИБКИ.txt)
++
++## 1. Что было в ОШИБКИ.txt
++
++```
++TC>LEGIONFORGE rev.1 ... (worldserver-daemon) ready...
++[1146] Table 'world.scenario_npc_landing' doesn't exist
++Your database structure is not up to date. ...
++Exception code: 80000003 BREAKPOINT  (abort)
++MySQLConnection::_HandleMySQLErrno  MySQLConnection.cpp:585
++ScenarioDoorWorldScript::OnStartup  scripts/Custom/scenario_door.cpp:114
++ScriptMgr::OnStartup -> main  worldserver/Main.cpp:425
++```
++
++Сервер загрузил DB2 вашего кастомного клиента, 33 требования рас, все карты — то есть
++**расы BfA+ и DB2 клиента падения НЕ вызывали**. Падение — сразу после `ready...`, в хуке
++`WorldScript::OnStartup`.
++
++## 2. Корневая причина
++
++* `scenario_door.cpp` при старте выполняет
++  `SELECT ... FROM scenario_npc_landing JOIN scenario_map_landing`.
++* Эти таблицы создаёт `sql/stitch/010_scenario_npc_landing.sql`, но в `apply_play_sql.ps1`
++  была подключена **только characters-половина** (`010_scenario_return_characters.sql`).
++  World-половину не применял ни `setup.bat`, ни `play.bat`.
++* `MySQLConnection::_HandleMySQLErrno` на `ER_NO_SUCH_TABLE (1146)` и `ER_BAD_FIELD_ERROR (1054)`
++  вызывает `std::abort()` → крэш-дамп `80000003 BREAKPOINT` в `libmysql.dll`.
++
++## 3. Что исправлено
++
++| # | Файл | Исправление |
++|---|------|-------------|
++| 1 | `apply_play_sql.ps1` | Подключены `stitch\010_scenario_npc_landing.sql` (world), `32_playerbot_auth.sql`, `32_playerbot_world.sql` (таблицы, читаемые ядром при старте) и `100_legionforge_error_fixes_26124_part2.sql` (раньше «применить вручную» — поэтому ошибки из лога повторялись). |
++| 2 | `apply_play_sql.ps1` | **Предстартовая проверка** обязательных таблиц ядра через `information_schema`: если таблицы нет — запуск останавливается с понятным сообщением и именем SQL-файла, а не крэшем после 4 минут загрузки. |
++| 3 | `scripts/Custom/scenario_door.cpp` | Самовосстановление схемы: `CREATE TABLE IF NOT EXISTS` для 3 таблиц, проверка через `information_schema`, при проблеме функция «дверей сценария» отключается с ошибкой в логе — **без abort()**. Все запросы к `character_scenario_return` защищены флагом. |
++| 4 | `scripts/Commands/cs_list.cpp` | `.list mail` обращался к `world.item_template`, которой **нет в Legion 7.x** → тот же abort() + разыменование nullptr. Заменено на `sObjectMgr->GetItemTemplate()`. |
++| 5 | `database/MySQLConnection.cpp` | Упавший SQL теперь пишется уровнем ERROR (раньше INFO — не видно в консоли), сообщение о схеме указывает errno и что делать. |
++| 6 | `Handlers/CharacterHandler.cpp`, `Globals/ObjectMgr.cpp`, `Entities/Unit/Unit.h` | Кастомный клиент с расами новее BfA (Драктиры 52/70, Земельники 84/85…): ID ≥ `MAX_RACES` (45) отклоняются явно с подсказкой; `getRaceMask()` больше не делает UB-сдвиг > 63 бит. Расы 31–44 (`CustomRaces.Definitions`, `sql/52_custom_races_31_44.sql`) работают как раньше. |
++| 7 | `.gitattributes` + все `.bat`/`.ps1` | Все 18 `.bat` и 40 `.ps1` в репозитории были с **LF** (`* text=auto`). cmd.exe с LF неправильно находит метки `call :APPLY`/`goto` — скрипты «мигают и закрываются». Теперь CRLF (`tools/normalize_scripts.py`) и `eol=crlf` в `.gitattributes`. |
++
++## 4. Что делать вам (Windows)
++
++1. Распакуйте архив поверх/рядом со старой папкой (базы MySQL и `server\data` сохраняются).
++2. Запустите `UNBLOCK.bat`, затем **`build_server.bat`** (изменены исходники ядра — нужна пересборка).
++3. Запустите `play.bat`: он сам применит SQL и проверит обязательные таблицы.
++   Без пересборки старый EXE тоже запустится, т.к. таблицы теперь создаёт установщик.
++
++## 5. Аудит против повторения (новое)
++
++* `python tools/audit_sql_schema.py` — статически извлекает **все 1362 SQL-запроса ядра**
++  (`PrepareStatement` + прямые `Query/PQuery/Execute/...`) и сверяет таблицы/колонки со схемой:
++  `sql/base/auth.sql`, `characters.sql`, ADB world/hotfixes (`sql/base/ADB_*.sql` после setup или
++  `--adb-world/--adb-hotfixes`), плюс всё, что реально применяют `apply_play_sql.ps1`,
++  `setup.bat`, `play.bat`, `ensure_auth_schema.ps1` (учитываются `CREATE`, `ALTER ADD`, `DROP`).
++  Также ловит SQL-файлы с `CREATE TABLE`, не подключённые ни к одному установщику.
++  Отчёт: `logs/sql_schema_audit.md`. Результат на ADB_735.10: **0 проблем** (до исправления: 3 таблицы + 1 неподключённый файл).
++* `python tools/audit_regressions.py -v` — 22 теста (добавлено 5 на этот класс ошибок; исправлен
++  ранее падавший тест окончаний строк).
++
++### Правила для новых изменений
++1. Новая таблица, которую читает C++ → SQL с `CREATE TABLE IF NOT EXISTS` **и** строка в `apply_play_sql.ps1`
++   **и** (для критичных при старте) строка в блоке `$required`.
++2. Запросы к кастомным таблицам из `WorldScript::OnStartup` — только после проверки `information_schema`.
++3. Не использовать таблицы WotLK/старых ядер (`item_template`, `creature_movement` …) — в 7.3.5 их нет.
++4. Перед коммитом: `python tools/audit_sql_schema.py && python tools/audit_regressions.py`.
++5. `.bat` — CP866 + CRLF, `.ps1` — UTF-8 BOM + CRLF (`python tools/normalize_scripts.py`).
+diff --git a/logs/sql_schema_audit.md b/logs/sql_schema_audit.md
+new file mode 100644
+index 0000000..9b22575
+--- /dev/null
++++ b/logs/sql_schema_audit.md
+@@ -0,0 +1,19 @@
++# SQL schema audit (LegionForge 26124)
++
++Проверено запросов ядра: **1362**. Таблиц в схеме: auth=32, characters=125, world=227, hotfixes=331.
++
++## 1. Таблицы, которых НЕ будет в базе (гарантированный abort() worldserver)
++
++Нет.
++
++## 2. SQL-файлы с CREATE TABLE, не подключённые к apply_play_sql.ps1
++
++Нет.
++
++## 3. Колонки, отсутствующие в схеме (ER_BAD_FIELD_ERROR -> abort())
++
++Нет.
++
++## 4. Не удалось проверить (нет дампа базы)
++
++Нет.
+diff --git a/tools/audit_regressions.py b/tools/audit_regressions.py
+index 82886a6..3e463a0 100644
+--- a/tools/audit_regressions.py
++++ b/tools/audit_regressions.py
+@@ -241,5 +241,41 @@ class StartupRegressionTests(unittest.TestCase):
+             self.assertEqual(result.returncode, 0, result.stderr)
+ 
+ 
++class SqlSchemaRegressionTests(unittest.TestCase):
++    """[LEGIONFORGE 2026-10-13] Класс ошибок из ОШИБКИ.txt: запрос ядра к таблице, которую
++    не создаёт ни один подключённый SQL -> ER_NO_SUCH_TABLE -> abort() worldserver."""
++
++    def test_scenario_door_world_sql_is_applied(self):
++        text = source("apply_play_sql.ps1", "utf-8-sig")
++        self.assertIn('stitch\\010_scenario_npc_landing.sql', text)
++        self.assertIn('stitch\\010_scenario_return_characters.sql', text)
++
++    def test_scenario_door_self_heals_schema(self):
++        text = source("core/src/server/scripts/Custom/scenario_door.cpp")
++        self.assertIn("CREATE TABLE IF NOT EXISTS `scenario_npc_landing`", text)
++        self.assertIn("CREATE TABLE IF NOT EXISTS `character_scenario_return`", text)
++        self.assertIn("information_schema.TABLES", text)
++
++    def test_no_item_template_queries(self):
++        # В Legion 7.x нет world.item_template - любое обращение = abort().
++        for path in (ROOT / "core/src/server").rglob("*.cpp"):
++            code = re.sub(r"//[^\n]*|/\*.*?\*/", "", path.read_text(encoding="utf-8", errors="replace"), flags=re.S)
++            self.assertNotRegex(code, r"(?i)FROM\s+`?item_template`?\b", str(path))
++
++    def test_static_sql_schema_audit(self):
++        result = subprocess.run(
++            ["python3" if shutil.which("python3") else "python", str(ROOT / "tools" / "audit_sql_schema.py"),
++             "--report", str(Path(tempfile.gettempdir()) / "sql_schema_audit.md")],
++            text=True, capture_output=True, check=False,
++        )
++        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
++
++    def test_race_ids_are_bounded(self):
++        handler = source("core/src/server/game/Handlers/CharacterHandler.cpp")
++        self.assertIn("charCreate.CreateInfo->Race >= MAX_RACES", handler)
++        unit = source("core/src/server/game/Entities/Unit/Unit.h")
++        self.assertRegex(unit, r"getRaceMask\(\) const \{ uint8 r = getRace\(\); return \(r == 0 \|\| r > 64\)")
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tools/audit_sql_schema.py b/tools/audit_sql_schema.py
+new file mode 100644
+index 0000000..7de69ed
+--- /dev/null
++++ b/tools/audit_sql_schema.py
+@@ -0,0 +1,380 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++"""
++LegionForge 7.3.5 (26124) - SQL schema audit.
++
++Причина краша 2026-10-13: ядро (scripts/Custom/scenario_door.cpp) выполняло
++SELECT по таблице world.scenario_npc_landing, а SQL-файл, создающий её
++(sql/stitch/010_scenario_npc_landing.sql), не был подключён к установщику.
++MySQLConnection::_HandleMySQLErrno на ER_NO_SUCH_TABLE (1146) и
++ER_BAD_FIELD_ERROR (1054) делает std::abort() -> worldserver падает.
++
++Инструмент статически ловит весь класс таких ошибок ДО запуска сервера:
++
++  1. Собирает схему каждой базы (auth / characters / world / hotfixes) из
++     sql/base/*.sql (+ ADB_world.sql / ADB_hotfixes.sql, если setup их уже
++     распаковал, либо пути --adb-world / --adb-hotfixes), из всех SQL,
++     которые реально применяет apply_play_sql.ps1, и из ensure_auth_schema.ps1.
++  2. Извлекает ВСЕ SQL-запросы ядра: PrepareStatement(...) в
++     database/Database/Implementation/*.cpp и прямые
++     WorldDatabase/CharacterDatabase/LoginDatabase/HotfixDatabase
++     .Query/PQuery/Execute/PExecute/DirectExecute/... в любых .cpp/.h.
++  3. Проверяет, что каждая таблица (и колонки в однозначных запросах)
++     существует в схеме той базы, к которой обращается запрос.
++  4. Проверяет, что каждый SQL-файл с CREATE TABLE в sql/ и sql/stitch/
++     подключён к apply_play_sql.ps1 (кроме *_rollback.sql и ручных отчётов).
++
++Код выхода: 0 - критичных проблем нет; 1 - найдены таблицы, которых не будет
++в базе (гарантированный abort() при первом обращении) или неподключённый SQL.
++
++Запуск:  python tools/audit_sql_schema.py [--adb-world PATH] [--adb-hotfixes PATH]
++                                          [--report logs/sql_schema_audit.md]
++"""
++import argparse
++import os
++import re
++import sys
++from collections import defaultdict
++
++ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
++CORE = os.path.join(ROOT, "core", "src", "server")
++SQL = os.path.join(ROOT, "sql")
++
++POOL_TO_DB = {
++    "WorldDatabase": "world",
++    "CharacterDatabase": "characters",
++    "LoginDatabase": "auth",
++    "HotfixDatabase": "hotfixes",
++}
++IMPL_TO_DB = {
++    "WorldDatabase.cpp": "world",
++    "CharacterDatabase.cpp": "characters",
++    "LoginDatabase.cpp": "auth",
++    "HotfixDatabase.cpp": "hotfixes",
++}
++DB_NAMES = ("auth", "characters", "world", "hotfixes")
++
++# SQL-файлы с CREATE TABLE, которые сознательно НЕ применяются автоматически.
++MANUAL_OK = re.compile(r"(_rollback\.sql$|^16_quest_audit_queries\.sql$)", re.I)
++
++SQL_KEYWORDS = {
++    "select", "where", "set", "values", "on", "as", "dual", "if", "not", "exists",
++    "ignore", "low_priority", "delayed", "high_priority", "quick", "lateral",
++}
++
++
++# --------------------------------------------------------------------------- schema
++class Schema:
++    def __init__(self):
++        self.tables = defaultdict(lambda: defaultdict(set))  # db -> table -> {cols}
++
++    def add_table(self, db, table, cols):
++        self.tables[db][table.lower()] |= {c.lower() for c in cols}
++
++    def has_table(self, db, table):
++        return table.lower() in self.tables[db]
++
++    def has_col(self, db, table, col):
++        cols = self.tables[db].get(table.lower())
++        return cols is None or not cols or col.lower() in cols
++
++
++CREATE_RE = re.compile(r"CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?`?(\w+)`?\s*\(", re.I)
++COLDEF_RE = re.compile(r"^\s*`(\w+)`\s+\w+", re.M)
++ALTER_RE = re.compile(r"ALTER\s+TABLE\s+`?(\w+)`?\s+(.*?);", re.I | re.S)
++ADD_COL_RE = re.compile(r"\bADD\s+(?:COLUMN\s+)?(?:IF\s+NOT\s+EXISTS\s+)?`(\w+)`", re.I)
++CHANGE_COL_RE = re.compile(r"\b(?:CHANGE|RENAME)\s+(?:COLUMN\s+)?`(\w+)`\s+(?:TO\s+)?`(\w+)`", re.I)
++
++
++DROP_RE = re.compile(r"DROP\s+TABLE\s+(?:IF\s+EXISTS\s+)?`?(\w+)`?\s*;", re.I)
++
++
++def parse_sql_text(schema, db, text):
++    text = re.sub(r"(?m)^\s*--[^\n]*", "", text)
++    # DROP TABLE до CREATE в том же файле = пересоздание; DROP без CREATE = таблица исчезает.
++    created = {m.group(1).lower() for m in CREATE_RE.finditer(text)}
++    for m in DROP_RE.finditer(text):
++        if m.group(1).lower() not in created:
++            schema.tables[db].pop(m.group(1).lower(), None)
++    for m in CREATE_RE.finditer(text):
++        depth, i = 1, m.end()
++        while i < len(text) and depth:
++            ch = text[i]
++            if ch == "(":
++                depth += 1
++            elif ch == ")":
++                depth -= 1
++            i += 1
++        schema.add_table(db, m.group(1), COLDEF_RE.findall(text[m.end():i - 1]))
++    for m in ALTER_RE.finditer(text):
++        table, body = m.group(1), m.group(2)
++        cols = ADD_COL_RE.findall(body) + [new for _, new in CHANGE_COL_RE.findall(body)]
++        if cols and schema.has_table(db, table):
++            schema.tables[db][table.lower()] |= {c.lower() for c in cols}
++
++
++def parse_big_dump(schema, db, path):
++    """Потоковый разбор огромных дампов (ADB world ~350 МиБ): берём только CREATE TABLE."""
++    buf, inside = [], False
++    with open(path, "r", encoding="utf-8", errors="replace") as f:
++        for line in f:
++            if not inside:
++                if line.lstrip().upper().startswith("CREATE TABLE"):
++                    inside, buf = True, [line]
++            else:
++                buf.append(line)
++                if line.lstrip().startswith(")"):
++                    parse_sql_text(schema, db, "".join(buf))
++                    inside = False
++
++
++def read(path):
++    with open(path, "r", encoding="utf-8-sig", errors="replace") as f:
++        return f.read()
++
++
++def applied_patches():
++    """Список (db, relpath) из apply_play_sql.ps1 - то, что реально попадёт в базу."""
++    text = read(os.path.join(ROOT, "apply_play_sql.ps1"))
++    out = []
++    for m in re.finditer(r"@\{\s*Db\s*=\s*(\$charDb|\"(\w+)\")\s*;\s*(File|Rel)\s*=\s*\"([^\"]+)\"", text):
++        db = "characters" if m.group(1) == "$charDb" else m.group(2)
++        out.append((db, m.group(4).replace("\\", "/")))
++    # setup.bat / play.bat применяют часть патчей сами: call :APPLY <db> "...\\file.sql"
++    for bat in ("setup.bat", "play.bat"):
++        bp = os.path.join(ROOT, bat)
++        if not os.path.exists(bp):
++            continue
++        with open(bp, "rb") as f:
++            btext = f.read().decode("cp866", errors="replace")
++        for m in re.finditer(r"(?im)^\s*call\s+:APPLY\s+(\w+)\s+\"([^\"]+\.sql)\"", btext):
++            path = m.group(2).replace("\\", "/")
++            path = re.sub(r"^%(SQL_DIR)%/", "", path)
++            path = re.sub(r"^%ROOT%/sql/", "", path)
++            out.append((m.group(1).lower(), path))
++    return out
++
++
++def build_schema(adb_world, adb_hotfixes):
++    s = Schema()
++    notes = []
++    for db, name in (("auth", "auth.sql"), ("characters", "characters.sql")):
++        p = os.path.join(SQL, "base", name)
++        if os.path.exists(p):
++            parse_sql_text(s, db, read(p))
++        else:
++            notes.append("нет sql/base/%s - схема %s неполная" % (name, db))
++    for db, opt, explicit, defaults in (
++        ("world", "--adb-world", adb_world, ["ADB_world.sql", "world.sql"]),
++        ("hotfixes", "--adb-hotfixes", adb_hotfixes, ["ADB_hotfixes.sql", "hotfixes.sql"]),
++    ):
++        path = explicit
++        if not path:
++            for d in defaults:
++                cand = os.path.join(SQL, "base", d)
++                if os.path.exists(cand):
++                    path = cand
++                    break
++        if path and os.path.exists(path):
++            parse_big_dump(s, db, path)
++        else:
++            notes.append("дамп %s не найден (запустите setup.bat или укажите %s) - "
++                         "таблицы %s проверяются только по патчам" % (db, opt, db))
++    eas = os.path.join(ROOT, "ensure_auth_schema.ps1")
++    if os.path.exists(eas):
++        for t, c in re.findall(r"Table\s*=\s*'(\w+)';\s*Column\s*=\s*'(\w+)'", read(eas)):
++            if s.has_table("auth", t):
++                s.tables["auth"][t.lower()].add(c.lower())
++    for db, rel in applied_patches():
++        p = os.path.join(SQL, rel)
++        if os.path.exists(p):
++            parse_sql_text(s, db, read(p))
++    return s, notes
++
++
++# --------------------------------------------------------------------------- queries
++STR_RE = re.compile(r'"((?:[^"\\]|\\.)*)"')
++
++
++def collect_literals(src, pos):
++    """Склеивает подряд идущие строковые литералы C++ начиная с pos."""
++    parts, i, n = [], pos, len(src)
++    while i < n:
++        while i < n and src[i] in " \t\r\n":
++            i += 1
++        if src.startswith("//", i):
++            i = src.find("\n", i)
++            if i < 0:
++                break
++            continue
++        if i < n and src[i] == '"':
++            m = STR_RE.match(src, i)
++            if not m:
++                break
++            parts.append(m.group(1))
++            i = m.end()
++            continue
++        m = re.match(r"(UI64FMTD|SI64FMTD|SZFMTD)\b", src[i:i + 16])
++        if m:
++            parts.append("%llu")
++            i += m.end()
++            continue
++        break
++    return "".join(parts)
++
++
++TABLE_REF_RE = re.compile(
++    r"\b(FROM|JOIN|INTO|UPDATE|TABLE)\s+(?:IGNORE\s+|LOW_PRIORITY\s+)?(`?\w+`?(?:\.`?\w+`?)?)", re.I)
++
++
++def tables_in(sql):
++    out = []
++    # строковые литералы внутри SQL ('...') не должны давать ложных таблиц
++    clean = re.sub(r"'(?:[^'\\]|\\.)*'", "''", sql)
++    clean = re.sub(r"(?i)\bKEY\s+UPDATE\b", "KEY_UPDATE", clean)
++    for kw, ref in TABLE_REF_RE.findall(clean):
++        ref = ref.replace("`", "")
++        db = None
++        if "." in ref:
++            db, ref = ref.split(".", 1)
++        if ref.lower() in SQL_KEYWORDS or ref.startswith("%") or ref.isdigit():
++            continue
++        out.append((db, ref, kw.upper()))
++    return out
++
++
++SIMPLE_SELECT_RE = re.compile(
++    r"^\s*SELECT\s+(.*?)\s+FROM\s+`?(\w+)`?\s*(?:WHERE|ORDER|GROUP|LIMIT|$)", re.I | re.S)
++INSERT_COLS_RE = re.compile(r"^\s*(?:INSERT|REPLACE)\s+(?:IGNORE\s+)?INTO\s+`?(\w+)`?\s*\(([^)]*)\)", re.I)
++
++
++def columns_in(sql):
++    """Колонки только для однозначных форм (одна таблица, без выражений)."""
++    m = SIMPLE_SELECT_RE.match(sql)
++    if m and " join " not in sql.lower() and "(" not in m.group(1):
++        cols = []
++        for c in m.group(1).split(","):
++            c = c.strip().replace("`", "")
++            if re.fullmatch(r"[A-Za-z_]\w*", c):
++                cols.append(c)
++        return m.group(2), cols
++    m = INSERT_COLS_RE.match(sql)
++    if m:
++        return m.group(1), [c.strip().strip("`") for c in m.group(2).split(",") if c.strip()]
++    return None, []
++
++
++def strip_cpp_comments(src):
++    """Убирает // и /* */ комментарии, сохраняя переводы строк (номера строк не съезжают)."""
++    def repl(m):
++        t = m.group(0)
++        if t.startswith("/"):
++            return re.sub(r"[^\n]", " ", t)
++        return t
++    return re.sub(r'//[^\n]*|/\*.*?\*/|"(?:[^"\\\n]|\\.)*"|\'(?:[^\'\\\n]|\\.)*\'', repl, src, flags=re.S)
++
++
++def iter_queries():
++    impl = os.path.join(CORE, "database", "Database", "Implementation")
++    for fn, db in IMPL_TO_DB.items():
++        p = os.path.join(impl, fn)
++        if not os.path.exists(p):
++            continue
++        src = strip_cpp_comments(read(p))
++        for m in re.finditer(r"PrepareStatement\s*\(\s*(\w+)\s*,", src):
++            sql = collect_literals(src, m.end())
++            if sql:
++                yield db, sql, os.path.relpath(p, ROOT), src.count("\n", 0, m.start()) + 1, m.group(1)
++    call_re = re.compile(
++        r"\b(WorldDatabase|CharacterDatabase|LoginDatabase|HotfixDatabase)\s*\.\s*"
++        r"(Query|PQuery|Execute|PExecute|DirectExecute|DirectPExecute|AsyncQuery|AsyncPQuery)\s*\(")
++    for base, _, files in os.walk(CORE):
++        for fn in files:
++            if not fn.endswith((".cpp", ".h")):
++                continue
++            p = os.path.join(base, fn)
++            src = strip_cpp_comments(read(p))
++            for m in call_re.finditer(src):
++                sql = collect_literals(src, m.end())
++                if sql:
++                    yield (POOL_TO_DB[m.group(1)], sql, os.path.relpath(p, ROOT),
++                           src.count("\n", 0, m.start()) + 1, m.group(2))
++
++
++# --------------------------------------------------------------------------- checks
++def check_unapplied_sql():
++    applied = {rel.lower() for _, rel in applied_patches()}
++    issues = []
++    for sub in ("", "stitch"):
++        d = os.path.join(SQL, sub)
++        for fn in sorted(os.listdir(d)):
++            if not fn.endswith(".sql") or MANUAL_OK.search(fn):
++                continue
++            rel = (sub + "/" + fn) if sub else fn
++            if CREATE_RE.search(read(os.path.join(d, fn))) and rel.lower() not in applied:
++                issues.append(rel)
++    return issues
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--adb-world")
++    ap.add_argument("--adb-hotfixes")
++    ap.add_argument("--report", default=os.path.join(ROOT, "logs", "sql_schema_audit.md"))
++    ap.add_argument("--strict-columns", action="store_true", help="колонки тоже считать критичными")
++    a = ap.parse_args()
++
++    schema, notes = build_schema(a.adb_world, a.adb_hotfixes)
++    have_full = {db: len(schema.tables[db]) > 20 for db in DB_NAMES}
++
++    missing_tables, missing_cols, unknown = set(), [], set()
++    total = 0
++    for db, sql, path, line, name in iter_queries():
++        total += 1
++        for xdb, table, _kw in tables_in(sql):
++            if xdb and xdb.lower() in ("information_schema", "mysql", "performance_schema"):
++                continue
++            tdb = xdb.lower() if xdb and xdb.lower() in DB_NAMES else db
++            if schema.has_table(tdb, table):
++                continue
++            rec = (tdb, table, path.replace("\\", "/"), line, name)
++            (missing_tables if have_full[tdb] else unknown).add(rec)
++        t, cols = columns_in(sql)
++        if t and schema.has_table(db, t):
++            bad = [c for c in cols if not schema.has_col(db, t, c)]
++            if bad:
++                missing_cols.append((db, t, ",".join(bad), path.replace("\\", "/"), line, name))
++
++    unapplied = check_unapplied_sql()
++
++    out = ["# SQL schema audit (LegionForge 26124)", "",
++           "Проверено запросов ядра: **%d**. Таблиц в схеме: %s." % (
++               total, ", ".join("%s=%d" % (d, len(schema.tables[d])) for d in DB_NAMES))]
++    out += ["- ⚠ " + n for n in notes]
++    out += ["", "## 1. Таблицы, которых НЕ будет в базе (гарантированный abort() worldserver)", ""]
++    out += ["- `%s.%s` ← %s:%d (%s)" % r for r in sorted(missing_tables)] or ["Нет."]
++    out += ["", "## 2. SQL-файлы с CREATE TABLE, не подключённые к apply_play_sql.ps1", ""]
++    out += ["- `sql/%s`" % u for u in unapplied] or ["Нет."]
++    out += ["", "## 3. Колонки, отсутствующие в схеме (ER_BAD_FIELD_ERROR -> abort())", ""]
++    out += ["- `%s.%s`: %s ← %s:%d (%s)" % r for r in missing_cols] or ["Нет."]
++    out += ["", "## 4. Не удалось проверить (нет дампа базы)", ""]
++    out += ["- `%s.%s` ← %s:%d" % r[:4] for r in sorted(unknown)] or ["Нет."]
++    os.makedirs(os.path.dirname(a.report), exist_ok=True)
++    with open(a.report, "w", encoding="utf-8") as f:
++        f.write("\n".join(out) + "\n")
++
++    crit = len(missing_tables) + len(unapplied) + (len(missing_cols) if a.strict_columns else 0)
++    print("SQL audit: queries=%d missing_tables=%d unapplied_sql=%d missing_columns=%d unverified=%d"
++          % (total, len(missing_tables), len(unapplied), len(missing_cols), len(unknown)))
++    for r in sorted(missing_tables)[:60]:
++        print("  [MISSING TABLE] %s.%s  <- %s:%d" % r[:4])
++    for u in unapplied:
++        print("  [NOT APPLIED]   sql/%s" % u)
++    for r in missing_cols[:60]:
++        print("  [MISSING COL]   %s.%s: %s  <- %s:%d" % r[:5])
++    print("Report: %s" % os.path.relpath(a.report, ROOT))
++    return 1 if crit else 0
++
++
++if __name__ == "__main__":
++    sys.exit(main())
+-- 
+2.39.5
+

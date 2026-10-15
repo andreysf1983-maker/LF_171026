@@ -1,0 +1,9 @@
+--- a/core/src/server/game/Handlers/CharacterHandler.cpp
++++ b/core/src/server/game/Handlers/CharacterHandler.cpp
+@@ -934,7 +934,7 @@
+     LF_LOG_INFO("entities.player", "Player login OK: '%s' (account %u) race %u class %u gender %u level %u map %u zone %u pos %f %f %f displayId %u",
+         pCurrChar->GetName().c_str(), GetAccountId(), uint32(pCurrChar->getRace()), uint32(pCurrChar->getClass()),
+-        uint32(pCurrChar->GetByteValue(PLAYER_BYTES_3, PLAYER_BYTES_3_OFFSET_GENDER)), uint32(pCurrChar->GetLevel()),
++        uint32(pCurrChar->GetByteValue(PLAYER_BYTES_3, PLAYER_BYTES_3_OFFSET_GENDER)), uint32(pCurrChar->getLevel()),
+         pCurrChar->GetMapId(), pCurrChar->GetZoneId(),
+         pCurrChar->GetPositionX(), pCurrChar->GetPositionY(), pCurrChar->GetPositionZ(), pCurrChar->GetDisplayId());

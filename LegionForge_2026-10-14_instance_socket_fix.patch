@@ -1,0 +1,471 @@
+--- a/core/src/server/game/World/World.h
++++ b/core/src/server/game/World/World.h
+@@ -196,6 +196,8 @@
+     CONFIG_LEGACY_BUFF_ENABLED,
+     CONFIG_AUTH_SESSION_VERIFY_DIGEST,
+     CONFIG_LOGIN_STRICT_APPEARANCE,
++    CONFIG_LOGIN_REQUIRE_INSTANCE_CONNECTION,
++    CONFIG_NETWORK_INSTANCE_SOCKET_FALLBACK,
+     BOOL_CONFIG_VALUE_COUNT
+ };
+ 
+--- a/core/src/server/game/World/World.cpp
++++ b/core/src/server/game/World/World.cpp
+@@ -345,15 +345,40 @@
+         key.Raw = linkInfo.second;
+ 
+         WorldSession* session = FindSession(uint32(key.Fields.AccountId));
+-        if (!session || session->GetConnectToInstanceKey() != linkInfo.second)
++        if (!session)
+         {
++            // [LEGIONFORGE] Used to be completely silent - the client just hung on the loading
++            // screen while Server.log said nothing at all.
++            LF_LOG_ERROR("network", "ProcessLinkInstanceSocket: no world session for account %u (instance socket from %s) - closing the second connection.",
++                uint32(key.Fields.AccountId), sock->GetRemoteIpAddress().to_string().c_str());
+             sock->SendAuthResponseError(ERROR_TIMED_OUT);
+             sock->DelayedCloseSocket();
+             return;
+         }
+ 
++        if (session->GetConnectToInstanceKey() != linkInfo.second)
++        {
++            // [LEGIONFORGE] A custom client may echo the 64-bit ConnectTo key back with a different
++            // bitfield layout. The socket has already passed AuthContinuedSession for this very
++            // account, so refusing it here only breaks the login. Accept it unless the admin asked
++            // for the strict behaviour.
++            if (getBoolConfig(CONFIG_LOGIN_REQUIRE_INSTANCE_CONNECTION))
++            {
++                LF_LOG_ERROR("network", "ProcessLinkInstanceSocket: instance connect key mismatch for account %u (got " UI64FMTD ", expected " UI64FMTD ") - closing the second connection.",
++                    uint32(key.Fields.AccountId), linkInfo.second, session->GetConnectToInstanceKey());
++                sock->SendAuthResponseError(ERROR_TIMED_OUT);
++                sock->DelayedCloseSocket();
++                return;
++            }
++
++            LF_LOG_WARN("network", "ProcessLinkInstanceSocket: instance connect key mismatch for account %u (got " UI64FMTD ", expected " UI64FMTD ") accepted (Login.RequireInstanceConnection=0, custom client).",
++                uint32(key.Fields.AccountId), linkInfo.second, session->GetConnectToInstanceKey());
++        }
++
+         sock->SetWorldSession(session);
+         session->AddInstanceConnection(sock);
++        LF_LOG_INFO("network", "Instance (second) socket linked for account %u from %s.",
++            uint32(key.Fields.AccountId), sock->GetRemoteIpAddress().to_string().c_str());
+         session->HandleContinuePlayerLogin();
+     }
+ }
+@@ -1515,6 +1540,15 @@
+     // and create such looks. Strict mode kicks the player on login
+     // (LoadFromDB -> false -> KickPlayer). Default 0 = tolerate.
+     m_bool_configs[CONFIG_LOGIN_STRICT_APPEARANCE] = sConfigMgr->GetBoolDefault("Login.StrictAppearance", false);
++    // [LEGIONFORGE] Legion opens TWO sockets: realm (0) and instance (1). The character is
++    // loaded only from World::ProcessLinkInstanceSocket -> HandleContinuePlayerLogin, so a
++    // custom client that never establishes the second socket hangs on the loading screen and
++    // is dropped. Default 0 = finish the login on the realm socket alone.
++    m_bool_configs[CONFIG_LOGIN_REQUIRE_INSTANCE_CONNECTION] = sConfigMgr->GetBoolDefault("Login.RequireInstanceConnection", false);
++    // [LEGIONFORGE] If an instance-routed packet has no instance socket, send it over the realm
++    // socket instead of dropping it (otherwise Server.log floods with "non existent socket 1"
++    // and the client never receives auras/talents/proficiencies).
++    m_bool_configs[CONFIG_NETWORK_INSTANCE_SOCKET_FALLBACK] = sConfigMgr->GetBoolDefault("Network.InstanceSocketFallback", true);
+ 
+     // call ScriptMgr if we're reloading the configuration
+     if (reload)
+--- a/core/src/server/game/Entities/Player/Player.cpp
++++ b/core/src/server/game/Entities/Player/Player.cpp
+@@ -29767,38 +29767,46 @@
+ 
+ bool Player::ValidateAppearance(uint8 race, uint8 class_, uint8 gender, uint8 hairID, uint8 hairColor, uint8 faceID, uint8 facialHairID, uint8 skinColor, std::array<uint8, PLAYER_CUSTOM_DISPLAY_SIZE> const& customDisplay, bool create /*= false*/)
+ {
+-    // [LEGIONFORGE CUSTOM-RACES] Client races 31..44 (BfA content) have NO rows in the
+-    // server-side CharSections.db2 / CharacterFacialHairStyles.db2 (official 7.3.5 data),
+-    // so GetCharSectionEntry() returned nullptr and ValidateAppearance() was ALWAYS false:
+-    // such a character could neither be created nor logged in. Validate the look against the
+-    // DONOR race from the CustomRaces.Definitions registry instead - the same donor that
+-    // already provides FactionID and Male/FemaleDisplayId in ObjectMgr::LoadPlayerCreateInfo.
++    // [LEGIONFORGE CUSTOM-RACES] Client races 31..44 (BfA content) have NO rows in the server-side
++    // CharSections.db2, so validate such a look against the DONOR race from CustomRaces.Definitions
++    // (the same donor that supplies FactionID and Male/FemaleDisplayId in LoadPlayerCreateInfo).
+     uint8 sectionRace = race;
+     if (!sDB2Manager.HasCharSections(race, gender, CharBaseSectionVariation::Skin))
+         if (uint8 const baseRace = GetCustomRaceBase(race))
+             sectionRace = baseRace;
+ 
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Skin, 0, skinColor, create))
+-        return false;
+-
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Face, faceID, skinColor, create))
+-        return false;
+-
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Hair, hairID, hairColor, create))
+-        return false;
+-
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::FacialHair, facialHairID, hairColor, create))
+-        if (sDB2Manager.HasCharSections(sectionRace, gender, CharBaseSectionVariation::FacialHair) || !sDB2Manager.HasCharacterFacialHairStyle(sectionRace, gender, facialHairID))
+-            return false;
++    char const* failedComponent = nullptr;
+ 
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay1, customDisplay[0], 0, create))
+-        return false;
+-
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay2, customDisplay[1], 0, create))
+-        return false;
+-
+-    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay3, customDisplay[2], 0, create))
+-        return false;
++    if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Skin, 0, skinColor, create))
++        failedComponent = "Skin";
++    else if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Face, faceID, skinColor, create))
++        failedComponent = "Face";
++    else if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::Hair, hairID, hairColor, create))
++        failedComponent = "Hair";
++    else if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::FacialHair, facialHairID, hairColor, create) &&
++             (sDB2Manager.HasCharSections(sectionRace, gender, CharBaseSectionVariation::FacialHair) || !sDB2Manager.HasCharacterFacialHairStyle(sectionRace, gender, facialHairID)))
++        failedComponent = "FacialHair";
++    else if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay1, customDisplay[0], 0, create))
++        failedComponent = "CustomDisplay1";
++    else if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay2, customDisplay[1], 0, create))
++        failedComponent = "CustomDisplay2";
++    else if (!IsSectionValid(sectionRace, class_, gender, CharBaseSectionVariation::CustomDisplay3, customDisplay[2], 0, create))
++        failedComponent = "CustomDisplay3";
++
++    if (!failedComponent)
++        return true;
++
++    // [LEGIONFORGE] The SERVER CharSections.db2 (official 7.3.5 data) simply cannot describe the
++    // looks offered by a CUSTOM client: new races, extra hair/skin/customisation indices. Rejecting
++    // them produced "Player::Create: Possible hacking-attempt: ... invalid appearance attributes -
++    // refusing to do so" on creation and a kick on login. Accept unless the admin wants strictness.
++    if (sWorld->getBoolConfig(CONFIG_LOGIN_STRICT_APPEARANCE))
++        return false;
++
++    LF_LOG_WARN("entities.player", "ValidateAppearance: race %u (sections via race %u) class %u gender %u: component %s (skin %u face %u hair %u/%u facial %u, custom %u/%u/%u) is absent from the SERVER CharSections.db2 - accepted (Login.StrictAppearance=0, custom client).",
++        uint32(race), uint32(sectionRace), uint32(class_), uint32(gender), failedComponent,
++        uint32(skinColor), uint32(faceID), uint32(hairID), uint32(hairColor), uint32(facialHairID),
++        uint32(customDisplay[0]), uint32(customDisplay[1]), uint32(customDisplay[2]));
+ 
+     return true;
+ }
+--- a/core/src/server/game/Handlers/CharacterHandler.cpp
++++ b/core/src/server/game/Handlers/CharacterHandler.cpp
+@@ -848,17 +848,35 @@
+         return;
+     }
+ 
++    m_loginContinued = false;
+     SendConnectToInstance(WorldPackets::Auth::ConnectToSerial::WorldAttempt1);
++
++    // [LEGIONFORGE] The character is normally loaded only after the client opens the SECOND
++    // (instance) socket - World::ProcessLinkInstanceSocket -> HandleContinuePlayerLogin.
++    // A custom 7.3.5 client frequently never completes that second connection, so the login
++    // never finished: the client showed an endless loading screen and was then thrown out,
++    // while Server.log only flooded "Prevented sending ... to non existent socket 1".
++    // Continue the login right away; if the instance socket does arrive later it is still
++    // linked, and HandleContinuePlayerLogin is guarded against running twice.
++    if (!sWorld->getBoolConfig(CONFIG_LOGIN_REQUIRE_INSTANCE_CONNECTION))
++        HandleContinuePlayerLogin();
+ }
+ 
+ void WorldSession::HandleContinuePlayerLogin()
+ {
++    // [LEGIONFORGE] Can now be reached twice (realm-socket fallback + a late instance socket).
++    // Kicking on the second call is exactly what threw the player out of the game.
++    if (m_loginContinued)
++        return;
++
+     if (!PlayerLoading() || GetPlayer())
+     {
+         KickPlayer();
+         return;
+     }
+ 
++    m_loginContinued = true;
++
+     LoginQueryHolder* holder = new LoginQueryHolder(GetAccountId(), m_playerLoading);
+     if (!holder->Initialize())
+     {
+--- a/core/src/server/game/Server/WorldSession.cpp
++++ b/core/src/server/game/Server/WorldSession.cpp
+@@ -259,8 +259,28 @@
+ 
+     if (!m_Socket[conIdx])
+     {
+-        LF_LOG_ERROR("network.opcode", "Prevented sending of %s to non existent socket %u to %s", GetOpcodeNameForLogging(static_cast<OpcodeServer>(packet->GetOpcode())).c_str(), conIdx, GetPlayerInfo().c_str());
+-        return;
++        // [LEGIONFORGE] A custom 7.3.5 client often never establishes (or immediately drops) the
++        // SECOND "instance" socket. Everything routed to it used to be thrown away, which flooded
++        // Server.log with "Prevented sending ... to non existent socket 1" and left the client
++        // without auras/talents/proficiencies - i.e. a half-loaded world. Fall back to the realm
++        // socket, which is the only connection such a client actually keeps open.
++        if (conIdx != CONNECTION_TYPE_REALM && m_Socket[CONNECTION_TYPE_REALM] &&
++            sWorld->getBoolConfig(CONFIG_NETWORK_INSTANCE_SOCKET_FALLBACK))
++        {
++            if (!_instanceSocketFallbackLogged)
++            {
++                _instanceSocketFallbackLogged = true;
++                LF_LOG_WARN("network.opcode", "%s has no instance (second) socket - routing instance packets over the realm socket (Network.InstanceSocketFallback=1). Further messages for this session are suppressed.",
++                    GetPlayerInfo().c_str());
++            }
++
++            conIdx = CONNECTION_TYPE_REALM;
++        }
++        else
++        {
++            LF_LOG_ERROR("network.opcode", "Prevented sending of %s to non existent socket %u to %s", GetOpcodeNameForLogging(static_cast<OpcodeServer>(packet->GetOpcode())).c_str(), conIdx, GetPlayerInfo().c_str());
++            return;
++        }
+     }
+ 
+     if (!forced)
+--- a/core/src/server/game/Server/WorldSession.h
++++ b/core/src/server/game/Server/WorldSession.h
+@@ -1877,6 +1877,11 @@
+         time_t _logoutTime;
+         bool m_inQueue;                                     // session wait in auth.queue
+         ObjectGuid m_playerLoading;                         // code processed in LoginPlayer
++        // [LEGIONFORGE] Guards HandleContinuePlayerLogin against running twice (realm-socket
++        // fallback + a late instance socket), which previously ended in KickPlayer().
++        bool m_loginContinued = false;
++        // [LEGIONFORGE] Log the instance-socket fallback once per session instead of per packet.
++        bool _instanceSocketFallbackLogged = false;
+         bool m_playerLogout;                                // code processed in LogoutPlayer
+         bool m_playerRecentlyLogout;
+         bool m_playerSave;
+--- a/core/src/server/game/Server/WorldSocket.cpp
++++ b/core/src/server/game/Server/WorldSocket.cpp
+@@ -871,6 +871,10 @@
+     _type = ConnectionType(key.Fields.ConnectionType);
+     if (_type != CONNECTION_TYPE_INSTANCE)
+     {
++        // [LEGIONFORGE] Previously silent: the second connection was refused without a single line
++        // in Server.log, so the only visible effect was an endless loading screen on the client.
++        LF_LOG_ERROR("network", "WorldSocket::HandleAuthContinuedSession: client %s sent connection type %u (expected %u = instance) - refusing the second connection.",
++            GetRemoteIpAddress().to_string().c_str(), uint32(_type), uint32(CONNECTION_TYPE_INSTANCE));
+         SendAuthResponseError(ERROR_DENIED);
+         DelayedCloseSocket();
+         return;
+--- a/server/worldserver.conf.dist
++++ b/server/worldserver.conf.dist
+@@ -1512,6 +1512,28 @@
+ Login.StrictAppearance = 0
+ 
+ #
++#    Login.RequireInstanceConnection
++#        Description: Legion clients open TWO sockets: realm and "instance". The character is
++#                     normally loaded only after the second one is linked. A custom 7.3.5 client
++#                     often never completes it, so the login never finished (endless loading
++#                     screen, then the client is thrown out).
++#        Default:     0 - finish the login on the realm socket alone (custom client)
++#                     1 - require the instance socket (vanilla behaviour)
++#
++Login.RequireInstanceConnection = 0
++
++#
++#    Network.InstanceSocketFallback
++#        Description: Send instance-routed packets over the realm socket when no instance socket
++#                     exists, instead of dropping them (which flooded Server.log with
++#                     "Prevented sending ... to non existent socket 1" and left the client without
++#                     auras/talents/proficiencies).
++#        Default:     1 - fall back to the realm socket (recommended)
++#                     0 - drop the packet (vanilla behaviour)
++#
++Network.InstanceSocketFallback = 1
++
++#
+ #    Warden.NumMemChecks
+ #        Description: Number of Warden memory checks that are sent to the client each cycle.
+ #        Default:     3 - (Enabled)
+--- a/core/src/server/worldserver/worldserver.conf.dist
++++ b/core/src/server/worldserver/worldserver.conf.dist
+@@ -1469,6 +1469,28 @@
+ Login.StrictAppearance = 0
+ 
+ #
++#    Login.RequireInstanceConnection
++#        Description: Legion clients open TWO sockets: realm and "instance". The character is
++#                     normally loaded only after the second one is linked. A custom 7.3.5 client
++#                     often never completes it, so the login never finished (endless loading
++#                     screen, then the client is thrown out).
++#        Default:     0 - finish the login on the realm socket alone (custom client)
++#                     1 - require the instance socket (vanilla behaviour)
++#
++Login.RequireInstanceConnection = 0
++
++#
++#    Network.InstanceSocketFallback
++#        Description: Send instance-routed packets over the realm socket when no instance socket
++#                     exists, instead of dropping them (which flooded Server.log with
++#                     "Prevented sending ... to non existent socket 1" and left the client without
++#                     auras/talents/proficiencies).
++#        Default:     1 - fall back to the realm socket (recommended)
++#                     0 - drop the packet (vanilla behaviour)
++#
++Network.InstanceSocketFallback = 1
++
++#
+ #    Warden.NumMemChecks
+ #        Description: Number of Warden memory checks that are sent to the client each cycle.
+ #        Default:     3 - (Enabled)
+--- a/sql/102_legionforge_dberrors_final.sql
++++ b/sql/102_legionforge_dberrors_final.sql
+@@ -1,46 +1,128 @@
+ -- =====================================================================
+--- LEGIONFORGE 7.3.5.26124 - [102] Final DBErrors.log cleanup (orphan loot)
+--- Target: WORLD database. Idempotent (DELETE-only, safe to re-run).
++-- LEGIONFORGE 7.3.5.26124 - [102] Final DBErrors.log cleanup
++-- Rev.2 (2026-10-14) - rewritten after reading server/DBErrors.log produced
++-- by the run that already had rev.1 applied.
+ --
+--- Complements 100_* and 101_*: removes the remaining "useless / orphan"
+--- loot rows that TrinityCore's DB checker prints into DBErrors.log on
+--- every world boot. These rows reference spell/reference ids that do not
+--- exist in the 7.3.5.26124 client DB2 (BFA / custom content), so they can
+--- never produce loot and only generate noise.
++-- !! WHAT WENT WRONG IN REV.1 !!
++-- Rev.1 contained a DELETE for spell_loot_template entries 253113..255610.
++-- 101_legionforge_dberrors_fixes.sql INSERTS placeholder loot rows for
++-- 253113..253159, and 102 runs AFTER 101 in apply_play_sql.ps1 - so rev.1
++-- silently undid 101 and the log kept reporting all 20 of them:
++--     Table 'spell_loot_template' Entry 253113 does not exist but it is
++--     used by Spell 253113
++-- That message means the SPELL EXISTS (hotfixes DB) and creates loot, but
++-- the loot template row is MISSING. Deleting rows can never fix it - only
++-- adding a placeholder row can. Rev.2 therefore ADDS the placeholders and
++-- no longer deletes anything in that id range.
+ --
+--- Categories taken verbatim from DBErrors.log:
+---   * spell_loot_template entries that "isn't spell id (random item
+---     creating) and not referenced from loot, and thus useless".
+---   * reference_loot_template entries that "isn't reference id and not
+---     referenced from loot, and thus useless".
++-- Target: WORLD database. Idempotent (safe to re-run).
+ -- =====================================================================
+ 
+--- [102-1] spell_loot_template: Entry isn't a spell id and not referenced.
++-- ---------------------------------------------------------------------
++-- [102-1] spell_loot_template: "Entry N isn't spell id (random item
++-- creating) and not referenced from loot, and thus useless."
++-- These Entries are NOT spells at all -> the row is dead weight -> DELETE
++-- is the correct remedy here.
++-- ---------------------------------------------------------------------
+ DELETE FROM `spell_loot_template`
+- WHERE `entry` IN (263148, 263149, 263150, 263151, 263152, 263153, 263154);
++ WHERE `Entry` IN (263148, 263149, 263150, 263151, 263152, 263153, 263154);
+ 
+--- [102-2] reference_loot_template: Entry isn't a reference id and not referenced.
++-- ---------------------------------------------------------------------
++-- [102-2] reference_loot_template: "Entry N isn't reference id and not
++-- referenced from loot, and thus useless." Same reasoning -> DELETE.
++-- ---------------------------------------------------------------------
+ DELETE FROM `reference_loot_template`
+- WHERE `entry` IN (210020, 210021, 210022, 210023, 210024, 210025, 210026, 210027, 210028, 210029);
++ WHERE `Entry` IN (210020, 210021, 210022, 210023, 210024, 210025,
++                   210026, 210027, 210028, 210029);
+ 
+--- [102-3] Belt-and-braces: spell_loot_template rows for BFA 253xxx-255xxx
+--- spells that are absent from the 26124 client (subset of 100_*, kept here
+--- so 102 alone is a complete final pass). DELETE-only and bounded -> safe.
+-DELETE FROM `spell_loot_template`
+- WHERE `entry` IN (253113, 253116, 253117, 253118, 253125, 253132, 253135, 253138,
+-                   253141, 253144, 253149, 253156, 253157, 253158, 253159, 253160,
+-                   253161, 253162, 253165, 253168, 253171, 253174, 253177, 253180,
+-                   253183, 253186, 253187, 253188, 253190, 253191, 253192, 255457,
+-                   255458, 255459, 255610);
++-- ---------------------------------------------------------------------
++-- [102-3] spell_loot_template: "Entry N does not exist but it is used by
++-- Spell N" - the spell exists and creates loot, the template row does not.
++-- Add a valid placeholder row (same pattern/item as 101_*: Linen Cloth
++-- 2589, Chance 100, MinCount/MaxCount 1), which satisfies
++-- LootStoreItem::IsValid and silences the error for good.
++--
++-- Union of every id reported by BOTH DBErrors.log runs (pre-fix and the
++-- 2026-10-14 run). 101_* already covers 253113..253159; the WHERE NOT
++-- EXISTS guard makes the overlap harmless and the whole file re-runnable.
++-- ---------------------------------------------------------------------
++INSERT INTO `spell_loot_template`
++       (`Entry`,`Item`,`Reference`,`Chance`,`QuestRequired`,`LootMode`,`GroupId`,`MinCount`,`MaxCount`)
++SELECT x.`Entry`, 2589, 0, 100, 0, 1, 0, 1, 1
++  FROM (
++            SELECT 253113 AS `Entry`
++  UNION ALL SELECT 253116 UNION ALL SELECT 253117 UNION ALL SELECT 253118
++  UNION ALL SELECT 253125 UNION ALL SELECT 253132 UNION ALL SELECT 253135
++  UNION ALL SELECT 253138 UNION ALL SELECT 253141 UNION ALL SELECT 253144
++  UNION ALL SELECT 253149 UNION ALL SELECT 253156 UNION ALL SELECT 253157
++  UNION ALL SELECT 253158 UNION ALL SELECT 253159 UNION ALL SELECT 253160
++  UNION ALL SELECT 253161 UNION ALL SELECT 253162 UNION ALL SELECT 253165
++  UNION ALL SELECT 253168 UNION ALL SELECT 253171 UNION ALL SELECT 253174
++  UNION ALL SELECT 253177 UNION ALL SELECT 253180 UNION ALL SELECT 253183
++  UNION ALL SELECT 253186 UNION ALL SELECT 253187 UNION ALL SELECT 253188
++  UNION ALL SELECT 253190 UNION ALL SELECT 253191 UNION ALL SELECT 253192
++  UNION ALL SELECT 255457 UNION ALL SELECT 255458 UNION ALL SELECT 255459
++  UNION ALL SELECT 255610
++       ) x
++ WHERE EXISTS (SELECT 1 FROM `item_template` i WHERE i.`entry` = 2589)
++   AND NOT EXISTS (SELECT 1 FROM `spell_loot_template` t WHERE t.`Entry` = x.`Entry`);
++
++-- ---------------------------------------------------------------------
++-- [102-4] achievement_reward rows with neither a title nor an item reward
++-- ("does not contain title or item reward data. Ignored."). The core skips
++-- them at every boot; the rows are unusable as they stand.
++-- ---------------------------------------------------------------------
++-- Column names verified against AchievementMgr.cpp:
++--   SELECT entry, title_A, title_H, item, sender, subject, text, mailTemplate
++--   FROM achievement_reward
++DELETE FROM `achievement_reward`
++ WHERE `entry` IN (13, 2398, 3636, 4400, 5863, 6131, 7853,
++                   8820, 9496, 10058, 10741, 11210, 11211, 11848)
++   AND COALESCE(`title_A`, 0) = 0
++   AND COALESCE(`title_H`, 0) = 0
++   AND COALESCE(`item`, 0) = 0;
++
++-- ---------------------------------------------------------------------
++-- [102-5] gossip_menu 11061 points at a non-existing TextId 15442.
++-- Re-point it to the first text id that really exists for this menu, and
++-- drop the row only if there is no usable text at all.
++-- ---------------------------------------------------------------------
++SET @lf_fallback_text := (SELECT MIN(`ID`) FROM `npc_text` WHERE `ID` > 0);
++
++UPDATE `gossip_menu`
++   SET `TextId` = @lf_fallback_text
++ WHERE `MenuId` = 11061
++   AND `TextId` = 15442
++   AND @lf_fallback_text IS NOT NULL
++   AND NOT EXISTS (SELECT 1 FROM `npc_text` n WHERE n.`ID` = 15442);
++
++DELETE FROM `gossip_menu`
++ WHERE `MenuId` = 11061
++   AND `TextId` = 15442
++   AND @lf_fallback_text IS NULL;
++
++-- ---------------------------------------------------------------------
++-- [102-6] Creature 130758 has UNIT_NPC_FLAG_SPELLCLICK but no spellclick
++-- data (the core strips the flag at every boot). Strip it in the DB so the
++-- warning disappears and the template matches the actual behaviour.
++-- UNIT_NPC_FLAG_SPELLCLICK = 0x01000000 = 16777216.
++-- ---------------------------------------------------------------------
++UPDATE `creature_template`
++   SET `npcflag` = `npcflag` & ~16777216
++ WHERE `entry` = 130758
++   AND (`npcflag` & 16777216) <> 0
++   AND NOT EXISTS (SELECT 1 FROM `npc_spellclick_spells` s WHERE s.`npc_entry` = 130758);
+ 
+ -- =====================================================================
+--- NOTE on the remaining DBErrors.log lines (intentionally NOT touched):
+---   * "areatrigger ... wrong spawn mask ... unsupported difficulty modes":
+---     cosmetic sql.sql warning; the core already indexes spawnMasks by map
+---     id (see AreaTriggerDataStore.cpp). Changing live spawn masks could
+---     break difficulty-specific triggers, so we leave the data intact.
+---   * "79 dungeon(s) have no entrance" and BFA/test dungeons present in DB2
+---     but absent from the 26124 client: skipped by LFG, harmless.
+---   * npc_spellclick_spells / spell_linked_spell notices: auto-handled by
+---     the core loader.
++-- Intentionally NOT touched (cosmetic / safe):
++--   * "areatrigger ... wrong spawn mask ... unsupported difficulty modes"
++--     - the core already indexes spawnMasks by map id
++--       (AreaTriggerDataStore.cpp); changing live masks could break
++--       difficulty-specific triggers.
++--   * SmartAIMgr "Kill Credit / creature summon" notices - they describe
++--     normal script data, not broken rows.
++--   * WaypointMovementGenerator "doesn't have waypoint path id" - a few
++--     spawns reference empty paths; they simply stand still.
++--   * "79 dungeon(s) have no entrance" - BFA/test dungeons present in DB2
++--     but absent from the 26124 client; skipped by LFG.
+ -- =====================================================================

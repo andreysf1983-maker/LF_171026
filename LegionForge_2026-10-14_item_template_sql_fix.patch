@@ -1,0 +1,184 @@
+--- a/sql/102_legionforge_dberrors_final.sql
++++ b/sql/102_legionforge_dberrors_final.sql
+@@ -1,7 +1,7 @@
+ -- =====================================================================
+ -- LEGIONFORGE 7.3.5.26124 - [102] Final DBErrors.log cleanup
+--- Rev.2 (2026-10-14) - rewritten after reading server/DBErrors.log produced
+--- by the run that already had rev.1 applied.
++-- Rev.3 (2026-10-14) - see the NOTE in [102-3]: removed the `item_template` guard,
++--                       that table does not exist in a Legion world database.
+ --
+ -- !! WHAT WENT WRONG IN REV.1 !!
+ -- Rev.1 contained a DELETE for spell_loot_template entries 253113..255610.
+@@ -42,6 +42,16 @@
+ -- 2589, Chance 100, MinCount/MaxCount 1), which satisfies
+ -- LootStoreItem::IsValid and silences the error for good.
+ --
++-- NOTE (rev.3): there is deliberately NO existence check against `item_template`.
++-- This is a LEGION core: items are loaded from DB2 (ObjectMgr::LoadItemTemplates
++-- iterates sItemSparseStore / sItemStore), so the world database has NO
++-- `item_template` table at all - only `item_template_addon`. rev.2 guarded the
++-- INSERT with `WHERE EXISTS (SELECT 1 FROM item_template ...)` and play.bat died:
++--     ERROR 1146 (42S02) at line 49: Table 'world.item_template' doesn't exist
++-- Item 2589 (Linen Cloth) is a Vanilla item present in Item.db2/ItemSparse.db2
++-- of every client, and 101_* already inserts the same placeholder successfully
++-- (its DBE-15 check reports 0 missing), so no guard is needed here.
++--
+ -- Union of every id reported by BOTH DBErrors.log runs (pre-fix and the
+ -- 2026-10-14 run). 101_* already covers 253113..253159; the WHERE NOT
+ -- EXISTS guard makes the overlap harmless and the whole file re-runnable.
+@@ -64,8 +74,7 @@
+   UNION ALL SELECT 255457 UNION ALL SELECT 255458 UNION ALL SELECT 255459
+   UNION ALL SELECT 255610
+        ) x
+- WHERE EXISTS (SELECT 1 FROM `item_template` i WHERE i.`entry` = 2589)
+-   AND NOT EXISTS (SELECT 1 FROM `spell_loot_template` t WHERE t.`Entry` = x.`Entry`);
++ WHERE NOT EXISTS (SELECT 1 FROM `spell_loot_template` t WHERE t.`Entry` = x.`Entry`);
+ 
+ -- ---------------------------------------------------------------------
+ -- [102-4] achievement_reward rows with neither a title nor an item reward
+--- a/apply_play_sql.ps1
++++ b/apply_play_sql.ps1
+@@ -80,16 +80,16 @@
+     # несуществующие в 26124 спеллы, сиротский лут, conditions на карты BfA и т.п.). Раньше
+     # README требовал применять вручную - из-за этого ошибки повторялись при каждом старте.
+     # Идемпотентен, только DELETE по точным ID; все таблицы проверены по схеме ADB_735.10.
+-    @{ Db = "world";      File = "100_legionforge_error_fixes_26124_part2.sql" },
++    @{ Db = "world";      File = "100_legionforge_error_fixes_26124_part2.sql"; Soft = $true },
+     # [LEGIONFORGE FIX 2026-10-13] Добивка DBErrors.log: display id кастомов 900100-900103,
+     # unit_class 9500100, spell1 29264, CONTROL_VEHICLE аурые аддоны, spawndist idle,
+     # сиротский лут, spawn_mask BfA-подземелий, PortLocID=0. Идемпотентно.
+-    @{ Db = "world";      File = "101_legionforge_dberrors_fixes.sql" },
++    @{ Db = "world";      File = "101_legionforge_dberrors_fixes.sql"; Soft = $true },
+     # [LEGIONFORGE FIX 2026-10-14] Финальная чистка DBErrors.log: "висячий" лут
+     # spell_loot_template 263148-263154 (isn't spell id) и reference_loot_template
+     # 210020-210029 (isn't reference id) + страховка по BFA-луту 253xxx-255xxx.
+     # Только DELETE, идемпотентно.
+-    @{ Db = "world";      File = "102_legionforge_dberrors_final.sql" }
++    @{ Db = "world";      File = "102_legionforge_dberrors_final.sql"; Soft = $true }
+ )
+ 
+ if ($QuestOnly) {
+@@ -141,6 +141,14 @@
+     }
+     if ($LASTEXITCODE -ne 0) {
+         $mysqlExitCode = $LASTEXITCODE
++        # [LEGIONFORGE FIX 2026-10-14] Патчи-чистки DBErrors.log (Soft = $true) НЕ должны
++        # блокировать запуск сервера: это косметика журнала, а не схема и не игровые данные.
++        # 102 rev.2 падал на "Table 'world.item_template' doesn't exist" и setup.bat/play.bat
++        # полностью отказывались поднимать сервер - за чисткой журнала.
++        if ($p.ContainsKey("Soft") -and $p.Soft) {
++            Write-Host "  [!] SOFT-FAIL $label (mysql exit $mysqlExitCode) - DBErrors.log cleanup only, server will still start"
++            continue
++        }
+         Write-Host "  [!] FAIL $label (mysql exit $mysqlExitCode)"
+         $fail++
+         break
+--- a/README.md
++++ b/README.md
+@@ -2,6 +2,8 @@
+ 
+ Серверная платформа World of Warcraft: Legion 7.3.5.
+ 
++> **✅ Актуально 2026-10-14 rev.4 (SQL: item_template):** `play.bat` падал на `ERROR 1146 (42S02): Table 'world.item_template' doesn't exist` — в `sql/102_*` rev.2 я поставил guard `WHERE EXISTS (SELECT 1 FROM item_template ...)`, но это Legion-ядро: предметы грузятся из DB2 (`sItemSparseStore`), и таблицы `item_template` в world-базе нет (есть только `item_template_addon`). Guard удалён (rev.3); `tools\audit_sql_columns.py` поймал бы это (`table item_template is never used by the core`, exit 1) — теперь аудит прогнан по всему манифесту, все файлы OK. Плюс: чистки DBErrors.log (`100_*`/`101_*`/`102_*`) помечены `Soft = $true` в `apply_play_sql.ps1` — косметика журнала больше НЕ блокирует запуск сервера, тогда как схема и игровые данные остаются жёсткими (`exit 1`). Сборка после фикса `C2039` прошла успешно (`EXE и исходники совпадают`). Подробно: [docs/FIX-2026-10-14_INSTANCE_SOCKET.md](docs/FIX-2026-10-14_INSTANCE_SOCKET.md) §8–§10.
++>
+ > **✅ Актуально 2026-10-14 rev.3 (второй сокет — вход завершается):** по `server/Server.log` от 08:56 видно, что `Authentication failed` исчез, но лог забит `Prevented sending ... to non existent socket 1` — клиент не держит ВТОРОЙ (instance) сокет. Персонаж грузится ТОЛЬКО из `World::ProcessLinkInstanceSocket -> HandleContinuePlayerLogin`, поэтому без второго сокета логин не завершался никогда (бесконечная загрузка и выброс). Теперь: instance-пакеты уходят по realm-сокету (`Network.InstanceSocketFallback = 1`), логин завершается без второго сокета (`Login.RequireInstanceConnection = 0`), повторный `HandleContinuePlayerLogin` больше не кикает, все молчаливые отказы второго сокета теперь логируются. Отказ создания персонажа (`Player::Create: ... invalid appearance attributes`) устранён: `ValidateAppearance` называет непрошедший компонент и принимает внешность кастомного клиента. Исправлена регрессия `sql/102_*` (rev.1 удалял лут-плейсхолдеры, которые вставляет `101_*`) — rev.2 добавляет 35 плейсхолдеров и чистит `achievement_reward`/`gossip_menu`/`spellclick`. Подробно: [docs/FIX-2026-10-14_INSTANCE_SOCKET.md](docs/FIX-2026-10-14_INSTANCE_SOCKET.md)
+ >
+ > **✅ Актуально 2026-10-14 (вход в мир + кастомные расы):** устранён кик при входе в мир («грузит и выкидывает»): `Player::LoadFromDB` больше не отклоняет персонажа из-за расхождения `CharSections.db2` клиента и сервера — login-контекст принимал только варианты с битом `0x2`, а создание проходило и без него; добавлен конфиг `Login.StrictAppearance = 0` и явная диагностика `Player login OK/REJECTED` в `Server.log`. Кастомные расы клиента 31..44 теперь проходят валидацию внешности по расе-донору (`ValidateAppearance`), поэтому их можно создать и войти (модель в мире — донорская). Пустое превью расы в окне создания — данные КЛИЕНТА (`CharSections`/`CharStartOutfit`), диагностика: `python tools\legion_db2\audit_races_forms.py`. Нужна пересборка `build_worldserver.bat`. Ранее устранена первопричина «окно входа висит» — `WorldSocket::HandleAuthSession: Authentication failed` (конфиг `AuthSession.VerifyDigest = 0`). Подробно: [docs/FIX-2026-10-14_CUSTOM_RACES_LOGIN_KICK.md](docs/FIX-2026-10-14_CUSTOM_RACES_LOGIN_KICK.md)
+--- a/docs/FIX-2026-10-14_INSTANCE_SOCKET.md
++++ b/docs/FIX-2026-10-14_INSTANCE_SOCKET.md
+@@ -203,3 +203,94 @@
+ * баланс скобок во всех 7 изменённых `.cpp/.h` — нулевой;
+ * число форматных спецификаторов совпадает с числом аргументов в каждом новом
+   `LF_LOG_*`.
++
++---
++
++## 8. Исправлена ошибка SQL: `Table 'world.item_template' doesn't exist`
++
++Ваш лог `play.bat`:
++
++```
++[*] applying 102_legionforge_dberrors_final.sql -> world...
++    ERROR 1146 (42S02) at line 49: Table 'world.item_template' doesn't exist
++[!] FAIL 102_legionforge_dberrors_final.sql (mysql exit 1)
++[ОШИБКА] SQL-патчер завершился с ошибкой.
++    Сервер не будет запущен до исправления базы.
++```
++
++### Причина — снова моя ошибка
++В `102` rev.2 я «подстраховался» проверкой существования предмета:
++
++```sql
++WHERE EXISTS (SELECT 1 FROM `item_template` i WHERE i.`entry` = 2589)
++```
++
++Но это **Legion-ядро**: `ObjectMgr::LoadItemTemplates()` строит шаблоны предметов
++из **DB2** (`sItemSparseStore` + `sItemStore`), поэтому таблицы `item_template` в
++world-базе **нет вообще** — есть только `item_template_addon`. Проверка обращалась
++к несуществующей таблице и валила весь патчер.
++
++### Исправление (rev.3)
++Guard удалён — вставка идёт с тем же условием идемпотентности, что и в `101_*`:
++
++```sql
++WHERE NOT EXISTS (SELECT 1 FROM `spell_loot_template` t WHERE t.`Entry` = x.`Entry`);
++```
++Предмет 2589 (Linen Cloth) — предмет Vanilla, присутствующий в `Item.db2` /
++`ItemSparse.db2` любого клиента; `101_*` уже вставляет тот же плейсхолдер успешно
++(его проверка DBE-15 показывает `0` отсутствующих), поэтому отдельная проверка не нужна.
++
++### Защита от повторения
++В проекте уже был `tools/audit_sql_columns.py`, созданный ровно после похожей
++ошибки `ERROR 1054 Unknown column` в `101` rev.1. Я обязан был запускать его перед
++отправкой SQL — и не запустил. Проверено:
++
++```
++$ python3 tools/audit_sql_columns.py sql/103_bad_test.sql   # 102 rev.2 с плохим guard
++[STRICT] sql/103_bad_test.sql: 1 unverified
++    - table `item_template` is never used by the core        # <-- он ДАЖЕ это поймал
++$ echo $?
++1
++```
++Теперь аудит прогнан по **всему** манифесту `apply_play_sql.ps1` — все файлы `OK`,
++включая `100_*`, `101_*`, `102_*` (STRICT-режим).
++
++## 9. Косметические патчи больше не блокируют запуск сервера
++
++Даже после исправления осталась архитектурная проблема: **чистка журнала
++DBErrors.log не должна останавливать сервер.** `102` rev.2 упал на косметике — и
++`play.bat` полностью отказался поднимать worldserver.
++
++В `apply_play_sql.ps1` добавлен флаг `Soft = $true` для патчей-чисток
++(`100_*`, `101_*`, `102_*`):
++
++```powershell
++@{ Db = "world";  File = "102_legionforge_dberrors_final.sql";  Soft = $true }
++```
++
++```powershell
++if ($p.ContainsKey("Soft") -and $p.Soft) {
++    Write-Host "  [!] SOFT-FAIL $label ... - DBErrors.log cleanup only, server will still start"
++    continue          # НЕ увеличивает $fail и НЕ прерывает цикл
++}
++```
++
++Схема и игровые данные (`playercreateinfo`, `race_unlock_requirement`, инстансы,
++квесты, лут-таблицы и т.д.) остаются **жёсткими**: любая ошибка там по-прежнему
++останавливает запуск с `exit 1` — там падать надо громко, иначе сервер поднимется
++и упадёт позже с крэш-дампом.
++
++## 10. Замечания из того же лога (действия не требуются)
++
++* `Нет файла worldserver.conf` — предупреждение `check_server_runtime.ps1`.
++  `play.bat` (строка 209) вызывает `tools\ensure_conf_keys.ps1`, который **сам**
++  создаёт `*.conf` из `*.conf.dist` и дописывает недостающие ключи — включая все
++  новые (`Login.RequireInstanceConnection`, `Network.InstanceSocketFallback`,
++  `Login.StrictAppearance`, `AuthSession.VerifyDigest`).
++* `52_custom_races_31_44.sql: startItemRows = 0` — в Legion стартовая экипировка
++  приходит из клиентского `CharStartOutfit.db2`, а не из `playercreateinfo_item`;
++  в этой базе таблица пуста для рас-доноров. Это ожидаемо, персонажи стартуют
++  снаряжёнными.
++* `Контроль сборки: EXE и исходники DB2/SpellEffect совпадают` — сборка после
++  исправления `C2039` **прошла успешно**, `worldserver.exe` и `bnetserver.exe`
++  на месте, `OPENSSL_Applink` в порядке.

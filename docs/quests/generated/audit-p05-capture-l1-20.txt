@@ -1,0 +1,45 @@
+9582	Strength of One	-81	23925	17556	
+2078	Gyromast's Revenge	148	7442	6669	Gelkak's First Mate
+2118	Plagued Lands	148	7586	11836	Rabid Thistle Bear Captured
+5441	Lazy Peons	363	16114	10556	Peons Awoken
+6481	Earthen Arise	406	16603	11920	
+6661	Deeprun Rat Roundup	2257	17117	13017	Rats Captured
+24935	Body And Soul	4720	51781	38713	Yngwie's Soul destroyed
+24936	Body And Soul	4720	51781	38713	Yngwie's Soul destroyed
+14071	Rolling with my Homies	4737	46856	48323	Keys to the Hot Rod used
+14204	From the Shadows	4755	48707	35463	
+29408	The Lesson of the Burning Scroll	5736	80212	59591	Snatch the Master's Flame
+29408	The Lesson of the Burning Scroll	5736	80212	59570	Burn the Edict of Temperance
+29422	Huo, the Spirit of Fire	5736	72583	54787	Reignite the Spirit of Fire
+29664	The Challenger's Fires	5736	75008	56040	Violet Brazier lit
+29664	The Challenger's Fires	5736	75008	56048	Challenger Torch lit
+29664	The Challenger's Fires	5736	75008	56037	Red Brazier lit
+29664	The Challenger's Fires	5736	75008	56038	Blue Brazier lit
+26391	Extinguishing Hope	6170	58362	42940	Vineyard Fire extinguished
+28806	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28808	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28809	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28810	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28811	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28812	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+28813	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+29082	Fear No Evil	6170	65733	50047	Injured Soldier Revived
+24471	Aid for the Wounded	6176	49743	37079	Wounded Coldridge Mountaineers Aided
+25134	Lazy Peons	6451	16114	10556	Peons Awoken
+37446	Lazy Peons	6451	16114	10556	Peons Awoken
+14461	Feed of Evil	6452	49539	37155	Second Trough
+14461	Feed of Evil	6452	49539	37156	Third Trough
+14461	Feed of Evil	6452	49539	36727	First Trough
+24861	Last Rites, First Rites	6452	50465	38438	Offering Placed
+24623	Saving the Young	6453	52283	39157	Bloodtalon Hatchlings rescued
+24626	Young and Vicious	6453	50053	37989	Capture Swiftclaw
+24626	Young and Vicious	6453	50053	38002	Return Swiftclaw to the Raptor Pens
+24813	Territorial Fetish	6453	52065	38560	Territorial Fetish placed
+24961	The Truth of the Grave	6454	52050	38910	Show Lilian her reflection
+9294	Healing the Lake	6456	22955	88791	Disperse the Neutralizing Agent
+9303	Inoculation	6456	22962	16534	Nestlewood Owlkin inoculated
+37444	Inoculation	6456	22962	16534	Nestlewood Owlkin inoculated
+26333	No Tanks!	6457	58200	42224	Repaired Mechano-Tanks destroyed
+26342	Paint it Black	6457	58203	42796	Crushcog's Sentry Bot blinded
+26364	Down with Crushcog!	6457	58253	42494	Razlo Crushcog defeated
+27671	See to the Survivors	6457	62057	46268	Survivors Rescued

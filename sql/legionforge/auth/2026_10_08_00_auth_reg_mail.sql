@@ -1,0 +1,13 @@
+-- ==========================================================================
+--   LEGIONFORGE 7.3.5 - колонка account.reg_mail
+--   Файл: sql/legionforge/auth/2026_10_08_00_auth_reg_mail.sql
+--
+--   Ядро создаёт и читает account.reg_mail (LOGIN_INS_ACCOUNT, LOGIN_SEL_PINFO,
+--   LOGIN_UPD_REG_EMAIL). В некоторых дампах auth.sql колонки нет, и создание
+--   аккаунта падает с "Unknown column 'reg_mail' in 'field list'".
+--
+--   Если колонка уже есть, MySQL вернёт ERROR 1060 (Duplicate column) - это
+--   безвредно, apply_schema_updates.ps1 такие ошибки не считает.
+--   Скрипт ensure_auth_schema.ps1 проверяет колонку и на уже установленных базах.
+-- ==========================================================================
+ALTER TABLE `account` ADD COLUMN `reg_mail` varchar(255) NOT NULL DEFAULT '' AFTER `email`;

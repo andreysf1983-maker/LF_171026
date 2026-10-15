@@ -1,0 +1,40 @@
+{
+  "platform": "LEGIONFORGE 7.3.5",
+  "build": "26124",
+  "repo": "https://github.com/andreysf1983-maker/7.3.5_FIXED_1.git",
+  "branch": "main",
+  "commit": "53a7604",
+  "fixes": [
+    {
+      "id": "C3861",
+      "file": "DB2Stores.cpp:989",
+      "change": "TC_LOG_ERROR -> LF_LOG_ERROR",
+      "status": "applied"
+    },
+    {
+      "id": "SPELL-EFFECTS-262",
+      "files": [
+        "SharedDefines.h",
+        "SpellEffects.cpp",
+        "SpellInfo.cpp"
+      ],
+      "change": "TOTAL_SPELL_EFFECTS 256 -> 262 + оба массива расширены до 262",
+      "status": "applied"
+    },
+    {
+      "id": "LOADER-RESILIENCE",
+      "files": [
+        "SpellMgr.cpp",
+        "DB2Stores.cpp"
+      ],
+      "change": "ASSERT -> log+skip (spell effects, talents)",
+      "status": "applied"
+    }
+  ],
+  "verified": {
+    "arrays": "SpellEffects[]=262, _data[]=262, TOTAL_SPELL_EFFECTS=262",
+    "grep_TC": "0",
+    "regress": "PASS"
+  },
+  "apply": "распаковать -> build_server.bat -> play.bat"
+}

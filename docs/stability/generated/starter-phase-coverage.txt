@@ -1,0 +1,5 @@
+kalimdor_starters	3667	0
+ek_starters	15604	0
+wandering_isle	2056	264
+lost_isles	2137	2137
+gilneas	1228	1214

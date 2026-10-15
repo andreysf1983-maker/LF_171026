@@ -1,0 +1,42 @@
+# =============================================================================
+#  LEGIONFORGE 7.3.5 (build 26124)
+#  Файл: tools\openssl.cnf
+#
+#  НАЗНАЧЕНИЕ. Минимальный заведомо валидный конфиг OpenSSL 3.x для
+#  bnetserver / worldserver.
+#
+#  ЗАЧЕМ ОН НУЖЕН.
+#  Установщик OpenSSL (slproweb Win64OpenSSL) прописывает системную переменную
+#  OPENSSL_CONF на свой каталог, например C:\OpenSSL-Win64\bin\openssl.cfg.
+#  Когда сервер запускается из D:\legionforge\server, а libcrypto-3-x64.dll
+#  лежит рядом с exe, указанный путь конфига может отсутствовать. Тогда
+#  OpenSSL 3.x печатает диагностику в stderr; печать из DLL идёт через таблицу
+#  OPENSSL_ApplinkTable, и при отсутствии OPENSSL_Applink в exe процесс
+#  фатально завершается:
+#      OPENSSL_Uplink(00007FFFB2656C58,08): no OPENSSL_Applink
+#  Валидный локальный конфиг убирает этот триггер.
+#
+#  play.bat подставляет этот файл в OPENSSL_CONF ТОЛЬКО если переменная не
+#  задана или указывает на несуществующий файл - рабочая настройка не затирается.
+# =============================================================================
+
+openssl_conf = openssl_init
+
+[openssl_init]
+providers = provider_sect
+ssl_conf  = ssl_sect
+
+# --- Провайдеры: только default (legacy ядру не требуется) ------------------
+[provider_sect]
+default = default_sect
+
+[default_sect]
+activate = 1
+
+# --- TLS: клиент WoW 7.3.5 build 26124 работает по TLS 1.2 ------------------
+[ssl_sect]
+system_default = system_default_sect
+
+[system_default_sect]
+MinProtocol = TLSv1.2
+CipherString = DEFAULT@SECLEVEL=1
